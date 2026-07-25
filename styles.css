@@ -1844,13 +1844,15 @@ body.project-page-turning .project-spread.is-turn-target {
 
   body:not(.project-horizontal) .project-title h1,
   body:not(.project-horizontal) .project-title h2 {
-    font-size: clamp(36px, 11.5vw, 58px);
-    line-height: 0.98;
+    max-width: 18ch;
+    font-size: clamp(29px, 8.2vw, 38px);
+    line-height: 1.02;
   }
 
   body:not(.project-horizontal) .project-title p {
-    margin-top: 26px;
-    font-size: 14px;
+    margin-top: 22px;
+    font-size: 12px;
+    line-height: 1.5;
   }
 
   body:not(.project-horizontal) .project-photo img {
@@ -1860,11 +1862,11 @@ body.project-page-turning .project-spread.is-turn-target {
 
   body:not(.project-horizontal) .project-description {
     max-width: 30rem;
-    margin-top: 34px;
-    padding-top: 26px;
+    margin-top: 30px;
+    padding-top: 22px;
     border-top: 1px solid rgba(34, 34, 34, 0.2);
-    font-size: clamp(21px, 6.3vw, 30px);
-    line-height: 1.16;
+    font-size: clamp(17px, 4.7vw, 21px);
+    line-height: 1.28;
   }
 
   body:not(.project-horizontal) .project-image-stack {
