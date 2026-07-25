@@ -11,7 +11,7 @@
       name="description"
       content="COmpound COllaborative is a landscape design company working through objects, non-human worlds, current conditions, and human experience."
     >
-    <link rel="stylesheet" href="./styles.css?v=20260723-38">
+    <link rel="stylesheet" href="./styles.css?v=20260724-39">
   </head>
   <body class="home-page">
     <div class="preview" aria-hidden="true">
@@ -51,10 +51,16 @@
       <section class="intro home-cover" aria-label="Featured project image">
         <div class="home-gallery">
           <figure class="gallery-slide is-active" data-detail="./animal-condominium.html">
-            <img
-              src="./assets/home-fullscreen-cover-wide.png?v=20260723-28"
-              alt="Vertical planted architecture overlooking the city"
-            >
+            <picture>
+              <source
+                media="(max-width: 900px)"
+                srcset="./assets/home-fullscreen-cover.png?v=20260724-29"
+              >
+              <img
+                src="./assets/home-fullscreen-cover-wide.png?v=20260723-28"
+                alt="Vertical planted architecture overlooking the city"
+              >
+            </picture>
             <figcaption>
               <span>Animal Condominium:<br>Living Together</span>
               <small>Fictional, 2019</small>
