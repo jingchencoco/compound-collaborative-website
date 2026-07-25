@@ -264,6 +264,18 @@ window.addEventListener("scroll", updateHeaderContrast, { passive: true });
 window.addEventListener("resize", updateHeaderContrast);
 updateHeaderContrast();
 
+function updateMobileHeroCaption() {
+  if (!homeGallery) return;
+  const isMobile = window.matchMedia("(max-width: 900px)").matches;
+  const heroBottom = homeGallery.offsetHeight;
+  const revealCaption = isMobile && window.scrollY > 18 && window.scrollY < heroBottom * 0.82;
+  document.body.classList.toggle("mobile-hero-caption-visible", revealCaption);
+}
+
+window.addEventListener("scroll", updateMobileHeroCaption, { passive: true });
+window.addEventListener("resize", updateMobileHeroCaption);
+updateMobileHeroCaption();
+
 let previousScrollY = window.scrollY;
 window.addEventListener("scroll", () => {
   const currentScrollY = window.scrollY;
