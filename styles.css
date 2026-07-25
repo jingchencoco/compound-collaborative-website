@@ -1646,7 +1646,7 @@ body.project-page-turning .project-spread.is-turn-target {
   }
 
   .home-page .home-cover > .home-gallery {
-    height: clamp(360px, 48svh, 460px);
+    height: 100svh;
     aspect-ratio: auto;
   }
 
