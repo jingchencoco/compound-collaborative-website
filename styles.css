@@ -1647,6 +1647,99 @@ body.project-page-turning .project-spread.is-turn-target {
   background: #f4f4f1;
 }
 
+.project-detail-page img[role="button"] {
+  cursor: zoom-in;
+}
+
+.project-detail-page img[role="button"]:focus-visible {
+  outline: 1px solid #252521;
+  outline-offset: 5px;
+}
+
+body.project-lightbox-open {
+  overflow: hidden;
+}
+
+.project-lightbox[hidden] {
+  display: none;
+}
+
+.project-lightbox {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) 56px;
+  align-items: center;
+  padding: 28px;
+  background: rgba(20, 20, 18, 0.94);
+  color: #fafaf8;
+}
+
+.project-lightbox figure {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  min-width: 0;
+  margin: 0;
+}
+
+.project-lightbox figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 86svh;
+  object-fit: contain;
+}
+
+.project-lightbox figcaption {
+  max-width: 720px;
+  color: rgba(250, 250, 248, 0.7);
+  font-size: 11px;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.project-lightbox button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.project-lightbox-close {
+  position: fixed;
+  z-index: 2;
+  top: 24px;
+  right: 28px;
+  padding: 5px 0;
+  border-bottom: 1px solid currentColor !important;
+  font-size: 12px !important;
+}
+
+.project-lightbox-previous,
+.project-lightbox-next {
+  width: 44px;
+  height: 64px;
+  font-family: Georgia, serif !important;
+  font-size: 28px !important;
+  opacity: 0.72;
+}
+
+.project-lightbox-previous {
+  grid-column: 1;
+}
+
+.project-lightbox figure {
+  grid-column: 2;
+}
+
+.project-lightbox-next {
+  grid-column: 3;
+}
+
 .project-image-stack img:nth-child(odd) {
   grid-column: 1 / span 6;
 }
@@ -1668,6 +1761,27 @@ body.project-page-turning .project-spread.is-turn-target {
 }
 
 @media (max-width: 900px) {
+  .project-lightbox {
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
+    padding: 54px 10px 24px;
+  }
+
+  .project-lightbox figure img {
+    max-height: 78svh;
+  }
+
+  .project-lightbox-close {
+    top: 16px;
+    right: 18px;
+  }
+
+  .project-lightbox-previous,
+  .project-lightbox-next {
+    width: 36px;
+    padding: 0;
+    font-size: 24px !important;
+  }
+
   .home-page .page {
     padding-right: 0;
     padding-left: 0;

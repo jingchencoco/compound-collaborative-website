@@ -163,6 +163,7 @@ if (projectDetail && horizontalProjectLayout.matches) {
     setMoreOpen(!morePanel.classList.contains("is-open"));
   });
   window.addEventListener("keydown", (event) => {
+    if (document.body.classList.contains("project-lightbox-open")) return;
     if (event.key === "Escape" && morePanel.classList.contains("is-open")) {
       setMoreOpen(false);
       moreToggle.focus();
@@ -187,3 +188,80 @@ if (projectDetail && horizontalProjectLayout.matches) {
 horizontalProjectLayout.addEventListener("change", () => {
   window.location.reload();
 });
+
+const projectImages = [...document.querySelectorAll(".project-detail-page img")];
+
+if (projectImages.length) {
+  const lightbox = document.createElement("div");
+  lightbox.className = "project-lightbox";
+  lightbox.hidden = true;
+  lightbox.setAttribute("role", "dialog");
+  lightbox.setAttribute("aria-modal", "true");
+  lightbox.setAttribute("aria-label", "Project image viewer");
+  lightbox.innerHTML = `
+    <button class="project-lightbox-close" type="button" aria-label="Close image viewer">Close</button>
+    <button class="project-lightbox-previous" type="button" aria-label="Previous image">&larr;</button>
+    <figure>
+      <img alt="">
+      <figcaption></figcaption>
+    </figure>
+    <button class="project-lightbox-next" type="button" aria-label="Next image">&rarr;</button>
+  `;
+  document.body.append(lightbox);
+
+  const lightboxImage = lightbox.querySelector("img");
+  const lightboxCaption = lightbox.querySelector("figcaption");
+  const lightboxClose = lightbox.querySelector(".project-lightbox-close");
+  const lightboxPrevious = lightbox.querySelector(".project-lightbox-previous");
+  const lightboxNext = lightbox.querySelector(".project-lightbox-next");
+  let activeImageIndex = 0;
+
+  function showLightboxImage(index) {
+    activeImageIndex = (index + projectImages.length) % projectImages.length;
+    const sourceImage = projectImages[activeImageIndex];
+    lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+    lightboxImage.alt = sourceImage.alt || "";
+    lightboxCaption.textContent = sourceImage.alt || "";
+    lightboxPrevious.hidden = projectImages.length < 2;
+    lightboxNext.hidden = projectImages.length < 2;
+  }
+
+  function openLightbox(index) {
+    showLightboxImage(index);
+    lightbox.hidden = false;
+    document.body.classList.add("project-lightbox-open");
+    lightboxClose.focus();
+  }
+
+  function closeLightbox() {
+    lightbox.hidden = true;
+    document.body.classList.remove("project-lightbox-open");
+    projectImages[activeImageIndex]?.focus();
+  }
+
+  projectImages.forEach((image, index) => {
+    image.tabIndex = 0;
+    image.setAttribute("role", "button");
+    image.setAttribute("aria-label", `Enlarge image: ${image.alt || `Project image ${index + 1}`}`);
+    image.addEventListener("click", () => openLightbox(index));
+    image.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openLightbox(index);
+      }
+    });
+  });
+
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightboxPrevious.addEventListener("click", () => showLightboxImage(activeImageIndex - 1));
+  lightboxNext.addEventListener("click", () => showLightboxImage(activeImageIndex + 1));
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+  window.addEventListener("keydown", (event) => {
+    if (lightbox.hidden) return;
+    if (event.key === "Escape") closeLightbox();
+    if (event.key === "ArrowLeft") showLightboxImage(activeImageIndex - 1);
+    if (event.key === "ArrowRight") showLightboxImage(activeImageIndex + 1);
+  });
+}
