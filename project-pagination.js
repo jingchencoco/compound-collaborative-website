@@ -1,6 +1,12 @@
 const projectDetail = document.querySelector(".project-detail-page");
+const horizontalProjectLayout = window.matchMedia("(min-width: 901px)");
 
-if (projectDetail) {
+if (projectDetail && !horizontalProjectLayout.matches) {
+  document.body.classList.remove("project-entering");
+  document.body.classList.add("project-ready");
+}
+
+if (projectDetail && horizontalProjectLayout.matches) {
   document.body.classList.add("project-entering");
 
   const title = projectDetail.querySelector(".project-title");
@@ -177,3 +183,7 @@ if (projectDetail) {
     });
   });
 }
+
+horizontalProjectLayout.addEventListener("change", () => {
+  window.location.reload();
+});
