@@ -1646,12 +1646,12 @@ body.project-page-turning .project-spread.is-turn-target {
   }
 
   .home-page .home-cover > .home-gallery {
-    height: auto;
-    aspect-ratio: 680 / 551;
+    height: clamp(360px, 48svh, 460px);
+    aspect-ratio: auto;
   }
 
   .home-page .home-cover .gallery-slide img {
-    object-position: center center;
+    object-position: 58% center;
   }
 
   body.project-horizontal {
