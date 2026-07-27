@@ -29,7 +29,7 @@ const captions = {
   objects: "Objects / furniture, vessels, fragments, tools",
   "non-human": "Designing for non human / plants, animals, soils, water",
   recording: "Recording the current / mapping, field notes, archive",
-  human: "TMW Maxwell Showroom / Designing for human / 2023",
+  human: "TMW Maxwell Showroom / Retail and hospitality / 2023",
 };
 
 let galleryIndex = 0;
