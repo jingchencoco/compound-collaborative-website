@@ -12,9 +12,7 @@ const siteMenu = document.querySelector("#site-menu");
 const menuLinks = document.querySelectorAll(".primary-nav a");
 const projectFilterButtons = document.querySelectorAll(".project-filter button");
 const projectCardGrid = document.querySelector(".project-card-grid");
-const objectsGrid = document.querySelector(".objects-grid");
-const objectCards = [...document.querySelectorAll('.project-card[data-category="objects"]')];
-const projectCards = [...document.querySelectorAll('.project-card:not([data-category="objects"])')].sort((a, b) => {
+const projectCards = [...document.querySelectorAll(".project-card")].sort((a, b) => {
   return Number(!a.querySelector("img")) - Number(!b.querySelector("img"));
 });
 const revealItems = document.querySelectorAll(".project-filter, .project-card");
@@ -37,12 +35,6 @@ let galleryTimer = null;
 let projectPage = 0;
 
 projectCards.forEach((card) => projectCardGrid?.append(card));
-objectCards.forEach((card) => objectsGrid?.append(card));
-objectCards.forEach((card) => {
-  if (card.getAttribute("href") === "#") {
-    card.addEventListener("click", (event) => event.preventDefault());
-  }
-});
 
 function projectItemsPerPage() {
   if (window.matchMedia("(max-width: 700px)").matches) return 6;

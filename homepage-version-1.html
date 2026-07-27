@@ -11,7 +11,7 @@
       name="description"
       content="COmpound COllaborative is a landscape design company working through objects, non-human worlds, current conditions, and human experience."
     >
-    <link rel="stylesheet" href="./styles.css?v=20260724-47">
+    <link rel="stylesheet" href="./homepage-version-1.css">
   </head>
   <body class="home-page">
     <div class="preview" aria-hidden="true">
@@ -48,138 +48,81 @@
     </header>
 
     <main id="top" class="page">
-      <section class="home-v2-intro" aria-labelledby="home-v2-title">
-        <span class="home-v2-kicker">Position / 01</span>
-        <h1 id="home-v2-title">designing for<br>nonhuman</h1>
-        <figure class="home-v2-image home-v2-image--main">
-          <img src="./assets/on-air-01.jpeg" alt="Architecture lifted above a continuous forest floor">
-        </figure>
-        <div class="home-v2-definition">
-          <p>
-            Plants, animals, soil, fungi, water, and climate are not scenery.
-            They are participants—with needs, time, and agency of their own.
-          </p>
-        </div>
-        <p class="home-v2-thought home-v2-thought--one">
-          What if the ground did not belong to us?
-        </p>
-        <figure class="home-v2-image home-v2-image--small">
-          <img src="./assets/architecture-for-trees-12.jpeg" alt="A restrained structure among mature trees">
-        </figure>
-        <p class="home-v2-thought home-v2-thought--two">
-          We design relationships between human life and the larger living world.
-        </p>
-        <figure class="home-v2-image home-v2-image--wide">
-          <img src="./assets/suxiangang-youth-01.jpeg" alt="A planted public promenade">
-        </figure>
-      </section>
+      <section class="nonhuman-manifesto" id="manifesto" aria-labelledby="nonhuman-manifesto-title">
+        <h1 id="nonhuman-manifesto-title" class="visually-hidden">Designing for non-humans</h1>
 
-      <section class="thinking-projects" aria-labelledby="thinking-title">
-        <div class="section-introduction">
-          <span>01 / Ways of thinking and responding</span>
-          <h2 id="thinking-title">Ideas become useful when they are tested.</h2>
-          <p>
-            Four projects trace how questions become observations, strategies,
-            and practical design decisions.
-          </p>
-        </div>
+        <div class="question-path" aria-label="Explore a path through our questions">
+          <div class="question-path-heading">
+            <span>Choose a path</span>
+            <button class="question-path-reset" type="button" hidden>Start again</button>
+          </div>
 
-        <div class="thinking-project-grid">
-          <a class="thinking-project" href="./suxiangang-youth-park.html">
-            <img src="./assets/suxiangang-youth-01.jpeg" alt="Suxiangang Youth Park planted promenade">
-            <span>China Promenade / Suxiangang Youth Park</span>
-            <h3>How can a public landscape invite movement without prescribing a single way to use it?</h3>
-            <p>Paths, planted rooms, tree houses, and small structures create an open sequence for play, gathering, and discovery.</p>
-          </a>
-          <a class="thinking-project" href="./on-air.html">
-            <img src="./assets/on-air-01.jpeg" alt="On Air buildings raised above a continuous forest floor">
-            <span>On Air</span>
-            <h3>Can people occupy a site without also possessing its ground?</h3>
-            <p>The buildings are lifted above a continuous forest floor, allowing human occupation while returning the ground to nature and wildlife.</p>
-          </a>
-          <a class="thinking-project" href="./architecture-for-trees.html">
-            <img src="./assets/architecture-for-trees-12.jpeg" alt="Architecture for Trees restrained structures within an ancient forest">
-            <span>Architecture for Trees</span>
-            <h3>What changes when trees, rather than people, become the primary clients?</h3>
-            <p>Architecture becomes a restrained framework for conservation, observation, and coexistence within an ancient forest.</p>
-          </a>
-          <a class="thinking-project" href="./moscow-landscape-brainstorming.html">
-            <img src="./assets/moscow-brainstorming/moscow-cover.png" alt="Moscow landscape strategy study">
-            <span>Moscow Landscape Brainstorming 01</span>
-            <h3>What remains when a landscape carries both national wealth and the ruins of war?</h3>
-            <p>Glass evokes Russia’s diamonds; blackened timber recalls the remains left by gunfire. Brilliance and destruction occupy the same ground.</p>
-          </a>
+          <div class="question-tree-stage" aria-live="polite"></div>
         </div>
       </section>
 
       <section class="project-groups" id="projects" aria-label="Project categories">
-        <div class="section-introduction section-introduction--label-only">
-          <span>02 / Real projects</span>
-        </div>
         <div class="project-filter" aria-label="Project filter">
           <button type="button" class="is-active" data-filter="all">All</button>
-          <button type="button" data-filter="mixed-development">Mixed development</button>
-          <button type="button" data-filter="retail-hotels">Retail &amp; hotels</button>
-          <button type="button" data-filter="institutions">Institutions</button>
-          <button type="button" data-filter="conservation">Conservation</button>
-          <button type="button" data-filter="parks-recreation">Parks &amp; recreation</button>
-          <button type="button" data-filter="gardens">Gardens</button>
+          <button type="button" data-filter="objects">Objects</button>
+          <button type="button" data-filter="recording">Recording the current</button>
+          <button type="button" data-filter="ongoing">On-going</button>
         </div>
 
         <div class="project-card-grid" aria-label="Project list">
-          <a class="project-card" href="./house-in-khao-yai.html" data-category="gardens">
+          <a class="project-card" href="./house-in-khao-yai.html" data-category="human">
             <img src="./assets/khao-yai-thumbnail-stream.png?v=20260723-25" alt="House in Khaoyai stream garden with rocks and ferns">
             <span>House in Khaoyai, Thailand</span>
           </a>
-          <a class="project-card" href="./house-in-sentosa.html" data-category="gardens">
+          <a class="project-card" href="./house-in-sentosa.html" data-category="human">
             <img src="./assets/house-in-sentosa-01.jpeg" alt="House in Sentosa tropical animal mural reflected in water">
             <span>House in Sentosa, Singapore</span>
           </a>
-          <a class="project-card" href="./farmbyte-archisen.html" data-category="institutions">
+          <a class="project-card" href="./farmbyte-archisen.html" data-category="human">
             <img src="./assets/farmbyte-01.png" alt="Farmbyte Archisen installation">
             <span>Farmbyte Archisen, Johor Bahru Malaysia</span>
           </a>
-          <a class="project-card" href="./165-jlb.html" data-category="mixed-development">
+          <a class="project-card" href="./165-jlb.html" data-category="human">
             <img src="./assets/165-jlb-01.png" alt="165 JLB planted entrance">
             <span>165 JLB, Singapore</span>
           </a>
-          <a class="project-card" href="./on-air.html" data-category="conservation">
+          <a class="project-card" href="./on-air.html" data-category="human">
             <img src="./assets/on-air-05.jpeg" alt="On Air forest habitat with wildlife">
             <span>On Air, Kuching Malaysia</span>
           </a>
-          <a class="project-card" href="./suxiangang-youth-park.html" data-category="parks-recreation">
+          <a class="project-card" href="./suxiangang-youth-park.html" data-category="human">
             <img src="./assets/suxiangang-youth-02.jpeg" alt="Suxiangang Youth Park activity landscape">
             <span>Suxiangang Youth Park, China</span>
           </a>
-          <a class="project-card" href="#" data-category="parks-recreation">
+          <a class="project-card" href="#" data-category="human">
             <span class="project-placeholder"></span>
             <span>Dabu Hakka, Singapore</span>
           </a>
-          <a class="project-card" href="./house-in-nassim.html" data-category="gardens">
+          <a class="project-card" href="./house-in-nassim.html" data-category="human">
             <img src="./assets/nassim-thumbnail.png?v=20260723-24" alt="House in Nassim water garden with stones and planting">
             <span>House in Nassim, Singapore</span>
           </a>
-          <a class="project-card" href="./tmw-maxwell-showroom.html" data-category="retail-hotels">
+          <a class="project-card" href="./tmw-maxwell-showroom.html" data-category="human">
             <img src="./assets/tmw-sales-gallery-cover.png?v=20260723-23" alt="TMW Sales Gallery planted interior">
             <span>TMW Maxwell Showroom, Singapore</span>
           </a>
-          <a class="project-card" href="./cross-street-18-20.html" data-category="mixed-development">
+          <a class="project-card" href="./cross-street-18-20.html" data-category="human">
             <img src="./assets/cs18-thumbnail-facade.png?v=20260723-26" alt="Cross Street 18 and 20 facade with vertical green wall">
             <span>Cross Street 18&20, Singapore</span>
           </a>
-          <a class="project-card varel-card" href="./varel-selegie.html" data-category="mixed-development">
+          <a class="project-card varel-card" href="./varel-selegie.html" data-category="human">
             <img src="./assets/varel-selegie-03.jpeg?v=20260724-01" alt="Varel Selegie facade and planted terraces">
             <span>Varel Selegie, Singapore</span>
           </a>
-          <a class="project-card" href="./moscow-landscape-brainstorming.html" data-category="parks-recreation">
+          <a class="project-card" href="./moscow-landscape-brainstorming.html" data-category="recording">
             <img src="./assets/moscow-brainstorming/moscow-cover.png" alt="">
             <span>Moscow Landscape Brainstorming 01</span>
           </a>
-          <a class="project-card" href="./animal-condominium.html" data-category="conservation">
+          <a class="project-card" href="./animal-condominium.html" data-category="non-human">
             <img src="./assets/animal-condominium-03.png?v=20260723-38" alt="Animal Condominium planted towers overlooking the city">
             <span>Animal Condominium: Living Together</span>
           </a>
-          <a class="project-card" href="./architecture-for-trees.html" data-category="conservation">
+          <a class="project-card" href="./architecture-for-trees.html" data-category="non-human">
             <img src="./assets/architecture-for-trees-09.jpeg" alt="Architecture for Trees competition proposal in a forest landscape">
             <span>Architecture for Trees, Competition</span>
           </a>
@@ -219,27 +162,27 @@
             <span class="project-placeholder"></span>
             <span>GIS for Non Humans</span>
           </a>
-          <a class="project-card" href="#" data-category="mixed-development">
+          <a class="project-card" href="#" data-category="ongoing">
             <span class="project-placeholder"></span>
             <span>Kolshet, India</span>
           </a>
-          <a class="project-card" href="#" data-category="mixed-development">
+          <a class="project-card" href="#" data-category="ongoing">
             <span class="project-placeholder"></span>
             <span>Gurugram, India</span>
           </a>
-          <a class="project-card" href="#" data-category="mixed-development">
+          <a class="project-card" href="#" data-category="ongoing">
             <span class="project-placeholder"></span>
             <span>Eutongsan, Singapore</span>
           </a>
-          <a class="project-card" href="#" data-category="institutions">
+          <a class="project-card" href="#" data-category="ongoing">
             <span class="project-placeholder"></span>
             <span>ORPC Church, Singapore</span>
           </a>
-          <a class="project-card" href="#" data-category="institutions">
+          <a class="project-card" href="#" data-category="ongoing">
             <span class="project-placeholder"></span>
             <span>KIS, Sabah</span>
           </a>
-          <a class="project-card" href="./wyz-house.html" data-category="gardens">
+          <a class="project-card" href="./wyz-house.html" data-category="ongoing">
             <img src="./assets/wyz-house-02.jpeg" alt="WYZ House and its tropical landscape">
             <span>WYZ House, Malaysia</span>
           </a>
@@ -249,15 +192,6 @@
           <span class="project-page-status" aria-live="polite">01 / 01</span>
           <button type="button" class="works-page-button works-page-next" aria-label="Next works page">&rsaquo;</button>
         </nav>
-      </section>
-
-      <section class="objects-section" aria-labelledby="objects-title">
-        <div class="section-introduction">
-          <span>03 / Objects</span>
-          <h2 id="objects-title">Landscape thinking can take the scale of an object.</h2>
-          <p>Figures, experiments, tools, and fragments that extend the practice beyond landscape architecture.</p>
-        </div>
-        <div class="objects-grid" aria-label="Object projects"></div>
       </section>
 
       <section class="philosophy" id="about" aria-label="Philosophy" hidden>
@@ -289,7 +223,7 @@
       </footer>
     </main>
 
-    <script src="./script.js?v=20260724-9"></script>
+    <script src="./homepage-version-1.js"></script>
   </body>
 </html>
 
