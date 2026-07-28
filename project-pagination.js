@@ -85,7 +85,15 @@ if (projectDetail && horizontalProjectLayout.matches) {
 
   imageGroups.forEach((group, index) => {
     const spread = document.createElement("article");
-    spread.className = `project-spread project-spread-image ${index % 2 === 0 ? "image-left" : "image-right"}${group.length > 1 ? " multi-image" : ""}`;
+    const editorialLayout =
+      group.length > 1
+        ? index % 3 === 1
+          ? " layout-cross-page"
+          : index % 3 === 2
+            ? " layout-asymmetric"
+            : " layout-pair"
+        : " layout-single";
+    spread.className = `project-spread project-spread-image ${index % 2 === 0 ? "image-left" : "image-right"}${group.length > 1 ? " multi-image" : ""} ${editorialLayout}`;
     spread.setAttribute("aria-label", `Project image ${index + 2}`);
 
     const figure = document.createElement("figure");
