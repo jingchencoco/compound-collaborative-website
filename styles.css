@@ -136,7 +136,7 @@ body.home-page {
   margin: 0;
   color: #252521;
   font-size: clamp(44px, 4.8vw, 78px);
-  line-height: 1.06;
+  line-height: 1.24;
   pointer-events: none;
 }
 
@@ -2651,7 +2651,7 @@ body.project-lightbox-open {
     left: 22px;
     width: calc(100% - 44px);
     font-size: clamp(38px, 10.5vw, 54px);
-    line-height: 1.06;
+    line-height: 1.18;
   }
 
   .home-intro-note {
