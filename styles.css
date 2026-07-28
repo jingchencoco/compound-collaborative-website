@@ -1046,6 +1046,9 @@ body.header-on-image .menu-toggle {
   max-width: 100%;
   height: auto;
   transform: none;
+  opacity: 1;
+  filter: none;
+  mix-blend-mode: normal;
 }
 
 @media (min-width: 901px) {
