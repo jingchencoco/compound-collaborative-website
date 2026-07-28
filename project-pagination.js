@@ -27,23 +27,27 @@ if (projectDescription) {
 }
 
 const projectMoreContent =
-  projectMoreTemplate?.innerHTML.trim() || generatedMoreContent;
+  projectMoreTemplate?.innerHTML.trim() ||
+  generatedMoreContent ||
+  `
+    <p class="project-more-label">Project notes</p>
+    <h2>${projectName}</h2>
+    <p>Further project information and archive material will be added here.</p>
+  `;
 
 if (projectDetail && !horizontalProjectLayout.matches) {
   document.body.classList.remove("project-entering");
   document.body.classList.add("project-ready");
 
-  if (projectMoreContent) {
-    const description = projectDetail.querySelector(".project-description");
-    const details = document.createElement("details");
-    details.className = "project-more-inline";
-    const summary = document.createElement("summary");
-    summary.textContent = "Know more";
-    const content = document.createElement("div");
-    content.innerHTML = projectMoreContent;
-    details.append(summary, content);
-    description?.insertAdjacentElement("afterend", details);
-  }
+  const description = projectDetail.querySelector(".project-description");
+  const details = document.createElement("details");
+  details.className = "project-more-inline";
+  const summary = document.createElement("summary");
+  summary.textContent = "Know more";
+  const content = document.createElement("div");
+  content.innerHTML = projectMoreContent;
+  details.append(summary, content);
+  (description || projectDetail.querySelector(".project-title"))?.insertAdjacentElement("afterend", details);
 }
 
 if (projectDetail && horizontalProjectLayout.matches) {
@@ -63,16 +67,14 @@ if (projectDetail && horizontalProjectLayout.matches) {
   if (title) intro.append(title);
   if (mainPhoto) intro.append(mainPhoto);
   if (description) introCopy.append(description);
-  if (projectMoreContent) {
-    const details = document.createElement("details");
-    details.className = "project-more-inline project-more-inline--desktop";
-    const summary = document.createElement("summary");
-    summary.textContent = "Know more";
-    const content = document.createElement("div");
-    content.innerHTML = projectMoreContent;
-    details.append(summary, content);
-    introCopy.append(details);
-  }
+  const details = document.createElement("details");
+  details.className = "project-more-inline project-more-inline--desktop";
+  const summary = document.createElement("summary");
+  summary.textContent = "Know more";
+  const content = document.createElement("div");
+  content.innerHTML = projectMoreContent;
+  details.append(summary, content);
+  introCopy.append(details);
   if (introCopy.childElementCount) intro.append(introCopy);
   rail.append(intro);
 
