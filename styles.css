@@ -588,6 +588,17 @@ body.home-page {
   letter-spacing: -0.03em;
 }
 
+.home-v2-aside {
+  grid-column: 2 / span 3;
+  grid-row: 1;
+  align-self: end;
+  margin: 0 0 clamp(-28px, -2vw, -18px);
+  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-size: clamp(16px, 1.45vw, 22px);
+  font-style: italic;
+  line-height: 1;
+}
+
 .home-v2-image {
   margin: 0;
   overflow: hidden;
@@ -3149,6 +3160,13 @@ body.project-lightbox-open {
     grid-column: 1 / -1;
     grid-row: auto;
     font-size: clamp(42px, 13vw, 58px);
+  }
+
+  .home-v2-aside {
+    grid-column: 2 / -1;
+    grid-row: auto;
+    margin: -24px 0 4px;
+    font-size: 18px;
   }
 
   .home-v2-image--main {
