@@ -2617,12 +2617,15 @@ body.project-page-turning .project-spread.is-turn-target {
 
 @media (min-width: 901px) {
   .project-spread-image.layout-cross-page .project-spread-figure {
+    position: absolute;
     top: clamp(34px, 4.5vh, 58px);
     left: clamp(34px, 4.5vw, 78px);
     right: clamp(34px, 4.5vw, 78px);
     height: 76%;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(18px, 1.8vw, 30px);
+    width: auto;
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
     overflow: visible;
   }
 
@@ -2633,7 +2636,7 @@ body.project-page-turning .project-spread.is-turn-target {
     top: 0;
     bottom: 0;
     left: 50%;
-    width: clamp(18px, 1.8vw, 30px);
+    width: clamp(16px, 1.5vw, 24px);
     transform: translateX(-50%);
     pointer-events: none;
     background:
@@ -2647,25 +2650,18 @@ body.project-page-turning .project-spread.is-turn-target {
   }
 
   .project-spread-image.layout-cross-page .project-spread-figure img:first-child,
-  .project-spread-image.layout-cross-page .project-spread-figure video:first-child,
-  .project-spread-image.layout-cross-page .project-spread-figure img:nth-child(2),
-  .project-spread-image.layout-cross-page .project-spread-figure video:nth-child(2) {
+  .project-spread-image.layout-cross-page .project-spread-figure video:first-child {
     display: block;
     width: 100%;
     max-width: none;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
   }
 
   .project-spread-image.layout-cross-page .project-spread-figure img:first-child,
   .project-spread-image.layout-cross-page .project-spread-figure video:first-child {
-    box-shadow: inset -14px 0 18px -20px rgba(37, 37, 33, 0.42);
-  }
-
-  .project-spread-image.layout-cross-page .project-spread-figure img:nth-child(2),
-  .project-spread-image.layout-cross-page .project-spread-figure video:nth-child(2) {
-    box-shadow: inset 14px 0 18px -20px rgba(37, 37, 33, 0.42);
+    box-shadow: 0 0 0 1px rgba(37, 37, 33, 0.04);
   }
 
   .project-spread-image.layout-asymmetric .project-spread-figure {
@@ -2685,10 +2681,11 @@ body.project-page-turning .project-spread.is-turn-target {
 
   .project-spread-image.layout-asymmetric .project-spread-figure img:nth-child(2),
   .project-spread-image.layout-asymmetric .project-spread-figure video:nth-child(2) {
-    width: 100%;
-    height: 100%;
+    width: 88%;
+    height: 88%;
     max-width: none;
-    object-fit: cover;
+    object-fit: contain;
+    place-self: center;
   }
 
   .project-spread-image.layout-cross-page .project-spread-copy,

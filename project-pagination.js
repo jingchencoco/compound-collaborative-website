@@ -79,20 +79,24 @@ if (projectDetail && horizontalProjectLayout.matches) {
   rail.append(intro);
 
   const imageGroups = [];
-  for (let i = 0; i < stackImages.length; i += 2) {
-    imageGroups.push(stackImages.slice(i, i + 2));
+  const editorialPattern = [
+    { size: 2, layout: "layout-pair" },
+    { size: 1, layout: "layout-cross-page" },
+    { size: 2, layout: "layout-asymmetric" },
+  ];
+  let imageCursor = 0;
+  let patternCursor = 0;
+  while (imageCursor < stackImages.length) {
+    const pattern = editorialPattern[patternCursor % editorialPattern.length];
+    const group = stackImages.slice(imageCursor, imageCursor + pattern.size);
+    imageGroups.push({ group, layout: pattern.layout });
+    imageCursor += group.length;
+    patternCursor += 1;
   }
 
-  imageGroups.forEach((group, index) => {
+  imageGroups.forEach(({ group, layout }, index) => {
     const spread = document.createElement("article");
-    const editorialLayout =
-      group.length > 1
-        ? index % 3 === 1
-          ? " layout-cross-page"
-          : index % 3 === 2
-            ? " layout-asymmetric"
-            : " layout-pair"
-        : " layout-single";
+    const editorialLayout = ` ${layout}`;
     spread.className = `project-spread project-spread-image ${index % 2 === 0 ? "image-left" : "image-right"}${group.length > 1 ? " multi-image" : ""} ${editorialLayout}`;
     spread.setAttribute("aria-label", `Project image ${index + 2}`);
 
