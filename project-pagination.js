@@ -52,7 +52,7 @@ if (projectDetail && horizontalProjectLayout.matches) {
   const title = projectDetail.querySelector(".project-title");
   const mainPhoto = projectDetail.querySelector(".project-photo");
   const description = projectDetail.querySelector(".project-description");
-  const stackImages = [...projectDetail.querySelectorAll(".project-image-stack img")];
+  const stackImages = [...projectDetail.querySelectorAll(".project-image-stack img, .project-image-stack video")];
   const rail = document.createElement("div");
   rail.className = "project-spread-rail";
 
@@ -87,7 +87,7 @@ if (projectDetail && horizontalProjectLayout.matches) {
     folio.textContent = `${projectName} / ${String(index + 2).padStart(2, "0")}`;
 
     const caption = document.createElement("h2");
-    const mainCaption = group[0]?.alt || `${projectName} project view`;
+    const mainCaption = group[0]?.alt || group[0]?.dataset.caption || `${projectName} project view`;
     const extraCount = Math.max(0, group.length - 1);
     caption.textContent = extraCount > 0 ? `${mainCaption} (+${extraCount})` : mainCaption;
 

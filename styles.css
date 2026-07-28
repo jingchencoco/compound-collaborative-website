@@ -2119,7 +2119,8 @@ body.project-page-turning .project-spread.is-turn-target {
   place-items: center;
 }
 
-.project-spread-intro .project-photo img {
+.project-spread-intro .project-photo img,
+  .project-spread-intro .project-photo video {
   width: auto;
   height: auto;
   max-width: 100%;
@@ -2202,7 +2203,8 @@ body.project-page-turning .project-spread.is-turn-target {
   margin: 0;
 }
 
-.project-spread-figure img {
+.project-spread-figure img,
+.project-spread-figure video {
   display: block;
   width: auto;
   max-width: 100%;
@@ -2211,7 +2213,8 @@ body.project-page-turning .project-spread.is-turn-target {
   object-fit: contain;
 }
 
-.project-spread-figure--multi img {
+.project-spread-figure--multi img,
+.project-spread-figure--multi video {
   display: block;
   width: 100%;
   height: 100%;
@@ -2546,7 +2549,8 @@ body.project-page-turning .project-spread.is-turn-target {
   margin-top: clamp(12px, 2vw, 36px);
 }
 
-.project-image-stack img {
+.project-image-stack img,
+.project-image-stack video {
   display: block;
   width: 100%;
   height: auto;
@@ -3083,7 +3087,8 @@ body.project-lightbox-open {
     font-size: 12px;
   }
 
-  body:not(.project-horizontal) .project-photo img {
+  body:not(.project-horizontal) .project-photo img,
+  body:not(.project-horizontal) .project-photo video {
     width: 100%;
     max-height: none;
   }
@@ -3136,7 +3141,8 @@ body.project-lightbox-open {
     min-height: 0;
   }
 
-  .project-spread-intro .project-photo img {
+  .project-spread-intro .project-photo img,
+  .project-spread-intro .project-photo video {
     max-width: 100%;
     max-height: 48svh;
   }
@@ -3179,7 +3185,8 @@ body.project-lightbox-open {
     padding: 8px 0;
   }
 
-  .project-spread-figure img {
+  .project-spread-figure img,
+.project-spread-figure video {
     max-width: 100%;
     max-height: calc(100svh - 292px);
   }
@@ -3190,7 +3197,8 @@ body.project-lightbox-open {
     align-content: center;
   }
 
-  .project-spread-figure--multi img {
+  .project-spread-figure--multi img,
+.project-spread-figure--multi video {
     width: 100%;
     max-height: calc(100svh - 318px);
   }
@@ -3486,3 +3494,8 @@ body.project-lightbox-open {
   }
 }
 
+
+.project-image-stack video,
+.project-spread-figure video {
+  background: #111;
+}
