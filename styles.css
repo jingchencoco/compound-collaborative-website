@@ -1855,6 +1855,7 @@ body.project-horizontal .back-to-projects:hover {
   width: 100%;
   height: auto;
   opacity: 1;
+  filter: brightness(0.5);
 }
 
 .footer {
@@ -2234,11 +2235,14 @@ body.project-page-turning .project-spread.is-turn-target {
 
 .project-spread-image.multi-image .project-spread-copy {
   position: absolute;
-  right: clamp(28px, 4.2vw, 72px);
-  bottom: clamp(28px, 6vh, 72px);
-  grid-column: 2;
+  left: clamp(28px, 4.2vw, 72px);
+  right: auto;
+  bottom: clamp(24px, 4vh, 48px);
+  grid-column: 1;
   align-self: end;
+  width: min(420px, 34vw);
   margin: 0;
+  padding-top: 10px;
 }
 
 .project-spread-figure img,
@@ -2282,12 +2286,12 @@ body.project-page-turning .project-spread.is-turn-target {
 }
 
 .project-spread-copy h2 {
-  max-width: 22ch;
-  margin: 12px 0 28px;
+  max-width: 34ch;
+  margin: 10px 0 18px;
   font-family: "EB Garamond", serif;
-  font-size: clamp(22px, 2.05vw, 38px);
-  font-weight: 500;
-  line-height: 1.04;
+  font-size: clamp(15px, 1.15vw, 20px);
+  font-weight: 400;
+  line-height: 1.18;
   letter-spacing: 0;
 }
 
@@ -2521,8 +2525,19 @@ body.project-page-turning .project-spread.is-turn-target {
   display: none;
 }
 
+.project-more-inline[open] > summary {
+  display: none;
+}
+
 .project-more-inline > div {
-  margin-top: 28px;
+  margin-top: 12px;
+}
+
+.project-more-inline--desktop p {
+  margin: 0 0 12px;
+  font-family: "EB Garamond", serif;
+  font-size: 14px;
+  line-height: 1.46;
 }
 
 .project-more-inline .project-more-label {
