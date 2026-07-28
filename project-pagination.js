@@ -1,9 +1,22 @@
 const projectDetail = document.querySelector(".project-detail-page");
 const horizontalProjectLayout = window.matchMedia("(min-width: 901px)");
+const projectMoreTemplate = projectDetail?.querySelector(".project-more-content");
 
 if (projectDetail && !horizontalProjectLayout.matches) {
   document.body.classList.remove("project-entering");
   document.body.classList.add("project-ready");
+
+  if (projectMoreTemplate) {
+    const description = projectDetail.querySelector(".project-description");
+    const details = document.createElement("details");
+    details.className = "project-more-inline";
+    const summary = document.createElement("summary");
+    summary.textContent = "Know more";
+    const content = document.createElement("div");
+    content.innerHTML = projectMoreTemplate.innerHTML;
+    details.append(summary, content);
+    description?.insertAdjacentElement("afterend", details);
+  }
 }
 
 if (projectDetail && horizontalProjectLayout.matches) {
@@ -13,6 +26,7 @@ if (projectDetail && horizontalProjectLayout.matches) {
   const mainPhoto = projectDetail.querySelector(".project-photo");
   const description = projectDetail.querySelector(".project-description");
   const stackImages = [...projectDetail.querySelectorAll(".project-image-stack img")];
+  const customMoreContent = projectMoreTemplate?.innerHTML.trim();
   const projectName = title?.querySelector("h1, h2")?.textContent.trim() || "Project";
   const rail = document.createElement("div");
   rail.className = "project-spread-rail";
@@ -91,7 +105,7 @@ if (projectDetail && horizontalProjectLayout.matches) {
   morePanel.id = "project-more-panel";
   morePanel.setAttribute("aria-hidden", "true");
   morePanel.inert = true;
-  morePanel.innerHTML = `
+  morePanel.innerHTML = customMoreContent || `
     <p class="project-more-label">Project notes</p>
     <h2>${projectName}</h2>
     <p>

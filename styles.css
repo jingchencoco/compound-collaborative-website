@@ -134,13 +134,13 @@ body.home-page {
   z-index: 4;
   width: auto;
   margin: 0;
-  color: rgba(31, 43, 47, 0.58);
-  font-family: Didot, "Bodoni 72", "Times New Roman", Times, serif;
+  color: rgba(31, 43, 47, 0.66);
+  font-family: "Bodoni 72", Didot, "Bodoni MT", "Times New Roman", Times, serif;
   font-size: clamp(44px, 4.8vw, 78px);
-  font-style: italic;
-  font-weight: 400;
+  font-style: normal;
+  font-weight: 300;
   line-height: 1.24;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.05em;
   pointer-events: none;
 }
 
@@ -1024,8 +1024,8 @@ body.header-on-image .menu-toggle {
 .site-wordmark {
   position: relative;
   display: inline-flex;
-  width: 166px;
-  height: 42px;
+  width: 210px;
+  height: 57px;
   align-items: baseline;
   white-space: nowrap;
   overflow: hidden;
@@ -1042,11 +1042,24 @@ body.header-on-image .menu-toggle {
   position: absolute;
   top: 0;
   left: 0;
-  width: 336px;
-  max-width: none;
+  width: 100%;
+  max-width: 100%;
   height: auto;
-  transform: translate(-22px, -9px);
-  mix-blend-mode: multiply;
+  transform: none;
+}
+
+@media (min-width: 901px) {
+  .home-page .menu-toggle {
+    left: clamp(28px, 4.5vw, 88px);
+    gap: 0;
+  }
+
+  .home-page .menu-toggle .menu-symbol {
+    position: absolute;
+    top: 50%;
+    left: -34px;
+    transform: translateY(-50%);
+  }
 }
 
 .menu-symbol {
@@ -2454,6 +2467,49 @@ body.project-page-turning .project-spread.is-turn-target {
   margin: 0;
 }
 
+.project-more-inline {
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(34, 34, 34, 0.2);
+}
+
+.project-more-inline summary {
+  width: fit-content;
+  padding-bottom: 3px;
+  border-bottom: 1px solid currentColor;
+  font-family: Garamond, "EB Garamond", "Times New Roman", serif;
+  font-size: 15px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.project-more-inline summary::-webkit-details-marker {
+  display: none;
+}
+
+.project-more-inline > div {
+  margin-top: 28px;
+}
+
+.project-more-inline .project-more-label {
+  display: none;
+}
+
+.project-more-inline h2 {
+  margin: 0 0 20px;
+  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1.08;
+}
+
+.project-more-inline p:last-child {
+  margin: 0;
+  font-family: Garamond, "Adobe Garamond Pro", "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
 .project-photo {
   grid-column: 6 / -1;
   margin: 18px 0 0;
@@ -2656,8 +2712,8 @@ body.project-lightbox-open {
 
   .home-slogan--hero {
     top: 132px;
-    left: 22px;
-    width: calc(100% - 44px);
+    left: 56px;
+    width: calc(100% - 78px);
     font-size: clamp(38px, 10.5vw, 54px);
     line-height: 1.18;
   }
@@ -2835,6 +2891,20 @@ body.project-lightbox-open {
     left: 22px;
     right: 22px;
     justify-content: space-between;
+  }
+
+  .home-page .menu-toggle {
+    left: 56px;
+    right: auto;
+    gap: 0;
+    justify-content: flex-start;
+  }
+
+  .home-page .menu-toggle .menu-symbol {
+    position: absolute;
+    top: 50%;
+    left: -34px;
+    transform: translateY(-50%);
   }
 
   .header-home-link {
