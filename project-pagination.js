@@ -110,7 +110,7 @@ if (projectDetail && horizontalProjectLayout.matches) {
   const imageGroups = [];
   const editorialPattern = [
     { size: 2, layout: "layout-pair" },
-    { size: 1, layout: "layout-cross-page" },
+    { size: 1, layout: "layout-single-page" },
     { size: 2, layout: "layout-asymmetric" },
   ];
   let imageCursor = 0;
@@ -135,6 +135,27 @@ if (projectDetail && horizontalProjectLayout.matches) {
       markMediaOrientation(image);
       figure.append(image);
     });
+
+    if (group.length === 1) {
+      const image = group[0];
+      const allowCrossPageOnlyForPanoramas = () => {
+        const width = image.videoWidth || image.naturalWidth || 0;
+        const height = image.videoHeight || image.naturalHeight || 0;
+        if (!width || !height) return;
+        const isPanorama = width / height >= 2.1;
+        spread.classList.toggle("layout-cross-page", isPanorama);
+        spread.classList.toggle("layout-single-page", !isPanorama);
+      };
+
+      allowCrossPageOnlyForPanoramas();
+      if (!(image.videoWidth || image.naturalWidth)) {
+        image.addEventListener(
+          image.tagName === "VIDEO" ? "loadedmetadata" : "load",
+          allowCrossPageOnlyForPanoramas,
+          { once: true }
+        );
+      }
+    }
 
     const copy = document.createElement("aside");
     copy.className = "project-spread-copy";

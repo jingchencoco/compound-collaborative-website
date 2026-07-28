@@ -2071,7 +2071,7 @@ body.project-horizontal .project-page-nav {
   border: 0;
   overflow: hidden;
   background:
-    linear-gradient(90deg, transparent calc(50% - 1px), rgba(37, 37, 33, 0.14) 50%, transparent calc(50% + 1px)),
+    linear-gradient(90deg, transparent calc(50% - 0.5px), rgba(37, 37, 33, 0.045) 50%, transparent calc(50% + 0.5px)),
     #fafaf8;
   color: #252521;
 }
@@ -2652,23 +2652,7 @@ body.project-page-turning .project-spread.is-turn-target {
   }
 
   .project-spread-image.layout-cross-page .project-spread-figure::after {
-    content: "";
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: clamp(16px, 1.5vw, 24px);
-    transform: translateX(-50%);
-    pointer-events: none;
-    background:
-      linear-gradient(
-        90deg,
-        rgba(37, 37, 33, 0.08) 0%,
-        rgba(250, 250, 248, 0.96) 42%,
-        rgba(250, 250, 248, 0.96) 58%,
-        rgba(37, 37, 33, 0.08) 100%
-      );
+    content: none;
   }
 
   .project-spread-image.layout-cross-page .project-spread-figure img:first-child,
