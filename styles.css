@@ -127,6 +127,19 @@ body.home-page {
   text-transform: none;
 }
 
+.home-slogan--hero {
+  position: absolute;
+  top: clamp(150px, 19vh, 220px);
+  left: clamp(28px, 4.5vw, 88px);
+  z-index: 4;
+  width: auto;
+  margin: 0;
+  color: #252521;
+  font-size: clamp(58px, 7vw, 112px);
+  line-height: 0.88;
+  pointer-events: none;
+}
+
 .home-intro-note {
   position: absolute;
   right: clamp(36px, 6vw, 96px);
@@ -2605,6 +2618,14 @@ body.project-lightbox-open {
   .home-slogan {
     width: 100%;
     font-size: clamp(42px, 13vw, 58px);
+  }
+
+  .home-slogan--hero {
+    top: 132px;
+    left: 22px;
+    width: calc(100% - 44px);
+    font-size: clamp(46px, 14vw, 68px);
+    line-height: 0.9;
   }
 
   .home-intro-note {
