@@ -1,19 +1,46 @@
 const projectDetail = document.querySelector(".project-detail-page");
 const horizontalProjectLayout = window.matchMedia("(min-width: 901px)");
 const projectMoreTemplate = projectDetail?.querySelector(".project-more-content");
+const projectTitle = projectDetail?.querySelector(".project-title");
+const projectName =
+  projectTitle?.querySelector("h1, h2")?.textContent.trim() || "Project";
+const projectDescription = projectDetail?.querySelector(".project-description");
+
+let generatedMoreContent = "";
+if (projectDescription) {
+  const descriptionParagraphs = projectDescription.innerHTML
+    .trim()
+    .split(/\s*(?:<br\s*\/?>\s*){2,}/i)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
+  if (descriptionParagraphs.length > 2) {
+    projectDescription.innerHTML = descriptionParagraphs
+      .slice(0, 2)
+      .join("<br><br>");
+    generatedMoreContent = `
+      <p class="project-more-label">Project notes</p>
+      <h2>${projectName}</h2>
+      <p>${descriptionParagraphs.slice(2).join("<br><br>")}</p>
+    `;
+  }
+}
+
+const projectMoreContent =
+  projectMoreTemplate?.innerHTML.trim() || generatedMoreContent;
 
 if (projectDetail && !horizontalProjectLayout.matches) {
   document.body.classList.remove("project-entering");
   document.body.classList.add("project-ready");
 
-  if (projectMoreTemplate) {
+  if (projectMoreContent) {
     const description = projectDetail.querySelector(".project-description");
     const details = document.createElement("details");
     details.className = "project-more-inline";
     const summary = document.createElement("summary");
     summary.textContent = "Know more";
     const content = document.createElement("div");
-    content.innerHTML = projectMoreTemplate.innerHTML;
+    content.innerHTML = projectMoreContent;
     details.append(summary, content);
     description?.insertAdjacentElement("afterend", details);
   }
@@ -26,8 +53,6 @@ if (projectDetail && horizontalProjectLayout.matches) {
   const mainPhoto = projectDetail.querySelector(".project-photo");
   const description = projectDetail.querySelector(".project-description");
   const stackImages = [...projectDetail.querySelectorAll(".project-image-stack img")];
-  const customMoreContent = projectMoreTemplate?.innerHTML.trim();
-  const projectName = title?.querySelector("h1, h2")?.textContent.trim() || "Project";
   const rail = document.createElement("div");
   rail.className = "project-spread-rail";
 
@@ -105,7 +130,7 @@ if (projectDetail && horizontalProjectLayout.matches) {
   morePanel.id = "project-more-panel";
   morePanel.setAttribute("aria-hidden", "true");
   morePanel.inert = true;
-  morePanel.innerHTML = customMoreContent || `
+  morePanel.innerHTML = projectMoreContent || `
     <p class="project-more-label">Project notes</p>
     <h2>${projectName}</h2>
     <p>

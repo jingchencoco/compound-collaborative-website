@@ -26,8 +26,8 @@ const aboutSection = document.querySelector("#about");
 const contactSection = document.querySelector("#contact");
 
 const siteWordmarkMarkup = `
-  <span class="site-wordmark" aria-label="Compound Collaborative">
-    <img class="site-wordmark-image" src="./assets/compound-collaborative-logo-transparent.png" alt="CO² compound collaborative">
+  <span class="site-wordmark" aria-label="compound collaborative">
+    <span class="site-wordmark-name"><strong>co</strong>mpound <strong>co</strong>llaborative</span>
   </span>
 `;
 
