@@ -577,9 +577,13 @@ body.home-page {
   text-transform: uppercase;
 }
 
-.home-v2-intro h1 {
-  grid-column: 1 / span 6;
+.home-v2-opening {
+  grid-column: 1 / span 5;
   grid-row: 1;
+  padding-top: clamp(4px, 1vw, 16px);
+}
+
+.home-v2-opening h1 {
   margin: 0;
   font-family: "EB Garamond", Garamond, Georgia, serif;
   font-size: clamp(50px, 6vw, 88px);
@@ -589,10 +593,8 @@ body.home-page {
 }
 
 .home-v2-aside {
-  grid-column: 2 / span 3;
-  grid-row: 1;
-  align-self: end;
-  margin: 0 0 clamp(-28px, -2vw, -18px);
+  width: max-content;
+  margin: 18px 0 0 auto;
   font-family: "EB Garamond", Garamond, Georgia, serif;
   font-size: clamp(16px, 1.45vw, 22px);
   font-style: italic;
@@ -621,7 +623,7 @@ body.home-page {
 
 .home-v2-image--main {
   grid-column: 7 / span 6;
-  grid-row: 1 / span 2;
+  grid-row: 1;
   margin-top: clamp(8px, 2vw, 32px);
 }
 
@@ -630,10 +632,8 @@ body.home-page {
 }
 
 .home-v2-definition {
-  grid-column: 2 / span 4;
-  grid-row: 2;
-  max-width: 410px;
-  padding-top: clamp(38px, 7vw, 110px);
+  max-width: 390px;
+  margin: clamp(66px, 8vw, 120px) 0 0 clamp(34px, 4vw, 68px);
 }
 
 .home-v2-definition p {
@@ -3156,16 +3156,18 @@ body.project-lightbox-open {
     left: 22px;
   }
 
-  .home-v2-intro h1 {
+  .home-v2-opening {
     grid-column: 1 / -1;
     grid-row: auto;
+    padding-top: 0;
+  }
+
+  .home-v2-opening h1 {
     font-size: clamp(42px, 13vw, 58px);
   }
 
   .home-v2-aside {
-    grid-column: 2 / -1;
-    grid-row: auto;
-    margin: -24px 0 4px;
+    margin: 12px 0 0 auto;
     font-size: 18px;
   }
 
@@ -3176,11 +3178,9 @@ body.project-lightbox-open {
   }
 
   .home-v2-definition {
-    grid-column: 1 / span 5;
-    grid-row: auto;
     width: auto;
-    margin: 0;
-    padding-top: 22px;
+    margin: 42px 0 0;
+    padding-top: 0;
   }
 
   .home-v2-definition p {
