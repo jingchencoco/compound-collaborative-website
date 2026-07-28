@@ -6,9 +6,53 @@
   font-display: block;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&display=swap");
+@font-face {
+  font-family: "EB Garamond";
+  src: url("./assets/fonts/EBGaramond-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+}
 
-@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&display=swap");
+@font-face {
+  font-family: "EB Garamond";
+  src: url("./assets/fonts/EBGaramond-Medium.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "EB Garamond";
+  src: url("./assets/fonts/EBGaramond-Italic.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 300 400;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-Medium.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/Inter-SemiBold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 600 700;
+  font-display: block;
+}
 
 :root {
   --bg: #ffffff;
