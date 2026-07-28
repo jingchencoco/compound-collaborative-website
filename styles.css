@@ -1844,32 +1844,15 @@ body.project-horizontal .back-to-projects:hover {
 
 .mark {
   grid-column: 2;
-  display: grid;
-  width: fit-content;
+  width: min(520px, 100%);
   margin-top: 34px;
-  padding: 16px 22px 13px;
-  border-radius: 26px;
-  background: #fbfaf9;
-  color: #444444;
 }
 
-.mark strong {
-  font-family: "EB Garamond", serif;
-  font-size: 48px;
-  line-height: 0.8;
-  letter-spacing: -2px;
-}
-
-.mark sup {
-  font-size: 0.45em;
-}
-
-.mark span {
-  margin-top: 8px;
-  font-family: "EB Garamond", serif;
-  font-size: 9px;
-  letter-spacing: 1px;
-  text-transform: lowercase;
+.mark img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 1;
 }
 
 .footer {
@@ -2711,8 +2694,8 @@ body.project-lightbox-open {
   }
 
   .home-page .home-cover {
-    min-height: 62svh;
-    padding: 96px 22px 70px;
+    min-height: 100svh;
+    padding: 0;
   }
 
   .home-slogan {
