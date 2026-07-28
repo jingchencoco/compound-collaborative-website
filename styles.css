@@ -813,6 +813,11 @@ body.home-page {
   transition: filter 500ms ease, transform 700ms cubic-bezier(0.22, 0.66, 0.2, 1);
 }
 
+.thinking-project--poster img {
+  object-fit: contain;
+  background: #edf3f2;
+}
+
 .thinking-project:nth-child(2) img {
   aspect-ratio: 2 / 1;
 }
@@ -1695,6 +1700,11 @@ body.project-horizontal .back-to-projects:hover {
   transition:
     transform 1400ms cubic-bezier(0.22, 0.66, 0.2, 1),
     filter 1400ms cubic-bezier(0.22, 0.66, 0.2, 1);
+}
+
+.project-card--poster img {
+  object-fit: contain;
+  background: #edf3f2;
 }
 
 .project-card span:last-child::after {
