@@ -2877,7 +2877,7 @@ body.project-lightbox-open {
     position: fixed;
     right: auto;
     bottom: 0;
-    width: min(86vw, 360px);
+    width: min(72vw, 310px);
     min-width: 0;
     height: 100svh;
     flex-direction: column;
