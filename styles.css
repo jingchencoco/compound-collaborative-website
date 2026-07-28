@@ -875,7 +875,6 @@ body.home-page {
   width: 100%;
 }
 
-.home-page .project-card-grid .project-card:nth-child(4n + 2),
 .objects-grid .project-card:nth-child(3n + 2) {
   transform: translateY(clamp(18px, 2.5vw, 38px));
 }
@@ -1352,11 +1351,9 @@ body.project-horizontal .back-to-projects:hover {
 
 .home-page .home-cover {
   position: relative;
-  display: flex;
-  align-items: center;
-  height: auto;
-  min-height: 68svh;
-  padding: 110px clamp(36px, 6vw, 96px) 72px;
+  height: 100svh;
+  min-height: 0;
+  padding: 0;
 }
 
 .home-page .home-cover > .home-gallery {
@@ -1387,7 +1384,8 @@ body.project-horizontal .back-to-projects:hover {
     transform 900ms cubic-bezier(0.22, 0.66, 0.2, 1);
 }
 
-.home-page .home-cover .home-gallery:hover figcaption {
+.home-page .home-cover .home-gallery:hover figcaption,
+.home-page .home-cover .home-gallery.is-pointer-active figcaption {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1619,6 +1617,7 @@ body.project-horizontal .back-to-projects:hover {
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: clamp(22px, 2.2vw, 36px) clamp(22px, 2.5vw, 48px);
   min-height: 0;
+  align-items: start;
   align-content: start;
 }
 

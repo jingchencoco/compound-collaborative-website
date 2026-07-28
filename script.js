@@ -88,6 +88,14 @@ if (gallerySlides.length > 0) {
   startGalleryTimer();
 }
 
+homeGallery?.addEventListener("pointermove", () => {
+  homeGallery.classList.add("is-pointer-active");
+});
+
+homeGallery?.addEventListener("pointerleave", () => {
+  homeGallery.classList.remove("is-pointer-active");
+});
+
 galleryPrev?.addEventListener("click", () => {
   showGallerySlide(galleryIndex - 1);
   startGalleryTimer();
