@@ -8,7 +8,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&display=swap");
 
-@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&display=swap");
 
 :root {
   --bg: #ffffff;
@@ -33,7 +33,7 @@ body {
   overflow-x: hidden;
   background: var(--bg);
   color: var(--ink);
-  font-family: Aptos, "Segoe UI Variable", "Segoe UI", sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 400;
   letter-spacing: 0;
   opacity: 1;
@@ -127,7 +127,7 @@ body.home-page {
   margin: 0 auto;
   padding: 0;
   color: #252521;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(46px, 5.8vw, 86px);
   font-weight: 400;
   line-height: 0.92;
@@ -178,7 +178,7 @@ body.home-page {
 .manifesto-intro h2,
 .manifesto-closing {
   margin: 0;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-weight: 400;
   letter-spacing: -0.045em;
 }
@@ -199,7 +199,7 @@ body.home-page {
 .nonhuman-manifesto blockquote {
   max-width: 1120px;
   margin: clamp(150px, 20vw, 320px) 0 0 auto;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(34px, 4vw, 60px);
   font-weight: 400;
   line-height: 0.95;
@@ -312,7 +312,7 @@ body.home-page {
 .question-node h3 {
   max-width: 980px;
   margin: 12px 0 26px;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(28px, 2.8vw, 42px);
   font-weight: 400;
   line-height: 0.95;
@@ -419,7 +419,7 @@ body.home-page {
 .question-project strong {
   grid-column: 2;
   grid-row: 2;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(30px, 3.4vw, 50px);
   font-weight: 400;
   line-height: 0.95;
@@ -610,7 +610,7 @@ body.home-page {
 
 .home-v2-opening h1 {
   margin: 0;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(50px, 6vw, 88px);
   font-weight: 400;
   line-height: 1.04;
@@ -620,7 +620,7 @@ body.home-page {
 .home-v2-aside {
   width: max-content;
   margin: 18px 0 0 auto;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(16px, 1.45vw, 22px);
   font-style: italic;
   line-height: 1;
@@ -669,7 +669,7 @@ body.home-page {
 
 .home-v2-thought {
   margin: 0;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-weight: 400;
   line-height: 1.08;
 }
@@ -734,7 +734,7 @@ body.home-page {
 
 .home-v2-closing p {
   margin: 0;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(24px, 2.5vw, 38px);
   line-height: 1.12;
 }
@@ -776,7 +776,7 @@ body.home-page {
 .section-introduction h2 {
   margin: 0;
   padding-top: 10px;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   max-width: 620px;
   font-size: clamp(28px, 2.55vw, 38px);
   font-weight: 400;
@@ -867,7 +867,7 @@ body.home-page {
 
 .thinking-project h3 {
   margin: 0;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   max-width: 18em;
   font-size: clamp(21px, 1.9vw, 30px);
   font-weight: 400;
@@ -1047,7 +1047,7 @@ body.header-on-image .menu-toggle {
 
 .site-wordmark-name {
   color: #252521;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(13px, 0.9vw, 17px);
   font-weight: 400;
   line-height: 1;
@@ -1540,7 +1540,7 @@ body.project-horizontal .back-to-projects:hover {
 }
 
 .gallery-slide figcaption span {
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(31px, 4vw, 68px);
   font-weight: 500;
   line-height: 0.9;
@@ -1695,7 +1695,7 @@ body.project-horizontal .back-to-projects:hover {
   display: grid;
   gap: 9px;
   color: var(--ink);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "EB Garamond", serif;
   font-size: 11px;
   font-weight: 600;
   line-height: 1.35;
@@ -1782,7 +1782,7 @@ body.project-horizontal .back-to-projects:hover {
   margin-top: 8px;
   white-space: pre;
   color: #4f4f49;
-  font-family: Aptos, "Segoe UI Variable", "Segoe UI", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 9px;
   font-weight: 600;
   line-height: 1.8;
@@ -1854,7 +1854,7 @@ body.project-horizontal .back-to-projects:hover {
 }
 
 .mark strong {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "EB Garamond", serif;
   font-size: 48px;
   line-height: 0.8;
   letter-spacing: -2px;
@@ -1866,7 +1866,7 @@ body.project-horizontal .back-to-projects:hover {
 
 .mark span {
   margin-top: 8px;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "EB Garamond", serif;
   font-size: 9px;
   letter-spacing: 1px;
   text-transform: lowercase;
@@ -2260,7 +2260,7 @@ body.project-page-turning .project-spread.is-turn-target {
 .project-spread-copy h2 {
   max-width: 22ch;
   margin: 12px 0 28px;
-  font-family: Garamond, "EB Garamond", "Bodoni MT", serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(22px, 2.05vw, 38px);
   font-weight: 500;
   line-height: 1.04;
@@ -2344,7 +2344,7 @@ body.project-page-turning .project-spread.is-turn-target {
   border-bottom: 1px solid currentColor;
   background: transparent;
   color: #252521;
-  font-family: Garamond, "EB Garamond", "Times New Roman", serif;
+  font-family: "EB Garamond", serif;
   font-size: 14px;
   line-height: 1;
   letter-spacing: 0;
@@ -2404,7 +2404,7 @@ body.project-page-turning .project-spread.is-turn-target {
 
 .project-more-panel h2 {
   margin: 0 0 22px;
-  font-family: Garamond, "EB Garamond", "Bodoni MT", serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(24px, 2.2vw, 40px);
   font-weight: 500;
   line-height: 1.04;
@@ -2414,7 +2414,7 @@ body.project-page-turning .project-spread.is-turn-target {
 .project-more-panel > p:last-child {
   max-width: 38ch;
   margin: 0;
-  font-family: Garamond, "EB Garamond", "Times New Roman", serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(17px, 1.2vw, 22px);
   line-height: 1.32;
 }
@@ -2427,7 +2427,7 @@ body.project-page-turning .project-spread.is-turn-target {
 
 .project-title h1,
 .project-title h2 {
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(29px, 3vw, 56px);
   font-weight: 500;
   line-height: 1.08;
@@ -2452,7 +2452,7 @@ body.project-page-turning .project-spread.is-turn-target {
 
 .project-information h2 {
   margin: 0 0 24px;
-  font-family: Aptos, "Segoe UI Variable", "Segoe UI", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 10px;
   font-weight: 500;
   line-height: 1.2;
@@ -2487,7 +2487,7 @@ body.project-page-turning .project-spread.is-turn-target {
   width: fit-content;
   padding-bottom: 3px;
   border-bottom: 1px solid currentColor;
-  font-family: Garamond, "EB Garamond", "Times New Roman", serif;
+  font-family: "EB Garamond", serif;
   font-size: 15px;
   cursor: pointer;
   list-style: none;
@@ -2507,7 +2507,7 @@ body.project-page-turning .project-spread.is-turn-target {
 
 .project-more-inline h2 {
   margin: 0 0 20px;
-  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-family: "EB Garamond", serif;
   font-size: 25px;
   font-weight: 400;
   line-height: 1.08;
@@ -2515,7 +2515,7 @@ body.project-page-turning .project-spread.is-turn-target {
 
 .project-more-inline p:last-child {
   margin: 0;
-  font-family: Garamond, "Adobe Garamond Pro", "Times New Roman", serif;
+  font-family: "EB Garamond", serif;
   font-size: 18px;
   line-height: 1.35;
 }
@@ -2549,7 +2549,7 @@ body.project-page-turning .project-spread.is-turn-target {
   grid-column: 1 / span 4;
   max-width: 420px;
   margin: 0;
-  font-family: Garamond, "Adobe Garamond Pro", "Times New Roman", serif;
+  font-family: "EB Garamond", serif;
   font-size: clamp(18px, 1.25vw, 25px);
   line-height: 1.22;
 }
@@ -2646,7 +2646,7 @@ body.project-lightbox-open {
 .project-lightbox-next {
   width: 44px;
   height: 64px;
-  font-family: Georgia, serif !important;
+  font-family: "EB Garamond", serif !important;
   font-size: 28px !important;
   opacity: 0.72;
 }
@@ -2724,7 +2724,7 @@ body.project-lightbox-open {
     top: 132px;
     left: 56px;
     width: calc(100% - 78px);
-    font-size: clamp(38px, 10.5vw, 54px);
+    font-size: clamp(30px, 8.4vw, 43px);
     line-height: 1.18;
   }
 
@@ -2875,25 +2875,48 @@ body.project-lightbox-open {
 
   .sidebar {
     position: fixed;
-    right: auto;
-    bottom: 0;
-    width: min(72vw, 310px);
+    top: 72px;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: 100%;
     min-width: 0;
-    height: 100svh;
+    height: auto;
     flex-direction: column;
     align-items: stretch;
-    padding: 28px 22px;
-    transform: translateX(-104%);
+    padding: 14px 22px 16px;
+    background: rgba(251, 250, 246, 0.98);
+    box-shadow: 0 1px 0 rgba(37, 37, 33, 0.1);
+    opacity: 0;
+    transform: translateY(-12px);
+    pointer-events: none;
   }
 
   body.menu-open .sidebar {
-    transform: translateX(0);
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
+  .sidebar .brand,
   .menu-close {
-    top: 28px;
-    right: 22px;
-    transform: none;
+    display: none;
+  }
+
+  body.menu-open .menu-toggle {
+    z-index: 45;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  body.menu-open .menu-symbol::before {
+    top: 7px;
+    transform: rotate(45deg);
+  }
+
+  body.menu-open .menu-symbol::after {
+    top: 7px;
+    transform: rotate(-45deg);
   }
 
   .menu-toggle {
@@ -2925,9 +2948,9 @@ body.project-lightbox-open {
   .primary-nav {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px 20px;
-    margin-top: 28px;
-    font-size: 18px;
+    gap: 10px 18px;
+    margin-top: 0;
+    font-size: 15px;
   }
 
   .contact-card {
@@ -2977,7 +3000,7 @@ body.project-lightbox-open {
 
   .home-page .home-cover .gallery-slide figcaption span {
     max-width: 260px;
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .home-page.mobile-hero-caption-visible .home-cover .gallery-slide figcaption {
