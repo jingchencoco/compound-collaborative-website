@@ -58,9 +58,22 @@ if (projectDetail && horizontalProjectLayout.matches) {
 
   const intro = document.createElement("article");
   intro.className = "project-spread project-spread-intro";
+  const introCopy = document.createElement("div");
+  introCopy.className = "project-intro-copy";
   if (title) intro.append(title);
   if (mainPhoto) intro.append(mainPhoto);
-  if (description) intro.append(description);
+  if (description) introCopy.append(description);
+  if (projectMoreContent) {
+    const details = document.createElement("details");
+    details.className = "project-more-inline project-more-inline--desktop";
+    const summary = document.createElement("summary");
+    summary.textContent = "Know more";
+    const content = document.createElement("div");
+    content.innerHTML = projectMoreContent;
+    details.append(summary, content);
+    introCopy.append(details);
+  }
+  if (introCopy.childElementCount) intro.append(introCopy);
   rail.append(intro);
 
   const imageGroups = [];
@@ -118,38 +131,7 @@ if (projectDetail && horizontalProjectLayout.matches) {
   next.innerHTML = '<span aria-hidden="true"></span>';
   const counter = document.createElement("p");
   counter.className = "project-page-counter";
-  const moreToggle = document.createElement("button");
-  moreToggle.className = "project-more-toggle";
-  moreToggle.type = "button";
-  moreToggle.textContent = "Know more";
-  moreToggle.setAttribute("aria-expanded", "false");
-  moreToggle.setAttribute("aria-controls", "project-more-panel");
-
-  const morePanel = document.createElement("section");
-  morePanel.className = "project-more-panel";
-  morePanel.id = "project-more-panel";
-  morePanel.setAttribute("aria-hidden", "true");
-  morePanel.inert = true;
-  morePanel.innerHTML = projectMoreContent || `
-    <p class="project-more-label">Project notes</p>
-    <h2>${projectName}</h2>
-    <p>
-      This project brings together landscape, architecture, material, and
-      planting as one connected environment. The work responds to its site
-      through careful observation, collaborative design, and an attention to
-      how the place will change over time.
-    </p>
-  `;
-
-  document.body.append(previous, next, counter, moreToggle, morePanel);
-
-  function setMoreOpen(open) {
-    morePanel.classList.toggle("is-open", open);
-    morePanel.setAttribute("aria-hidden", open ? "false" : "true");
-    morePanel.inert = !open;
-    moreToggle.setAttribute("aria-expanded", open ? "true" : "false");
-    moreToggle.textContent = open ? "Less" : "Know more";
-  }
+  document.body.append(previous, next, counter);
 
   function updatePage() {
     pages.forEach((page, index) => {
@@ -176,7 +158,6 @@ if (projectDetail && horizontalProjectLayout.matches) {
     }
 
     isTurning = true;
-    setMoreOpen(false);
     const target = pages[targetPage];
     target.classList.add("is-turn-target");
     target.setAttribute("aria-hidden", "false");
@@ -198,16 +179,8 @@ if (projectDetail && horizontalProjectLayout.matches) {
   next.addEventListener("click", () => {
     turnTo(currentPage + 1);
   });
-  moreToggle.addEventListener("click", () => {
-    setMoreOpen(!morePanel.classList.contains("is-open"));
-  });
   window.addEventListener("keydown", (event) => {
     if (document.body.classList.contains("project-lightbox-open")) return;
-    if (event.key === "Escape" && morePanel.classList.contains("is-open")) {
-      setMoreOpen(false);
-      moreToggle.focus();
-      return;
-    }
     if (event.key === "ArrowLeft") previous.click();
     if (event.key === "ArrowRight") next.click();
   });

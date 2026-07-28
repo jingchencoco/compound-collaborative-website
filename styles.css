@@ -2131,7 +2131,7 @@ body.project-page-turning .project-spread.is-turn-target {
   object-position: center center;
 }
 
-.project-spread-intro .project-description {
+.project-spread-intro .project-intro-copy {
   grid-column: 1;
   grid-row: 2;
   align-self: start;
@@ -2139,6 +2139,42 @@ body.project-page-turning .project-spread.is-turn-target {
   margin: clamp(15px, 2.2vh, 28px) 0 32px;
   padding-top: 22px;
   border-top: 1px solid rgba(37, 37, 33, 0.22);
+  max-height: calc(100svh - 300px);
+  overflow-y: auto;
+  padding-right: 18px;
+}
+
+.project-intro-copy .project-description {
+  max-width: none;
+  margin: 0;
+  font-size: clamp(14px, 1vw, 17px);
+  line-height: 1.42;
+}
+
+.project-more-inline--desktop {
+  margin-top: 12px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.project-more-inline--desktop summary {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.project-more-inline--desktop > div {
+  margin-top: 16px;
+}
+
+.project-more-inline--desktop h2 {
+  display: none;
+}
+
+.project-more-inline--desktop p:last-child {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  line-height: 1.48;
 }
 
 .project-spread-image {
