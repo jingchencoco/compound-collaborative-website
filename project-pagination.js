@@ -6,6 +6,26 @@ const projectName =
   projectTitle?.querySelector("h1, h2")?.textContent.trim() || "Project";
 const projectDescription = projectDetail?.querySelector(".project-description");
 
+function markMediaOrientation(media) {
+  const applyOrientation = () => {
+    const width = media.videoWidth || media.naturalWidth || 0;
+    const height = media.videoHeight || media.naturalHeight || 0;
+    if (!width || !height) return;
+    const ratio = width / height;
+    media.classList.remove("is-landscape", "is-portrait", "is-square");
+    media.classList.add(
+      ratio > 1.18 ? "is-landscape" : ratio < 0.85 ? "is-portrait" : "is-square"
+    );
+  };
+
+  applyOrientation();
+  if (!media.classList.contains("is-landscape") &&
+      !media.classList.contains("is-portrait") &&
+      !media.classList.contains("is-square")) {
+    media.addEventListener(media.tagName === "VIDEO" ? "loadedmetadata" : "load", applyOrientation, { once: true });
+  }
+}
+
 let generatedMoreContent = "";
 if (projectDescription) {
   const descriptionParagraphs = projectDescription.innerHTML
@@ -103,6 +123,7 @@ if (projectDetail && horizontalProjectLayout.matches) {
     const figure = document.createElement("figure");
     figure.className = `project-spread-figure${group.length > 1 ? " project-spread-figure--multi" : ""}`;
     group.forEach((image) => {
+      markMediaOrientation(image);
       figure.append(image);
     });
 

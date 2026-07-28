@@ -2311,6 +2311,28 @@ body.project-page-turning .project-spread.is-turn-target {
   place-self: center;
 }
 
+.project-spread-figure--multi .is-portrait {
+  width: auto;
+  max-width: 82%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.project-spread-figure--multi .is-landscape {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.project-spread-figure--multi .is-square {
+  width: auto;
+  max-width: 90%;
+  height: 92%;
+  object-fit: contain;
+}
+
 .project-spread-copy {
   grid-row: 1;
   align-self: end;
