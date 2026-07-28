@@ -3233,8 +3233,8 @@ body.project-lightbox-open {
     display: none;
   }
 
-  body:not(.project-horizontal) .project-title h1,
-  body:not(.project-horizontal) .project-title h2 {
+  body:not(.project-horizontal) .project-title > h1,
+  body:not(.project-horizontal) .project-title > h2 {
     max-width: 18ch;
     font-size: clamp(29px, 8.2vw, 38px);
     line-height: 1.02;
