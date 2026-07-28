@@ -2599,11 +2599,7 @@ body.project-page-turning .project-spread.is-turn-target {
 }
 
 .project-more-inline h2 {
-  margin: 0 0 20px;
-  font-family: "EB Garamond", serif;
-  font-size: 25px;
-  font-weight: 400;
-  line-height: 1.08;
+  display: none;
 }
 
 .project-more-inline p:last-child {
