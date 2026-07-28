@@ -73,3 +73,13 @@ window.addEventListener("scroll", () => {
   document.body.classList.toggle("header-hidden", scrollingDown);
   previousScrollY = currentScrollY;
 }, { passive: true });
+const siteWordmarkMarkup = `
+  <span class="site-wordmark" aria-label="Co squared, compound collaborative">
+    <span class="site-wordmark-mark">Co<sup>2</sup></span>
+    <span class="site-wordmark-name">compound collaborative</span>
+  </span>
+`;
+
+document.querySelectorAll(".header-home-link, .brand").forEach((element) => {
+  element.innerHTML = siteWordmarkMarkup;
+});

@@ -136,7 +136,7 @@ body.home-page {
   margin: 0;
   color: #252521;
   font-size: clamp(58px, 7vw, 112px);
-  line-height: 0.88;
+  line-height: 1.06;
   pointer-events: none;
 }
 
@@ -1009,10 +1009,51 @@ body.header-on-image .menu-toggle {
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.36);
 }
 
-.menu-toggle span:not(.menu-symbol):not(.visually-hidden) {
+.menu-toggle > span:not(.menu-symbol):not(.visually-hidden) {
   font-size: clamp(14px, 0.9vw, 17px);
   line-height: 1;
   font-weight: 400;
+}
+
+.site-wordmark {
+  display: inline-flex;
+  gap: 0.62em;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.menu-toggle .site-wordmark,
+.header-home-link .site-wordmark,
+.brand .site-wordmark {
+  font-size: inherit;
+  line-height: 1;
+}
+
+.site-wordmark-mark {
+  position: relative;
+  display: inline-block;
+  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-size: 1.55em;
+  font-weight: 700;
+  line-height: 0.7;
+  letter-spacing: -0.04em;
+}
+
+.site-wordmark-mark sup {
+  position: relative;
+  top: -0.42em;
+  margin-left: 0.04em;
+  font-size: 0.5em;
+  line-height: 0;
+}
+
+.site-wordmark-name {
+  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-size: 0.72em;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.11em;
+  text-transform: lowercase;
 }
 
 .menu-symbol {
@@ -2625,7 +2666,7 @@ body.project-lightbox-open {
     left: 22px;
     width: calc(100% - 44px);
     font-size: clamp(46px, 14vw, 68px);
-    line-height: 0.9;
+    line-height: 1.06;
   }
 
   .home-intro-note {

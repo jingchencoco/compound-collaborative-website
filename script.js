@@ -25,6 +25,19 @@ const projectPageStatus = document.querySelector(".project-page-status");
 const aboutSection = document.querySelector("#about");
 const contactSection = document.querySelector("#contact");
 
+const siteWordmarkMarkup = `
+  <span class="site-wordmark" aria-label="Co squared, compound collaborative">
+    <span class="site-wordmark-mark">Co<sup>2</sup></span>
+    <span class="site-wordmark-name">compound collaborative</span>
+  </span>
+`;
+
+document
+  .querySelectorAll(".menu-toggle > span:not(.menu-symbol):not(.visually-hidden), .brand")
+  .forEach((element) => {
+    element.innerHTML = siteWordmarkMarkup;
+  });
+
 const captions = {
   objects: "Objects / furniture, vessels, fragments, tools",
   "non-human": "Designing for non human / plants, animals, soils, water",
