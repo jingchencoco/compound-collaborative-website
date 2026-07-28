@@ -1,5 +1,14 @@
 const projectDetail = document.querySelector(".project-detail-page");
-const horizontalProjectLayout = window.matchMedia("(min-width: 901px)");
+const forceDesktopPreview = new URLSearchParams(window.location.search).has("desktop");
+const responsiveProjectLayout = window.matchMedia("(min-width: 901px)");
+const horizontalProjectLayout = {
+  get matches() {
+    return forceDesktopPreview || responsiveProjectLayout.matches;
+  },
+  addEventListener(...args) {
+    responsiveProjectLayout.addEventListener(...args);
+  },
+};
 const projectMoreTemplate = projectDetail?.querySelector(".project-more-content");
 const projectTitle = projectDetail?.querySelector(".project-title");
 const projectName =
