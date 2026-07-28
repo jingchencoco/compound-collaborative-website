@@ -892,9 +892,11 @@ body.home-page {
 
 .objects-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(32px, 4vw, 64px) clamp(16px, 2vw, 32px);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(54px, 5.5vw, 88px) clamp(22px, 2.4vw, 38px);
   align-items: start;
+  width: min(100%, 1500px);
+  margin: 0 auto;
 }
 
 .objects-grid .project-card {
