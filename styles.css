@@ -134,13 +134,13 @@ body.home-page {
   z-index: 4;
   width: auto;
   margin: 0;
-  color: rgba(31, 43, 47, 0.66);
-  font-family: "Bodoni 72", Didot, "Bodoni MT", "Times New Roman", Times, serif;
+  color: #252521;
+  font-family: "Cormorant Garamond", "Bodoni 72", Didot, serif;
   font-size: clamp(44px, 4.8vw, 78px);
   font-style: normal;
   font-weight: 300;
   line-height: 1.24;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.025em;
   pointer-events: none;
 }
 
