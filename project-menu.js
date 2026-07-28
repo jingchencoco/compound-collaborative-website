@@ -75,7 +75,7 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 const siteWordmarkMarkup = `
   <span class="site-wordmark" aria-label="Compound Collaborative">
-    <span class="site-wordmark-name"><strong>Co</strong>mpound <strong>Co</strong>llaborative</span>
+    <img class="site-wordmark-image" src="./assets/compound-collaborative-logo.png" alt="CO² compound collaborative">
   </span>
 `;
 
