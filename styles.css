@@ -3521,6 +3521,17 @@ body.project-overview-open {
     max-height: none;
   }
 
+  body:not(.project-horizontal) .project-detail-page img,
+  body:not(.project-horizontal) .project-detail-page video {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: none;
+    aspect-ratio: auto;
+    object-fit: contain;
+    object-position: center;
+  }
+
   body:not(.project-horizontal) .project-description {
     max-width: 30rem;
     margin-top: 30px;
