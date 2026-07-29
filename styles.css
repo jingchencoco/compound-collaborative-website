@@ -1848,28 +1848,28 @@ body.project-horizontal .back-to-projects:hover {
   text-transform: uppercase;
 }
 
-.project-card[data-category="gardens"] span:last-child::after {
-  content: "2023\A GARDENS / ARCHIVE";
+.project-card[data-category="houses"] span:last-child::after {
+  content: "2023\A HOUSES / ARCHIVE";
 }
 
 .project-card[data-category="mixed-development"] span:last-child::after {
-  content: "2023\A MIXED DEVELOPMENT / ARCHIVE";
+  content: "2023\A CONDOMINIUMS / MIXED DEVELOPMENT / ARCHIVE";
 }
 
-.project-card[data-category="retail-hotels"] span:last-child::after {
-  content: "2023\A RETAIL & HOTELS / ARCHIVE";
+.project-card[data-category="hotels-resorts"] span:last-child::after {
+  content: "2023\A HOTELS AND RESORTS / ARCHIVE";
 }
 
-.project-card[data-category="institutions"] span:last-child::after {
-  content: "2023\A INSTITUTIONS / ARCHIVE";
+.project-card[data-category="institution"] span:last-child::after {
+  content: "2023\A INSTITUTION / ARCHIVE";
+}
+
+.project-card[data-category="offices"] span:last-child::after {
+  content: "2023\A OFFICES / ARCHIVE";
 }
 
 .project-card[data-category="conservation"] span:last-child::after {
   content: "2023\A CONSERVATION / ARCHIVE";
-}
-
-.project-card[data-category="parks-recreation"] span:last-child::after {
-  content: "2023\A PARKS & RECREATION / ARCHIVE";
 }
 
 .project-card[data-category="objects"] span:last-child::after {
