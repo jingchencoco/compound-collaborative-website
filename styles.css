@@ -911,7 +911,8 @@ body.home-page {
   font-size: clamp(21px, 1.9vw, 30px);
   font-weight: 400;
   line-height: 1.02;
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
+  word-spacing: 0.08em;
 }
 
 .thinking-project p {
