@@ -124,6 +124,14 @@ if (projectDetail && horizontalProjectLayout.matches) {
       imageCursor += 1;
       continue;
     }
+    if (stackImages[imageCursor]?.dataset.soloSpread === "true") {
+      imageGroups.push({
+        group: stackImages.slice(imageCursor, imageCursor + 1),
+        layout: "layout-single-page",
+      });
+      imageCursor += 1;
+      continue;
+    }
     const forcedPair = stackImages[imageCursor]?.dataset.spreadPair;
     if (
       forcedPair &&
@@ -137,7 +145,11 @@ if (projectDetail && horizontalProjectLayout.matches) {
       continue;
     }
     const pattern = editorialPattern[patternCursor % editorialPattern.length];
-    const group = stackImages.slice(imageCursor, imageCursor + pattern.size);
+    let groupSize = pattern.size;
+    if (groupSize > 1 && stackImages[imageCursor + 1]?.dataset.soloSpread === "true") {
+      groupSize = 1;
+    }
+    const group = stackImages.slice(imageCursor, imageCursor + groupSize);
     imageGroups.push({ group, layout: pattern.layout });
     imageCursor += group.length;
     patternCursor += 1;
@@ -162,9 +174,13 @@ if (projectDetail && horizontalProjectLayout.matches) {
         const width = image.videoWidth || image.naturalWidth || 0;
         const height = image.videoHeight || image.naturalHeight || 0;
         if (!width || !height) return;
-        const isPanorama = width / height >= 2.1;
-        spread.classList.toggle("layout-cross-page", isPanorama);
-        spread.classList.toggle("layout-single-page", !isPanorama);
+        const ratio = width / height;
+        const shouldUseFullSpread =
+          image.dataset.soloSpread === "true" ||
+          image.dataset.fullSpread === "true" ||
+          ratio >= 1.22;
+        spread.classList.toggle("layout-cross-page", shouldUseFullSpread);
+        spread.classList.toggle("layout-single-page", !shouldUseFullSpread);
       };
 
       allowCrossPageOnlyForPanoramas();
