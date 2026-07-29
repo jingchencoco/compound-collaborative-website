@@ -1739,15 +1739,6 @@ body.project-horizontal .back-to-projects:hover {
   color: var(--ink);
 }
 
-.project-category-key {
-  margin: -18px 0 38px;
-  color: #74736d;
-  font-size: 10px;
-  line-height: 1.5;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
 .project-card-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -1857,31 +1848,49 @@ body.project-horizontal .back-to-projects:hover {
 }
 
 .project-card[data-category="gardens"] span:last-child::after {
-  content: "2023\A G / GARDENS / ARCHIVE";
+  content: "2023\A GARDENS / ARCHIVE";
 }
 
 .project-card[data-category="mixed-development"] span:last-child::after {
-  content: "2023\A M / MIXED DEVELOPMENT / ARCHIVE";
+  content: "2023\A MIXED DEVELOPMENT / ARCHIVE";
 }
 
 .project-card[data-category="retail-hotels"] span:last-child::after {
-  content: "2023\A R / RETAIL & HOTELS / ARCHIVE";
+  content: "2023\A RETAIL & HOTELS / ARCHIVE";
 }
 
 .project-card[data-category="institutions"] span:last-child::after {
-  content: "2023\A I / INSTITUTIONS / ARCHIVE";
+  content: "2023\A INSTITUTIONS / ARCHIVE";
 }
 
 .project-card[data-category="conservation"] span:last-child::after {
-  content: "2023\A C / CONSERVATION / ARCHIVE";
+  content: "2023\A CONSERVATION / ARCHIVE";
 }
 
 .project-card[data-category="parks-recreation"] span:last-child::after {
-  content: "2023\A P / PARKS & RECREATION / ARCHIVE";
+  content: "2023\A PARKS & RECREATION / ARCHIVE";
 }
 
 .project-card[data-category="objects"] span:last-child::after {
   content: "2023\A OBJECTS / ARCHIVE";
+}
+
+.project-card[data-meta] span:last-child::after {
+  content: none;
+}
+
+.project-card[data-meta]::after {
+  content: attr(data-meta);
+  display: block;
+  margin-top: -1px;
+  white-space: normal;
+  color: #4f4f49;
+  font-family: "Inter", sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1.8;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .project-card:nth-child(3n) .project-placeholder {
