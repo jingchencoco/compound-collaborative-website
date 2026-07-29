@@ -1861,6 +1861,34 @@ body.project-horizontal .back-to-projects:hover {
   text-transform: uppercase;
 }
 
+.project-card[data-category="gardens"] span:last-child::after {
+  content: "2023\A G / GARDENS / ARCHIVE";
+}
+
+.project-card[data-category="mixed-development"] span:last-child::after {
+  content: "2023\A M / MIXED DEVELOPMENT / ARCHIVE";
+}
+
+.project-card[data-category="retail-hotels"] span:last-child::after {
+  content: "2023\A R / RETAIL & HOTELS / ARCHIVE";
+}
+
+.project-card[data-category="institutions"] span:last-child::after {
+  content: "2023\A I / INSTITUTIONS / ARCHIVE";
+}
+
+.project-card[data-category="conservation"] span:last-child::after {
+  content: "2023\A C / CONSERVATION / ARCHIVE";
+}
+
+.project-card[data-category="parks-recreation"] span:last-child::after {
+  content: "2023\A P / PARKS & RECREATION / ARCHIVE";
+}
+
+.project-card[data-category="objects"] span:last-child::after {
+  content: "2023\A OBJECTS / ARCHIVE";
+}
+
 .project-card:nth-child(3n) .project-placeholder {
   background: #e3e2de;
 }
