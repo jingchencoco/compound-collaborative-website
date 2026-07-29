@@ -2395,7 +2395,7 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   align-content: stretch;
   justify-items: stretch;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(120px, 13vw, 240px);
+  gap: clamp(16px, 2.2vw, 34px);
 }
 
 .project-spread-image.image-left .project-spread-figure,
@@ -2411,12 +2411,21 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 .project-spread-image.multi-image .project-spread-figure {
   position: absolute;
   top: clamp(58px, 9vh, 128px);
-  left: clamp(64px, 6vw, 118px);
-  right: clamp(64px, 6vw, 118px);
+  left: clamp(28px, 3vw, 58px);
+  right: clamp(28px, 3vw, 58px);
   height: min(56%, calc(100svh - 300px));
   grid-column: 1 / -1;
   width: 100%;
   display: grid;
+}
+
+.project-detail-page--suxiangang .project-spread-figure--multi {
+  gap: clamp(120px, 13vw, 240px);
+}
+
+.project-detail-page--suxiangang .project-spread-image.multi-image .project-spread-figure {
+  left: clamp(64px, 6vw, 118px);
+  right: clamp(64px, 6vw, 118px);
 }
 
 .project-spread-image.multi-image .project-spread-copy {
