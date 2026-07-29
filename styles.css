@@ -2291,6 +2291,8 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   height: 100%;
   margin: 0;
   display: grid;
+  align-content: center;
+  gap: clamp(12px, 1.8vh, 22px);
   place-items: center;
 }
 
@@ -2302,6 +2304,18 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   max-height: calc(100svh - 96px);
   object-fit: contain;
   object-position: center center;
+}
+
+.project-spread-intro .project-photo-caption {
+  max-width: min(100%, 36rem);
+  margin: 0;
+  justify-self: start;
+  font-family: "EB Garamond", serif;
+  font-size: clamp(22px, 2.35vw, 40px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: 0;
+  color: #252521;
 }
 
 .project-spread-intro .project-intro-copy {
