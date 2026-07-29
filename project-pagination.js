@@ -116,6 +116,26 @@ if (projectDetail && horizontalProjectLayout.matches) {
   let imageCursor = 0;
   let patternCursor = 0;
   while (imageCursor < stackImages.length) {
+    if (projectDetail.dataset.singleImageSpreads === "true") {
+      imageGroups.push({
+        group: stackImages.slice(imageCursor, imageCursor + 1),
+        layout: "layout-single-page",
+      });
+      imageCursor += 1;
+      continue;
+    }
+    const forcedPair = stackImages[imageCursor]?.dataset.spreadPair;
+    if (
+      forcedPair &&
+      stackImages[imageCursor + 1]?.dataset.spreadPair === forcedPair
+    ) {
+      imageGroups.push({
+        group: stackImages.slice(imageCursor, imageCursor + 2),
+        layout: "layout-pair",
+      });
+      imageCursor += 2;
+      continue;
+    }
     const pattern = editorialPattern[patternCursor % editorialPattern.length];
     const group = stackImages.slice(imageCursor, imageCursor + pattern.size);
     imageGroups.push({ group, layout: pattern.layout });
@@ -296,7 +316,7 @@ if (projectImages.length) {
   function showLightboxImage(index) {
     activeImageIndex = (index + projectImages.length) % projectImages.length;
     const sourceImage = projectImages[activeImageIndex];
-    lightboxImage.src = sourceImage.currentSrc || sourceImage.src;
+    lightboxImage.src = sourceImage.dataset.fullSrc || sourceImage.currentSrc || sourceImage.src;
     lightboxImage.alt = sourceImage.alt || "";
     lightboxCaption.textContent = sourceImage.alt || "";
     lightboxPrevious.hidden = projectImages.length < 2;

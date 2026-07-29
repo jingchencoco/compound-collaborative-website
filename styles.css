@@ -1105,6 +1105,22 @@ body.header-on-image .menu-toggle {
   font-weight: 700;
 }
 @media (min-width: 901px) {
+  .project-spread-intro .project-intro-copy .project-description,
+  .project-spread-intro .project-more-inline--desktop p,
+  .project-spread-intro .project-more-inline--desktop p:last-child {
+    font-family: "EB Garamond", serif;
+    font-size: clamp(12px, 0.82vw, 14px);
+    font-weight: 400;
+    line-height: 1.48;
+    letter-spacing: 0;
+  }
+
+  .project-spread-image:not(.layout-cross-page) .project-spread-figure img:not([data-full-src]),
+  .project-spread-image:not(.layout-cross-page) .project-spread-figure video {
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+
   .home-page .menu-toggle {
     left: clamp(28px, 4.5vw, 88px);
     gap: 0;
