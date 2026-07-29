@@ -86,6 +86,7 @@ if (projectDetail && horizontalProjectLayout.matches) {
   const mainPhoto = projectDetail.querySelector(".project-photo");
   const description = projectDetail.querySelector(".project-description");
   const stackImages = [...projectDetail.querySelectorAll(".project-image-stack img, .project-image-stack video")];
+  mainPhoto?.querySelectorAll("img, video").forEach(markMediaOrientation);
   const rail = document.createElement("div");
   rail.className = "project-spread-rail";
 
