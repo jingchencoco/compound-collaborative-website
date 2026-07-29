@@ -255,8 +255,9 @@ if (projectDetail && horizontalProjectLayout.matches) {
       currentPage = targetPage;
       isTurning = false;
       updatePage();
-    }, 860);
+    }, 620);
   }
+  window.projectTurnTo = turnTo;
 
   previous.addEventListener("click", () => {
     turnTo(currentPage - 1);
@@ -289,6 +290,75 @@ horizontalProjectLayout.addEventListener("change", () => {
 const projectImages = [...document.querySelectorAll(".project-detail-page img")];
 
 if (projectImages.length) {
+  const overviewButton = document.createElement("button");
+  overviewButton.className = "project-overview-button";
+  overviewButton.type = "button";
+  overviewButton.textContent = "All photos";
+  overviewButton.setAttribute("aria-label", "View all project photos");
+  document.body.append(overviewButton);
+
+  const overview = document.createElement("div");
+  overview.className = "project-photo-overview";
+  overview.hidden = true;
+  overview.setAttribute("role", "dialog");
+  overview.setAttribute("aria-modal", "true");
+  overview.setAttribute("aria-label", "All project photos");
+  overview.innerHTML = `
+    <div class="project-photo-overview-panel">
+      <button class="project-photo-overview-close" type="button" aria-label="Close photo overview">Close</button>
+      <div class="project-photo-overview-grid"></div>
+    </div>
+  `;
+  document.body.append(overview);
+
+  const overviewGrid = overview.querySelector(".project-photo-overview-grid");
+  const overviewClose = overview.querySelector(".project-photo-overview-close");
+
+  function findImagePageIndex(image) {
+    const page = image.closest(".project-spread");
+    if (!page) return -1;
+    return [...page.parentElement.children].indexOf(page);
+  }
+
+  function openOverview() {
+    overview.hidden = false;
+    document.body.classList.add("project-overview-open");
+    overviewClose.focus();
+  }
+
+  function closeOverview() {
+    overview.hidden = true;
+    document.body.classList.remove("project-overview-open");
+    overviewButton.focus();
+  }
+
+  projectImages.forEach((image, index) => {
+    const item = document.createElement("button");
+    item.className = "project-photo-overview-item";
+    item.type = "button";
+    item.setAttribute("aria-label", image.alt || `Project image ${index + 1}`);
+    item.innerHTML = `<img alt=""><span>${String(index + 1).padStart(2, "0")}</span>`;
+    const thumbnail = item.querySelector("img");
+    thumbnail.src = image.currentSrc || image.src;
+    thumbnail.alt = "";
+    item.addEventListener("click", () => {
+      const pageIndex = findImagePageIndex(image);
+      closeOverview();
+      if (pageIndex >= 0 && typeof window.projectTurnTo === "function") {
+        window.projectTurnTo(pageIndex);
+      } else {
+        image.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    });
+    overviewGrid.append(item);
+  });
+
+  overviewButton.addEventListener("click", openOverview);
+  overviewClose.addEventListener("click", closeOverview);
+  overview.addEventListener("click", (event) => {
+    if (event.target === overview) closeOverview();
+  });
+
   const lightbox = document.createElement("div");
   lightbox.className = "project-lightbox";
   lightbox.hidden = true;
@@ -356,6 +426,7 @@ if (projectImages.length) {
     if (event.target === lightbox) closeLightbox();
   });
   window.addEventListener("keydown", (event) => {
+    if (!overview.hidden && event.key === "Escape") closeOverview();
     if (lightbox.hidden) return;
     if (event.key === "Escape") closeLightbox();
     if (event.key === "ArrowLeft") showLightboxImage(activeImageIndex - 1);

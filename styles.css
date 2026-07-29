@@ -1744,6 +1744,15 @@ body.project-horizontal .back-to-projects:hover {
   color: var(--ink);
 }
 
+.project-category-key {
+  margin: -18px 0 38px;
+  color: #74736d;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 .project-card-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -2117,6 +2126,31 @@ body.project-horizontal .project-page-nav {
   will-change: clip-path, transform, filter;
 }
 
+.project-spread::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(37, 37, 33, 0.08) 12%,
+    rgba(37, 37, 33, 0.22) 50%,
+    rgba(37, 37, 33, 0.08) 88%,
+    transparent
+  );
+  box-shadow: -1px 0 0 rgba(255, 255, 255, 0.7), 1px 0 0 rgba(37, 37, 33, 0.04);
+  pointer-events: none;
+}
+
+.project-spread > * {
+  position: relative;
+  z-index: 1;
+}
+
 .project-spread.is-active {
   z-index: 2;
   opacity: 1;
@@ -2140,11 +2174,11 @@ body.project-horizontal .project-page-nav {
 }
 
 body.project-page-turning .project-spread.is-active {
-  animation: project-page-fade-out 360ms ease-out both;
+  animation: project-page-fade-out 240ms ease-out both;
 }
 
 body.project-page-turning .project-spread.is-turn-target {
-  animation: project-page-fade-in 560ms ease-in-out 280ms both;
+  animation: project-page-fade-in 360ms ease-in-out 120ms both;
 }
 
 @keyframes project-page-fade-out {
@@ -2784,6 +2818,104 @@ body.project-page-turning .project-spread.is-turn-target {
 
 body.project-lightbox-open {
   overflow: hidden;
+}
+
+body.project-overview-open {
+  overflow: hidden;
+}
+
+.project-overview-button {
+  position: fixed;
+  z-index: 22;
+  right: auto;
+  left: clamp(300px, 31vw, 560px);
+  bottom: 29px;
+  padding: 5px 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: #686862;
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.project-photo-overview[hidden] {
+  display: none;
+}
+
+.project-photo-overview {
+  position: fixed;
+  z-index: 95;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(24px, 4vw, 62px);
+  background: rgba(250, 250, 248, 0.86);
+  backdrop-filter: blur(8px);
+}
+
+.project-photo-overview-panel {
+  position: relative;
+  width: min(1120px, 100%);
+  max-height: min(760px, calc(100svh - 80px));
+  padding: 52px clamp(22px, 3vw, 42px) clamp(22px, 3vw, 42px);
+  overflow: auto;
+  background: #fbfaf6;
+  box-shadow: 0 18px 70px rgba(37, 37, 33, 0.16);
+}
+
+.project-photo-overview-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  padding: 0 0 4px;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: #686862;
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.project-photo-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 18px;
+}
+
+.project-photo-overview-item {
+  display: grid;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #74736d;
+  font: inherit;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-align: left;
+  cursor: pointer;
+}
+
+.project-photo-overview-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  background: #eeeeeb;
+  filter: saturate(0.86);
+  transition: filter 260ms ease, transform 360ms cubic-bezier(0.22, 0.66, 0.2, 1);
+}
+
+.project-photo-overview-item:hover img {
+  filter: saturate(1);
+  transform: translateY(-2px);
 }
 
 .project-lightbox[hidden] {
@@ -3461,6 +3593,13 @@ body.project-lightbox-open {
 
   .project-page-counter {
     right: 112px;
+  }
+
+  .project-overview-button {
+    left: 50%;
+    bottom: 27px;
+    transform: translateX(-50%);
+    font-size: 10px;
   }
 
   .project-more-toggle {
