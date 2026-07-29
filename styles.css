@@ -2167,20 +2167,21 @@ body.project-horizontal .project-page-nav {
   z-index: 3;
   top: 0;
   bottom: 0;
-  left: calc(50% - 6px);
-  width: 12px;
+  left: calc(50% - 18px);
+  width: 36px;
   background: linear-gradient(
     to right,
-    rgba(37, 37, 33, 0.04),
-    rgba(37, 37, 33, 0.16) 42%,
-    rgba(37, 37, 33, 0.44) 49%,
-    rgba(255, 255, 255, 0.7) 53%,
-    rgba(37, 37, 33, 0.1)
+    transparent,
+    rgba(37, 37, 33, 0.055) 36%,
+    rgba(37, 37, 33, 0.14) 48%,
+    rgba(255, 255, 255, 0.68) 52%,
+    rgba(255, 255, 255, 0.18) 64%,
+    transparent
   );
   box-shadow:
-    -1px 0 0 rgba(37, 37, 33, 0.08),
-    1px 0 0 rgba(255, 255, 255, 0.55);
-  opacity: 0.78;
+    -10px 0 18px -20px rgba(37, 37, 33, 0.35),
+    10px 0 18px -20px rgba(255, 255, 255, 0.8);
+  opacity: 0.82;
   mix-blend-mode: multiply;
   pointer-events: none;
 }
