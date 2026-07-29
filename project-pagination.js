@@ -426,9 +426,12 @@ if (projectImages.length) {
   function showLightboxImage(index) {
     activeImageIndex = (index + projectImages.length) % projectImages.length;
     const sourceImage = projectImages[activeImageIndex];
+    const lightboxCaptionText = [sourceImage.dataset.quote, sourceImage.dataset.note]
+      .filter(Boolean)
+      .join("\n\n");
     lightboxImage.src = sourceImage.dataset.fullSrc || sourceImage.currentSrc || sourceImage.src;
     lightboxImage.alt = sourceImage.alt || "";
-    lightboxCaption.textContent = sourceImage.alt || "";
+    lightboxCaption.textContent = lightboxCaptionText || sourceImage.alt || "";
     lightboxPrevious.hidden = projectImages.length < 2;
     lightboxNext.hidden = projectImages.length < 2;
   }

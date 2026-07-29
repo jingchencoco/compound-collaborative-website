@@ -188,7 +188,63 @@ body.home-page {
   font-weight: 300;
   line-height: 1.24;
   letter-spacing: -0.025em;
+  pointer-events: auto;
+}
+
+.home-slogan-term {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  pointer-events: auto;
+}
+
+.home-slogan-term:focus {
+  outline: 0;
+}
+
+.home-slogan-term::after {
+  content: "";
+  position: absolute;
+  left: 0.05em;
+  right: 0.08em;
+  bottom: 0.04em;
+  border-bottom: 1px solid rgba(37, 37, 33, 0.28);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.home-slogan-term:hover::after,
+.home-slogan-term:focus-visible::after {
+  opacity: 1;
+}
+
+.home-slogan-tooltip {
+  position: relative;
+  z-index: 8;
+  display: block;
+  width: min(520px, calc(100vw - 96px));
+  margin-top: 16px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: #252521;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(12px, 0.95vw, 15px);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+  opacity: 0;
   pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.home-slogan-term:hover + .home-slogan-tooltip,
+.home-slogan-term:focus + .home-slogan-tooltip,
+.home-slogan-term:focus-visible + .home-slogan-tooltip {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .home-intro-note {
@@ -2468,7 +2524,7 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 }
 
 .project-detail-page--suxiangang .project-spread-image-note {
-  width: min(100%, 18rem);
+  width: min(100%, 28rem);
   margin-top: clamp(38px, 5.5vh, 68px);
   justify-self: start;
   text-align: left;
@@ -3126,6 +3182,7 @@ body.project-overview-open {
   font-size: 11px;
   line-height: 1.35;
   text-align: center;
+  white-space: pre-line;
 }
 
 .project-lightbox button {
@@ -3245,6 +3302,12 @@ body.project-overview-open {
     width: calc(100% - 78px);
     font-size: clamp(30px, 8.4vw, 43px);
     line-height: 1.18;
+  }
+
+  .home-slogan-tooltip {
+    width: min(76vw, 320px);
+    margin-top: 12px;
+    font-size: 12px;
   }
 
   .home-intro-note {
