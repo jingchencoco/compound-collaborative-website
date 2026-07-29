@@ -243,19 +243,24 @@ if (projectDetail && horizontalProjectLayout.matches) {
     }
 
     isTurning = true;
+    const currentQuietSwap = pages[currentPage]?.querySelector("[data-quiet-swap]")?.dataset.quietSwap;
     const target = pages[targetPage];
+    const targetQuietSwap = target.querySelector("[data-quiet-swap]")?.dataset.quietSwap;
+    const isQuietSwap = currentQuietSwap && currentQuietSwap === targetQuietSwap;
     target.classList.add("is-turn-target");
     target.setAttribute("aria-hidden", "false");
     document.body.classList.add("project-page-turning");
+    document.body.classList.toggle("project-page-quiet-swap", Boolean(isQuietSwap));
     previous.disabled = true;
     next.disabled = true;
 
     window.setTimeout(() => {
       document.body.classList.remove("project-page-turning");
+      document.body.classList.remove("project-page-quiet-swap");
       currentPage = targetPage;
       isTurning = false;
       updatePage();
-    }, 620);
+    }, isQuietSwap ? 420 : 620);
   }
   window.projectTurnTo = turnTo;
 
