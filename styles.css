@@ -2420,12 +2420,59 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 }
 
 .project-detail-page--suxiangang .project-spread-figure--multi {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(120px, 13vw, 240px);
+  place-items: start stretch;
 }
 
 .project-detail-page--suxiangang .project-spread-image.multi-image .project-spread-figure {
   left: clamp(64px, 6vw, 118px);
   right: clamp(64px, 6vw, 118px);
+  width: auto;
+}
+
+.project-detail-page--suxiangang .project-spread-figure--multi img,
+.project-detail-page--suxiangang .project-spread-figure--multi video {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: none;
+  aspect-ratio: 1600 / 1127;
+  object-fit: contain;
+  place-self: start center;
+}
+
+.project-detail-page--suxiangang .project-spread-media-item {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  align-content: start;
+  justify-items: center;
+  min-width: 0;
+}
+
+.project-detail-page--suxiangang .project-spread-image-quote,
+.project-detail-page--suxiangang .project-spread-image-note {
+  margin: 0;
+  font-family: "EB Garamond", serif;
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: 0;
+  color: #252521;
+}
+
+.project-detail-page--suxiangang .project-spread-image-quote {
+  width: 100%;
+  margin-top: clamp(12px, 1.5vh, 18px);
+  text-align: center;
+  font-size: clamp(14px, 1.25vw, 21px);
+}
+
+.project-detail-page--suxiangang .project-spread-image-note {
+  width: min(100%, 18rem);
+  margin-top: clamp(38px, 5.5vh, 68px);
+  justify-self: start;
+  text-align: left;
+  font-size: clamp(14px, 1.15vw, 20px);
 }
 
 .project-spread-image.multi-image .project-spread-copy {

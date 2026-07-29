@@ -165,6 +165,25 @@ if (projectDetail && horizontalProjectLayout.matches) {
     figure.className = `project-spread-figure${group.length > 1 ? " project-spread-figure--multi" : ""}`;
     group.forEach((image) => {
       markMediaOrientation(image);
+      if (group.length > 1 && (image.dataset.quote || image.dataset.note)) {
+        const mediaItem = document.createElement("div");
+        mediaItem.className = "project-spread-media-item";
+        mediaItem.append(image);
+        if (image.dataset.quote) {
+          const quote = document.createElement("p");
+          quote.className = "project-spread-image-quote";
+          quote.textContent = image.dataset.quote;
+          mediaItem.append(quote);
+        }
+        if (image.dataset.note) {
+          const note = document.createElement("p");
+          note.className = "project-spread-image-note";
+          note.textContent = image.dataset.note;
+          mediaItem.append(note);
+        }
+        figure.append(mediaItem);
+        return;
+      }
       figure.append(image);
     });
 
