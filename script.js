@@ -158,20 +158,13 @@ menuToggle.addEventListener("click", () => {
 });
 menuClose.addEventListener("click", () => setMenu(false));
 menuScrim.addEventListener("click", () => setMenu(false));
-function revealSecondarySection(target) {
-  aboutSection?.removeAttribute("hidden");
-  contactSection?.removeAttribute("hidden");
-  window.requestAnimationFrame(() => {
-    target?.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-}
-
 menuLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
     const targetId = link.getAttribute("href");
-    if (targetId === "#about" || targetId === "#contact") {
+    const target = targetId?.startsWith("#") ? document.querySelector(targetId) : null;
+    if (target) {
       event.preventDefault();
-      revealSecondarySection(targetId === "#about" ? aboutSection : contactSection);
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     setMenu(false);
   });
@@ -255,7 +248,9 @@ if ("IntersectionObserver" in window) {
 updateProjectPages(true);
 
 if (window.location.hash === "#about" || window.location.hash === "#contact") {
-  revealSecondarySection(window.location.hash === "#about" ? aboutSection : contactSection);
+  window.requestAnimationFrame(() => {
+    document.querySelector(window.location.hash)?.scrollIntoView({ block: "start" });
+  });
 }
 
 const returnCardIndex = sessionStorage.getItem("coco-return-card");
