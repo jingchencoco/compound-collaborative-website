@@ -252,13 +252,16 @@ if (projectDetail && horizontalProjectLayout.matches) {
     note.className = "project-spread-note";
     note.textContent = "Exhibition view / project archive";
 
-    if (group[0]?.dataset.hideMeta === "true") {
+    if (group[0]?.dataset.hideCaption === "true") {
+      copy.remove();
+    } else if (group[0]?.dataset.hideMeta === "true") {
       copy.append(caption);
       copy.classList.add("project-spread-copy--caption-only");
     } else {
       copy.append(folio, caption, note);
     }
-    spread.append(figure, copy);
+    spread.append(figure);
+    if (group[0]?.dataset.hideCaption !== "true") spread.append(copy);
     rail.append(spread);
   });
 
@@ -267,7 +270,22 @@ if (projectDetail && horizontalProjectLayout.matches) {
   document.body.classList.add("project-horizontal");
 
   const pages = [...rail.children];
-  let currentPage = 0;
+  function getPageFromHash() {
+    const match = window.location.hash.match(/^#page-(\d+)$/);
+    if (!match) return 0;
+    return Math.min(Math.max(Number(match[1]) - 1, 0), pages.length - 1);
+  }
+
+  function rememberPage() {
+    if (!shouldRememberPage) return;
+    const hash = `#page-${currentPage + 1}`;
+    if (window.location.hash !== hash) {
+      window.history.replaceState(null, "", hash);
+    }
+  }
+
+  let shouldRememberPage = /^#page-\d+$/.test(window.location.hash);
+  let currentPage = getPageFromHash();
   const previous = document.createElement("button");
   previous.className = "project-page-edge project-page-previous";
   previous.type = "button";
@@ -293,12 +311,14 @@ if (projectDetail && horizontalProjectLayout.matches) {
     previous.disabled = currentPage === 0;
     next.disabled = currentPage === pages.length - 1;
     counter.textContent = `${String(currentPage + 1).padStart(2, "0")} / ${String(pages.length).padStart(2, "0")}`;
+    rememberPage();
   }
 
   let isTurning = false;
 
   function turnTo(targetPage) {
     if (isTurning || targetPage === currentPage || targetPage < 0 || targetPage >= pages.length) return;
+    shouldRememberPage = true;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       currentPage = targetPage;
@@ -340,6 +360,10 @@ if (projectDetail && horizontalProjectLayout.matches) {
     if (event.key === "ArrowRight") next.click();
   });
   window.addEventListener("resize", updatePage);
+  window.addEventListener("hashchange", () => {
+    const targetPage = getPageFromHash();
+    if (targetPage !== currentPage) turnTo(targetPage);
+  });
   updatePage();
 
   window.requestAnimationFrame(() => {
