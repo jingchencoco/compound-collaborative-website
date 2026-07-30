@@ -4221,3 +4221,34 @@ body.project-overview-open {
   content: none;
   display: none;
 }
+
+.project-detail-page[aria-label="TMW Maxwell Showroom project"] .project-spread-figure--multi {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: minmax(0, 1fr);
+  gap: clamp(26px, 4vw, 70px);
+  align-items: center;
+  justify-items: center;
+  overflow: visible;
+}
+
+.project-detail-page[aria-label="TMW Maxwell Showroom project"] .project-spread-figure--multi img,
+.project-detail-page[aria-label="TMW Maxwell Showroom project"] .project-spread-image.layout-asymmetric .project-spread-figure img:first-child,
+.project-detail-page[aria-label="TMW Maxwell Showroom project"] .project-spread-image.layout-asymmetric .project-spread-figure img:nth-child(2) {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: min(100%, calc(100svh - 250px)) !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  place-self: center !important;
+}
+
+.project-detail-page[aria-label="TMW Maxwell Showroom project"] .project-spread-image.layout-single-page .project-spread-figure img,
+.project-detail-page[aria-label="TMW Maxwell Showroom project"] .project-spread-image.layout-cross-page .project-spread-figure img:first-child {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(100%, calc(100svh - 230px));
+  object-fit: contain;
+  object-position: center center;
+}
