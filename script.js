@@ -14,7 +14,21 @@ const projectFilterButtons = document.querySelectorAll(".project-filter button")
 const projectCardGrid = document.querySelector(".project-card-grid");
 const objectsGrid = document.querySelector(".objects-grid");
 const objectCards = [...document.querySelectorAll('.project-card[data-category="objects"]')];
+const projectCategoryOrder = [
+  "mixed-development",
+  "institution",
+  "hotels-resorts",
+  "offices",
+  "conservation",
+  "houses",
+];
+const getProjectCategoryRank = (card) => {
+  const rank = projectCategoryOrder.indexOf(card.dataset.category);
+  return rank === -1 ? projectCategoryOrder.length : rank;
+};
 const projectCards = [...document.querySelectorAll('.project-card:not([data-category="objects"])')].sort((a, b) => {
+  const categoryDelta = getProjectCategoryRank(a) - getProjectCategoryRank(b);
+  if (categoryDelta !== 0) return categoryDelta;
   return Number(!a.querySelector("img")) - Number(!b.querySelector("img"));
 });
 const revealItems = document.querySelectorAll(".project-filter, .project-card");
