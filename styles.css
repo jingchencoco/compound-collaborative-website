@@ -2228,6 +2228,16 @@ body.project-horizontal .sidebar {
   box-shadow: 18px 0 60px rgba(37, 37, 33, 0.14);
 }
 
+body.project-horizontal:not(.menu-open) .sidebar {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+body.project-horizontal.menu-open .sidebar {
+  visibility: visible;
+  pointer-events: auto;
+}
+
 body.project-horizontal .menu-scrim {
   background: rgba(37, 37, 33, 0.24);
 }
@@ -2240,6 +2250,25 @@ body.project-horizontal .project-page {
 body.project-horizontal .project-page-nav {
   height: 0;
   margin: 0;
+}
+
+/* Prevent the portrait header from flashing before the horizontal detail view initializes. */
+body:has(.project-detail-page) .header-home-link {
+  display: none;
+}
+
+/* Detail spreads use the horizontal navigation only. */
+body:has(.project-detail-page) .sidebar,
+body:has(.project-detail-page) .header-home-link {
+  display: none !important;
+}
+
+body:has(.project-detail-page) .header-home-link {
+  display: block !important;
+}
+
+body:has(.project-detail-page).menu-open .sidebar {
+  display: flex !important;
 }
 
 .project-detail.is-horizontal {
@@ -2644,6 +2673,60 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: 0;
+}
+
+.project-detail-page--suxiangang .project-spread-image.layout-single-page .project-spread-figure {
+  transform: translateX(clamp(24px, 5vw, 80px));
+}
+
+.project-detail-page[aria-label="Animal Condominium project"] .project-spread-image.layout-cross-page .project-spread-figure {
+  top: var(--book-page-top) !important;
+  right: var(--book-page-side) !important;
+  bottom: var(--book-page-bottom) !important;
+  left: var(--book-page-side) !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  transform: none !important;
+  overflow: hidden !important;
+  align-content: center !important;
+  justify-items: center !important;
+}
+
+.project-detail-page[aria-label="Animal Condominium project"] .project-spread-image.layout-cross-page .project-spread-figure,
+.project-detail-page[aria-label="Animal Condominium project"] .project-spread-image.layout-cross-page .project-spread-figure img {
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+.project-detail-page[aria-label="Animal Condominium project"] .project-spread-image.layout-cross-page .project-spread-figure img:first-child,
+.project-detail-page[aria-label="Animal Condominium project"] .project-spread-image.layout-cross-page .project-spread-figure video:first-child {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+.project-detail-page[aria-label="Animal Condominium project"] .project-photo img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: calc(100svh - 52px - var(--book-page-top) - var(--book-page-bottom)) !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
+.project-detail-page[aria-label="On Air project"] .project-spread-figure img[src*="on-air-07"] {
+  transform: translateY(clamp(-46px, -4vh, -28px));
+}
+
+.project-detail-page[aria-label="On Air project"] .project-spread-figure img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: calc(100svh - 260px) !important;
+  object-fit: contain !important;
 }
 
 .project-spread-image.multi-image .project-spread-copy {

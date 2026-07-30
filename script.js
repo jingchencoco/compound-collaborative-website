@@ -1,3 +1,6 @@
+if ("scrollRestoration" in window.history) window.history.scrollRestoration = "manual";
+if (!window.location.hash) window.scrollTo(0, 0);
+
 const preview = document.querySelector(".preview");
 const previewCaption = document.querySelector(".preview-caption");
 const previewTargets = document.querySelectorAll("[data-preview]");
