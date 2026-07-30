@@ -2277,7 +2277,9 @@ body.project-horizontal .project-page-nav {
     radial-gradient(circle at 42% 78%, rgba(255, 255, 255, 0.24) 0 0.7px, transparent 1px),
     linear-gradient(90deg, rgba(86, 64, 31, 0.16), transparent 18%, transparent 82%, rgba(86, 64, 31, 0.13)),
     #b8a06f;
-  background: #8f744c;
+  background:
+    linear-gradient(rgba(247, 244, 238, 0.78), rgba(247, 244, 238, 0.78)),
+    url("./assets/paper-texture.png") center / 680px 960px repeat;
   pointer-events: none;
 }
 
@@ -2289,7 +2291,7 @@ body.project-horizontal .project-page-nav {
   right: calc(var(--book-page-side) - var(--book-outline-expand));
   bottom: var(--book-page-bottom);
   left: calc(var(--book-page-side) - var(--book-outline-expand));
-  border: 3px solid #000;
+  border: 0;
   pointer-events: none;
 }
 
@@ -2339,7 +2341,17 @@ body.project-horizontal .project-page-nav {
 }
 
 .project-spread::after {
-  display: none;
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: var(--book-page-top);
+  right: calc(var(--book-page-side) - var(--book-outline-expand));
+  bottom: var(--book-page-bottom);
+  left: calc(var(--book-page-side) - var(--book-outline-expand));
+  background:
+    linear-gradient(rgba(247, 244, 238, 0.78), rgba(247, 244, 238, 0.78)),
+    url("./assets/paper-texture.png") center / 680px 960px repeat;
+  pointer-events: none;
 }
 
 .project-spread > * {
@@ -2624,11 +2636,11 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   position: absolute;
   right: clamp(82px, 9vw, 176px);
   bottom: clamp(126px, 17vh, 230px);
-  width: min(31vw, 520px);
+  width: min(18vw, 300px);
   margin: 0;
   color: #252521;
   font-family: "EB Garamond", serif;
-  font-size: clamp(30px, 3.1vw, 62px);
+  font-size: clamp(18px, 1.6vw, 30px);
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: 0;
@@ -2693,22 +2705,25 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 }
 
 .project-detail-page[aria-label="House in Khao Yai project"] .khao-yai-page-offset {
-  max-width: min(31vw, 500px);
-  max-height: min(74%, calc(100svh - 320px));
+  max-width: min(28vw, 470px);
+  max-height: calc(100svh - 220px);
   align-self: start;
-  transform: translateY(clamp(-54px, -5.2vh, -34px));
+  transform: none;
+  object-fit: contain;
 }
 
 .project-detail-page[aria-label="House in Khao Yai project"] .khao-yai-right-page-full {
-  width: min(37vw, 720px);
-  max-width: 100%;
-  max-height: calc(100svh - 122px);
+  width: min(34vw, 680px);
+  max-width: calc(100% - 24px);
+  max-height: calc(100svh - 220px);
+  object-fit: contain;
+  transform: translateX(calc(-1 * clamp(16px, 2.8vw, 56px)));
 }
 
 .project-detail-page[aria-label="House in Khao Yai project"] .khao-yai-pond-offset {
-  width: min(38vw, 760px);
+  width: min(34vw, 680px);
   max-width: 100%;
-  max-height: min(42vh, 430px);
+  max-height: calc(100svh - 240px);
   aspect-ratio: 4 / 3;
   object-fit: contain;
   place-self: start center;
@@ -2717,16 +2732,46 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 .project-detail-page[aria-label="House in Khao Yai project"] .project-spread-media-item:has(.khao-yai-pond-offset) {
   align-content: start;
   justify-items: center;
-  transform: translateY(clamp(-86px, -9vh, -54px));
+  transform: none;
 }
 
 .project-detail-page[aria-label="House in Khao Yai project"] .project-spread-media-item:has(.khao-yai-stream-lift) {
-  transform: translateY(clamp(-42px, -4vh, -24px));
+  transform: none;
 }
 
 .project-detail-page[aria-label="House in Khao Yai project"] .khao-yai-stream-lift {
-  max-width: min(38vw, 650px);
-  max-height: min(78vh, calc(100svh - 230px));
+  max-width: min(34vw, 650px);
+  max-height: calc(100svh - 220px);
+  object-fit: contain;
+}
+
+/* Final Khao Yai fit guard: keep every image complete inside the dark spread. */
+.project-detail-page[aria-label="House in Khao Yai project"] .project-spread-figure img,
+.project-detail-page[aria-label="House in Khao Yai project"] .project-spread-figure video {
+  width: auto !important;
+  height: auto !important;
+  max-width: min(34vw, 680px) !important;
+  max-height: calc(100svh - 260px) !important;
+  object-fit: contain !important;
+  transform: none !important;
+}
+
+.project-detail-page[aria-label="House in Khao Yai project"] .project-photo img,
+.project-detail-page[aria-label="House in Khao Yai project"] .project-photo video {
+  width: auto !important;
+  height: auto !important;
+  max-width: min(34vw, 680px) !important;
+  max-height: calc(100svh - 260px) !important;
+  object-fit: contain !important;
+  transform: none !important;
+}
+
+.project-detail-page[aria-label="House in Khao Yai project"] .project-spread-figure--multi .is-landscape,
+.project-detail-page[aria-label="House in Khao Yai project"] .project-spread-figure--multi .is-portrait,
+.project-detail-page[aria-label="House in Khao Yai project"] .project-spread-figure--multi .is-square {
+  width: auto !important;
+  max-width: min(34vw, 680px) !important;
+  max-height: calc(100svh - 260px) !important;
 }
 
 .project-detail-page[aria-label="House in Sentosa project"] .sentosa-safe-fit {
@@ -3038,6 +3083,22 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 }
 
 @media (min-width: 901px) {
+  .project-spread-image.layout-single-page .project-spread-figure {
+    height: calc(100svh - 220px);
+    align-content: center;
+    justify-items: center;
+    overflow: visible;
+  }
+
+  .project-spread-image.layout-single-page .project-spread-figure img,
+  .project-spread-image.layout-single-page .project-spread-figure video {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
   .project-spread-image.layout-cross-page .project-spread-figure {
     position: absolute;
     top: clamp(44px, 6vh, 78px);
@@ -4309,6 +4370,11 @@ body.project-overview-open {
 
 .project-spread-copy--caption-only {
   color: #252521;
+}
+
+/* Hide the generated project metadata block shown at the lower-left of spreads. */
+.project-spread-copy {
+  display: none;
 }
 
 .project-spread-copy--caption-only h2 {
