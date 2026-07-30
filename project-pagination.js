@@ -187,6 +187,22 @@ if (projectDetail && horizontalProjectLayout.matches) {
       figure.append(image);
     });
 
+    if (group.length === 1 && (group[0].dataset.hoverTitle || group[0].dataset.hoverSubtitle)) {
+      const hoverLabel = document.createElement("div");
+      hoverLabel.className = "project-spread-hover-label";
+      if (group[0].dataset.hoverTitle) {
+        const hoverTitle = document.createElement("span");
+        hoverTitle.textContent = group[0].dataset.hoverTitle;
+        hoverLabel.append(hoverTitle);
+      }
+      if (group[0].dataset.hoverSubtitle) {
+        const hoverSubtitle = document.createElement("span");
+        hoverSubtitle.textContent = group[0].dataset.hoverSubtitle;
+        hoverLabel.append(hoverSubtitle);
+      }
+      figure.append(hoverLabel);
+    }
+
     if (group.length === 1) {
       const image = group[0];
       const allowCrossPageOnlyForPanoramas = () => {
@@ -222,13 +238,18 @@ if (projectDetail && horizontalProjectLayout.matches) {
     const caption = document.createElement("h2");
     const mainCaption = group[0]?.dataset.caption || group[0]?.alt || `${projectName} project view`;
     const extraCount = Math.max(0, group.length - 1);
-    caption.textContent = extraCount > 0 ? `${mainCaption} (+${extraCount})` : mainCaption;
+    caption.textContent = group[0]?.dataset.hideMeta === "true" ? mainCaption : extraCount > 0 ? `${mainCaption} (+${extraCount})` : mainCaption;
 
     const note = document.createElement("p");
     note.className = "project-spread-note";
     note.textContent = "Exhibition view / project archive";
 
-    copy.append(folio, caption, note);
+    if (group[0]?.dataset.hideMeta === "true") {
+      copy.append(caption);
+      copy.classList.add("project-spread-copy--caption-only");
+    } else {
+      copy.append(folio, caption, note);
+    }
     spread.append(figure, copy);
     rail.append(spread);
   });
@@ -426,12 +447,11 @@ if (projectImages.length) {
   function showLightboxImage(index) {
     activeImageIndex = (index + projectImages.length) % projectImages.length;
     const sourceImage = projectImages[activeImageIndex];
-    const lightboxCaptionText = [sourceImage.dataset.quote, sourceImage.dataset.note]
-      .filter(Boolean)
-      .join("\n\n");
+    const lightboxCaptionText = sourceImage.dataset.lightboxCaption || "";
     lightboxImage.src = sourceImage.dataset.fullSrc || sourceImage.currentSrc || sourceImage.src;
     lightboxImage.alt = sourceImage.alt || "";
-    lightboxCaption.textContent = lightboxCaptionText || sourceImage.alt || "";
+    lightboxCaption.textContent = lightboxCaptionText;
+    lightboxCaption.hidden = !lightboxCaptionText;
     lightboxPrevious.hidden = projectImages.length < 2;
     lightboxNext.hidden = projectImages.length < 2;
   }
@@ -446,7 +466,9 @@ if (projectImages.length) {
   function closeLightbox() {
     lightbox.hidden = true;
     document.body.classList.remove("project-lightbox-open");
-    projectImages[activeImageIndex]?.focus();
+    projectImages[activeImageIndex]?.focus({ preventScroll: true });
+    window.scrollTo(0, 0);
+    updatePage();
   }
 
   projectImages.forEach((image, index) => {
