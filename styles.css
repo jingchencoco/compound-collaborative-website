@@ -1810,6 +1810,21 @@ body.project-horizontal .back-to-projects:hover {
   align-content: start;
 }
 
+.project-stage-heading {
+  grid-column: 1 / -1;
+  margin: clamp(8px, 1.2vw, 18px) 0 0;
+  color: #74736d;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.project-stage-heading + .project-card {
+  margin-top: 0;
+}
+
 .project-card {
   display: grid;
   gap: 9px;
@@ -1835,6 +1850,10 @@ body.project-horizontal .back-to-projects:hover {
 }
 
 .project-card[hidden] {
+  display: none;
+}
+
+.project-stage-heading[hidden] {
   display: none;
 }
 
@@ -3659,6 +3678,10 @@ body.project-overview-open {
   .project-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 36px 18px;
+  }
+
+  .project-stage-heading {
+    margin-top: 2px;
   }
 
   .project-card {

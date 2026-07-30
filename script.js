@@ -22,15 +22,30 @@ const projectCategoryOrder = [
   "conservation",
   "houses",
 ];
+const projectStageOrder = ["ongoing", "completed"];
+const projectStageLabels = {
+  ongoing: "Ongoing",
+  completed: "Completed",
+};
+const getProjectStage = (card) => {
+  return card.dataset.meta?.includes("COMPLETED") ? "completed" : "ongoing";
+};
+const getProjectStageRank = (card) => {
+  const rank = projectStageOrder.indexOf(getProjectStage(card));
+  return rank === -1 ? projectStageOrder.length : rank;
+};
 const getProjectCategoryRank = (card) => {
   const rank = projectCategoryOrder.indexOf(card.dataset.category);
   return rank === -1 ? projectCategoryOrder.length : rank;
 };
 const projectCards = [...document.querySelectorAll('.project-card:not([data-category="objects"])')].sort((a, b) => {
+  const stageDelta = getProjectStageRank(a) - getProjectStageRank(b);
+  if (stageDelta !== 0) return stageDelta;
   const categoryDelta = getProjectCategoryRank(a) - getProjectCategoryRank(b);
   if (categoryDelta !== 0) return categoryDelta;
   return Number(!a.querySelector("img")) - Number(!b.querySelector("img"));
 });
+const projectStageHeadings = new Map();
 const revealItems = document.querySelectorAll(".project-filter, .project-card");
 const projectPageNav = document.querySelector(".works-page-nav");
 const projectPagePrevious = document.querySelector(".works-page-prev");
@@ -62,7 +77,15 @@ let galleryIndex = 0;
 let galleryTimer = null;
 let projectPage = 0;
 
-projectCards.forEach((card) => projectCardGrid?.append(card));
+projectStageOrder.forEach((stage) => {
+  const stageCards = projectCards.filter((card) => getProjectStage(card) === stage);
+  if (!projectCardGrid || stageCards.length === 0) return;
+  const heading = document.createElement("h3");
+  heading.className = "project-stage-heading";
+  heading.textContent = projectStageLabels[stage];
+  projectStageHeadings.set(stage, heading);
+  projectCardGrid.append(heading, ...stageCards);
+});
 objectCards.forEach((card) => objectsGrid?.append(card));
 objectCards.forEach((card) => {
   if (card.getAttribute("href") === "#") {
@@ -83,9 +106,13 @@ function updateProjectPages(reset = false) {
   if (reset) projectPage = 0;
   projectPage = Math.min(projectPage, pageCount - 1);
   const start = projectPage * projectItemsPerPage();
+  const currentPageCards = visibleCards.slice(start, start + projectItemsPerPage());
   projectCards.forEach((card) => {
     const position = visibleCards.indexOf(card);
     card.classList.toggle("is-page-hidden", position < start || position >= start + projectItemsPerPage());
+  });
+  projectStageHeadings.forEach((heading, stage) => {
+    heading.hidden = !currentPageCards.some((card) => getProjectStage(card) === stage);
   });
   projectPageStatus.textContent = `${String(projectPage + 1).padStart(2, "0")} / ${String(pageCount).padStart(2, "0")}`;
   projectPagePrevious.disabled = projectPage === 0;
@@ -191,14 +218,20 @@ window.addEventListener("keydown", (event) => {
 });
 
 function applyProjectFilter(filter) {
-  const validFilter = [...projectFilterButtons].some((button) => button.dataset.filter === filter)
-    ? filter
-    : "all";
+  const selectedButton = [...projectFilterButtons].find((button) => {
+    return button.dataset.filter === filter || button.dataset.stageFilter === filter;
+  });
+  const validFilter = selectedButton ? filter : "all";
   projectFilterButtons.forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.filter === validFilter);
+    button.classList.toggle(
+      "is-active",
+      button.dataset.filter === validFilter || button.dataset.stageFilter === validFilter
+    );
   });
   projectCards.forEach((card) => {
-    card.hidden = validFilter !== "all" && card.dataset.category !== validFilter;
+    const matchesCategory = card.dataset.category === validFilter;
+    const matchesStage = getProjectStage(card) === validFilter;
+    card.hidden = validFilter !== "all" && !matchesCategory && !matchesStage;
   });
   updateProjectPages(true);
 }
@@ -229,7 +262,9 @@ projectCards.forEach((card) => {
     event.preventDefault();
     const cardIndex = Array.from(projectCards).indexOf(card);
     const cardFilter = card.dataset.category;
-    const filterExists = [...projectFilterButtons].some((button) => button.dataset.filter === cardFilter);
+    const filterExists = [...projectFilterButtons].some((button) => {
+      return button.dataset.filter === cardFilter || button.dataset.stageFilter === cardFilter;
+    });
     const filter = filterExists ? cardFilter : "all";
     sessionStorage.setItem("coco-return-card", String(cardIndex));
     sessionStorage.setItem("coco-return-filter", filter);
