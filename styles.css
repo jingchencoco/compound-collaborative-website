@@ -2537,6 +2537,20 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   line-height: 1.28;
 }
 
+.project-detail-page--suxiangang .project-spread-feature-note {
+  position: absolute;
+  right: clamp(82px, 9vw, 176px);
+  bottom: clamp(126px, 17vh, 230px);
+  width: min(31vw, 520px);
+  margin: 0;
+  color: #252521;
+  font-family: "EB Garamond", serif;
+  font-size: clamp(30px, 3.1vw, 62px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
 .project-spread-image.multi-image .project-spread-copy {
   position: absolute;
   left: clamp(28px, 4.2vw, 72px);

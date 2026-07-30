@@ -228,6 +228,14 @@ if (projectDetail && horizontalProjectLayout.matches) {
       }
     }
 
+    const featureNoteText = group.find((image) => image.dataset.featureNote)?.dataset.featureNote;
+    if (featureNoteText) {
+      const featureNote = document.createElement("p");
+      featureNote.className = "project-spread-feature-note";
+      featureNote.textContent = featureNoteText;
+      spread.append(featureNote);
+    }
+
     const copy = document.createElement("aside");
     copy.className = "project-spread-copy";
 
