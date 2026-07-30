@@ -129,9 +129,15 @@
           </p>
         </div>
         <div class="project-filter" aria-label="Project filter">
-          <button type="button" class="is-active" data-filter="all">All</button>
-          <button type="button" data-stage-filter="completed">Completed</button>
-          <button type="button" data-stage-filter="ongoing">Ongoing</button>
+          <span class="project-filter-label">Works &gt;</span>
+          <div class="project-status-select">
+            <button class="project-status-toggle" type="button" aria-expanded="false" aria-haspopup="listbox">
+              <span>Completed</span>
+            </button>
+            <div class="project-status-menu" role="listbox" hidden>
+              <button type="button" role="option" aria-selected="false" data-status-option="ongoing">Ongoing</button>
+            </div>
+          </div>
           <button type="button" data-filter="mixed-development">Condominiums / Mixed Development</button>
           <button type="button" data-filter="institution">Institution</button>
           <button type="button" data-filter="hotels-resorts">Hotels and Resorts</button>
@@ -280,7 +286,7 @@
       </footer>
     </main>
 
-    <script src="./script.js?v=20260729-03"></script>
+    <script src="./script.js?v=20260729-04"></script>
     <script src="./mobile-original-images.js?v=20260728-01"></script>
 </body>
 </html>

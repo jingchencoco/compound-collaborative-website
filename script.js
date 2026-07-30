@@ -10,6 +10,10 @@ const menuClose = document.querySelector(".menu-close");
 const menuScrim = document.querySelector(".menu-scrim");
 const siteMenu = document.querySelector("#site-menu");
 const menuLinks = document.querySelectorAll(".primary-nav a");
+const projectStatusSelect = document.querySelector(".project-status-select");
+const projectStatusToggle = document.querySelector(".project-status-toggle");
+const projectStatusToggleLabel = document.querySelector(".project-status-toggle span");
+const projectStatusMenu = document.querySelector(".project-status-menu");
 const projectFilterButtons = document.querySelectorAll(".project-filter button");
 const projectCardGrid = document.querySelector(".project-card-grid");
 const objectsGrid = document.querySelector(".objects-grid");
@@ -28,6 +32,8 @@ const projectStageLabels = {
   completed: "Completed",
 };
 const getProjectStage = (card) => {
+  if (card.dataset.stage) return card.dataset.stage;
+  if (card.querySelector("img") && !card.dataset.meta?.includes("CONCEPT")) return "completed";
   return card.dataset.meta?.includes("COMPLETED") ? "completed" : "ongoing";
 };
 const getProjectStageRank = (card) => {
@@ -45,7 +51,6 @@ const projectCards = [...document.querySelectorAll('.project-card:not([data-cate
   if (categoryDelta !== 0) return categoryDelta;
   return Number(!a.querySelector("img")) - Number(!b.querySelector("img"));
 });
-const projectStageHeadings = new Map();
 const revealItems = document.querySelectorAll(".project-filter, .project-card");
 const projectPageNav = document.querySelector(".works-page-nav");
 const projectPagePrevious = document.querySelector(".works-page-prev");
@@ -76,16 +81,9 @@ const captions = {
 let galleryIndex = 0;
 let galleryTimer = null;
 let projectPage = 0;
+let activeProjectStatus = "completed";
 
-projectStageOrder.forEach((stage) => {
-  const stageCards = projectCards.filter((card) => getProjectStage(card) === stage);
-  if (!projectCardGrid || stageCards.length === 0) return;
-  const heading = document.createElement("h3");
-  heading.className = "project-stage-heading";
-  heading.textContent = projectStageLabels[stage];
-  projectStageHeadings.set(stage, heading);
-  projectCardGrid.append(heading, ...stageCards);
-});
+projectCards.forEach((card) => projectCardGrid?.append(card));
 objectCards.forEach((card) => objectsGrid?.append(card));
 objectCards.forEach((card) => {
   if (card.getAttribute("href") === "#") {
@@ -106,13 +104,9 @@ function updateProjectPages(reset = false) {
   if (reset) projectPage = 0;
   projectPage = Math.min(projectPage, pageCount - 1);
   const start = projectPage * projectItemsPerPage();
-  const currentPageCards = visibleCards.slice(start, start + projectItemsPerPage());
   projectCards.forEach((card) => {
     const position = visibleCards.indexOf(card);
     card.classList.toggle("is-page-hidden", position < start || position >= start + projectItemsPerPage());
-  });
-  projectStageHeadings.forEach((heading, stage) => {
-    heading.hidden = !currentPageCards.some((card) => getProjectStage(card) === stage);
   });
   projectPageStatus.textContent = `${String(projectPage + 1).padStart(2, "0")} / ${String(pageCount).padStart(2, "0")}`;
   projectPagePrevious.disabled = projectPage === 0;
@@ -167,6 +161,7 @@ homeGallery?.addEventListener("click", (event) => {
   if (detailTarget) {
     sessionStorage.removeItem("coco-return-card");
     sessionStorage.removeItem("coco-return-filter");
+    sessionStorage.removeItem("coco-return-status");
     document.body.classList.add("is-leaving");
     window.setTimeout(() => {
       window.location.href = detailTarget;
@@ -218,26 +213,64 @@ window.addEventListener("keydown", (event) => {
 });
 
 function applyProjectFilter(filter) {
-  const selectedButton = [...projectFilterButtons].find((button) => {
-    return button.dataset.filter === filter || button.dataset.stageFilter === filter;
-  });
-  const validFilter = selectedButton ? filter : "all";
+  const validFilter = [...projectFilterButtons].some((button) => button.dataset.filter === filter)
+    ? filter
+    : "";
   projectFilterButtons.forEach((button) => {
-    button.classList.toggle(
-      "is-active",
-      button.dataset.filter === validFilter || button.dataset.stageFilter === validFilter
-    );
+    button.classList.toggle("is-active", button.dataset.filter === validFilter);
   });
   projectCards.forEach((card) => {
-    const matchesCategory = card.dataset.category === validFilter;
-    const matchesStage = getProjectStage(card) === validFilter;
-    card.hidden = validFilter !== "all" && !matchesCategory && !matchesStage;
+    const matchesStage = getProjectStage(card) === activeProjectStatus;
+    const matchesCategory = !validFilter || card.dataset.category === validFilter;
+    card.hidden = !matchesStage || !matchesCategory;
   });
   updateProjectPages(true);
 }
 
 projectFilterButtons.forEach((button) => {
   button.addEventListener("click", () => applyProjectFilter(button.dataset.filter));
+});
+
+function setProjectStatus(status) {
+  activeProjectStatus = status === "ongoing" ? "ongoing" : "completed";
+  if (projectStatusToggleLabel) {
+    projectStatusToggleLabel.textContent = activeProjectStatus === "ongoing" ? "Ongoing" : "Completed";
+  }
+  if (projectStatusMenu) {
+    const nextStatus = activeProjectStatus === "ongoing" ? "completed" : "ongoing";
+    projectStatusMenu.innerHTML = "";
+    const option = document.createElement("button");
+    option.type = "button";
+    option.setAttribute("role", "option");
+    option.setAttribute("aria-selected", "false");
+    option.dataset.statusOption = nextStatus;
+    option.textContent = nextStatus === "ongoing" ? "Ongoing" : "Completed";
+    option.addEventListener("click", () => {
+      setProjectStatus(nextStatus);
+      setProjectStatusMenu(false);
+      const activeCategory = [...projectFilterButtons].find((button) => button.classList.contains("is-active"))?.dataset.filter || "";
+      applyProjectFilter(activeCategory);
+    });
+    projectStatusMenu.append(option);
+  }
+}
+
+function setProjectStatusMenu(open) {
+  projectStatusSelect?.classList.toggle("is-open", open);
+  projectStatusToggle?.setAttribute("aria-expanded", String(open));
+  if (projectStatusMenu) projectStatusMenu.hidden = !open;
+}
+
+projectStatusToggle?.addEventListener("click", () => {
+  setProjectStatusMenu(!projectStatusSelect.classList.contains("is-open"));
+});
+
+document.addEventListener("click", (event) => {
+  if (!projectStatusSelect?.contains(event.target)) setProjectStatusMenu(false);
+});
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") setProjectStatusMenu(false);
 });
 
 projectPagePrevious?.addEventListener("click", () => {
@@ -262,12 +295,11 @@ projectCards.forEach((card) => {
     event.preventDefault();
     const cardIndex = Array.from(projectCards).indexOf(card);
     const cardFilter = card.dataset.category;
-    const filterExists = [...projectFilterButtons].some((button) => {
-      return button.dataset.filter === cardFilter || button.dataset.stageFilter === cardFilter;
-    });
-    const filter = filterExists ? cardFilter : "all";
+    const filterExists = [...projectFilterButtons].some((button) => button.dataset.filter === cardFilter);
+    const filter = filterExists ? cardFilter : "";
     sessionStorage.setItem("coco-return-card", String(cardIndex));
     sessionStorage.setItem("coco-return-filter", filter);
+    sessionStorage.setItem("coco-return-status", getProjectStage(card));
     document.body.classList.add("is-leaving");
     window.setTimeout(() => {
       window.location.href = card.href;
@@ -294,7 +326,8 @@ if ("IntersectionObserver" in window) {
   });
 }
 
-updateProjectPages(true);
+setProjectStatus(activeProjectStatus);
+applyProjectFilter("");
 
 if (window.location.hash === "#about" || window.location.hash === "#contact") {
   window.requestAnimationFrame(() => {
@@ -304,15 +337,19 @@ if (window.location.hash === "#about" || window.location.hash === "#contact") {
 
 const returnCardIndex = sessionStorage.getItem("coco-return-card");
 const returnFilter = sessionStorage.getItem("coco-return-filter");
+const returnStatus = sessionStorage.getItem("coco-return-status");
 
 if (window.location.hash === "#projects" && returnCardIndex !== null) {
   const returnCard = projectCards[Number(returnCardIndex)];
   if (returnCard) {
-    applyProjectFilter(returnFilter || "all");
+    activeProjectStatus = returnStatus || getProjectStage(returnCard);
+    setProjectStatus(activeProjectStatus);
+    applyProjectFilter(returnFilter || "");
     window.requestAnimationFrame(() => {
       returnCard.scrollIntoView({ block: "center" });
       sessionStorage.removeItem("coco-return-card");
       sessionStorage.removeItem("coco-return-filter");
+      sessionStorage.removeItem("coco-return-status");
     });
   }
 }
