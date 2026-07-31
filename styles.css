@@ -2465,12 +2465,15 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 .project-spread-intro .project-photo {
   grid-column: 2;
   grid-row: 1 / -1;
-  height: 100%;
+  height: calc(100svh - 52px - var(--book-page-top) - var(--book-page-bottom));
+  max-height: calc(100svh - 52px - var(--book-page-top) - var(--book-page-bottom));
   margin: 0;
   display: grid;
   align-content: center;
   gap: clamp(12px, 1.8vh, 22px);
   place-items: center;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .project-spread-intro .project-photo img,
@@ -2478,7 +2481,7 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: calc(100svh - 96px);
+  max-height: calc(100svh - 52px - var(--book-page-top) - var(--book-page-bottom));
   object-fit: contain;
   object-position: center center;
 }
@@ -2604,6 +2607,23 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   display: grid;
 }
 
+.project-detail-page[aria-label="Paco Paco 2e project"] .project-spread-image.multi-image .project-spread-figure {
+  top: clamp(24px, 4.8vh, 70px);
+}
+
+.project-detail-page[aria-label="Paco Paco 2e project"] .project-spread-image.layout-single-page .project-spread-figure {
+  height: calc(100svh - 52px - var(--book-page-top) - var(--book-page-bottom));
+  max-height: calc(100svh - 52px - var(--book-page-top) - var(--book-page-bottom));
+  overflow: hidden;
+}
+
+.project-detail-page[aria-label="Paco Paco 2e project"] .project-spread-image.layout-single-page .project-spread-figure img,
+.project-detail-page[aria-label="Paco Paco 2e project"] .project-spread-image.layout-single-page .project-spread-figure video {
+  max-width: min(100%, 34vw);
+  max-height: calc(100svh - 52px - var(--book-page-top) - var(--book-page-bottom));
+  object-fit: contain;
+}
+
 .project-detail-page--suxiangang .project-spread-figure--multi {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(120px, 13vw, 240px);
@@ -2719,6 +2739,25 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 
 .project-detail-page[aria-label="On Air project"] .project-spread-figure img[src*="on-air-07"] {
   transform: translateY(clamp(18px, 2vh, 28px));
+}
+
+.project-detail-page[aria-label="On Air project"] .project-spread-figure img[src*="on-air-05"],
+.project-detail-page[aria-label="On Air project"] .project-spread-figure img[src*="on-air-08"] {
+  transform: translateY(clamp(22px, 2.8vh, 36px));
+}
+
+.project-detail-page[aria-label="On Air project"] .project-spread-image.multi-image .project-spread-figure {
+  left: var(--book-page-side);
+  right: var(--book-page-side);
+  width: auto;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(48px, 6vw, 120px);
+}
+
+.project-detail-page[aria-label="On Air project"] .project-spread-figure img[src*="on-air-02"],
+.project-detail-page[aria-label="On Air project"] .project-spread-figure img[src*="on-air-07"] {
+  max-width: min(100%, 39vw) !important;
+  max-height: calc(100svh - 340px) !important;
 }
 
 .project-detail-page[aria-label="On Air project"] .project-spread-figure img {
