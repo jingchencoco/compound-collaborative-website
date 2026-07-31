@@ -3120,7 +3120,7 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 
 @media (min-width: 701px) {
   .project-page-previous {
-    left: clamp(0px, calc(4.5vw - 70px), 22px) !important;
+    left: clamp(44px, 2.4vw, 52px) !important;
   }
 
   .project-page-next {
