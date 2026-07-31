@@ -1,6 +1,6 @@
 (() => {
   const params = new URLSearchParams(window.location.search);
-  const editMode = params.has("edit");
+  const editMode = params.has("edit") && ["localhost", "127.0.0.1"].includes(window.location.hostname);
 
   if (!params.has("desktop") && !editMode) return;
 
@@ -12,15 +12,21 @@
   document.documentElement.classList.add("desktop-preview");
 
   if (!editMode) return;
+  document.documentElement.classList.add("layout-editor-active");
 
   const storageKey = `layout-editor:${window.location.pathname}`;
   const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
   let selected = null;
   let drag = null;
+  const history = [];
+  const future = [];
 
   const style = document.createElement("style");
   style.textContent = `
-    .layout-editor-toolbar { position: fixed; z-index: 10000; top: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; align-items: center; padding: 8px 10px; background: rgba(25,25,23,.94); color: #fff; font: 12px/1.2 Arial,sans-serif; box-shadow: 0 5px 20px rgba(0,0,0,.22); }
+    .layout-editor-active .project-spread-figure { overflow: visible !important; }
+    .layout-editor-active .project-spread-figure img,
+    .layout-editor-active .project-spread-figure video { max-width: none !important; max-height: none !important; }
+    .layout-editor-toolbar { position: fixed; z-index: 10000; top: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; align-items: center; padding: 8px 10px; background: rgba(25,25,23,.94); color: #fff; font: 12px/1.2 Arial,sans-serif; box-shadow: 0 5px 20px rgba(0,0,0,.22); white-space: nowrap; }
     .layout-editor-toolbar button { border: 1px solid rgba(255,255,255,.45); background: transparent; color: inherit; padding: 6px 9px; cursor: pointer; }
     .layout-editor-toolbar button:hover { background: rgba(255,255,255,.16); }
     .layout-editor-target { cursor: grab !important; outline: 2px solid #e53935 !important; outline-offset: 3px; }
