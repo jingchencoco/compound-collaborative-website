@@ -220,7 +220,7 @@ body.home-page {
 
 .home-slogan-tooltip {
   position: absolute;
-  top: clamp(350px, 43vh, 460px);
+  top: clamp(320px, 39vh, 420px);
   left: clamp(28px, 4.5vw, 88px);
   z-index: 8;
   display: block;
@@ -2848,6 +2848,19 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
     box-shadow: none !important;
     outline: 0 !important;
   }
+
+  .project-detail-page[aria-label="Architecture for Trees project"] .project-spread-image.multi-image .project-spread-figure {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    gap: clamp(44px, 5.8vw, 112px) !important;
+    align-items: center !important;
+    justify-items: center !important;
+  }
+
+  .project-detail-page[aria-label="Architecture for Trees project"] .project-spread-image.multi-image .project-spread-figure img {
+    max-width: min(100%, 34vw) !important;
+    max-height: calc(100svh - 52px - var(--book-page-top) - var(--book-page-bottom) - 24px) !important;
+    place-self: center !important;
+  }
 }
 
 .project-series {
@@ -3681,7 +3694,7 @@ body.project-overview-open {
 
 .project-lightbox {
   position: fixed;
-  z-index: 100;
+  z-index: 1000;
   inset: 0;
   display: grid;
   grid-template-columns: 56px minmax(0, 1fr) 56px;
@@ -3689,6 +3702,10 @@ body.project-overview-open {
   padding: 28px;
   background: rgba(20, 20, 18, 0.94);
   color: #fafaf8;
+}
+
+body.project-lightbox-open .project-page-edge {
+  pointer-events: none !important;
 }
 
 .project-lightbox figure {
@@ -3837,7 +3854,7 @@ body.project-overview-open {
   }
 
   .home-slogan-tooltip {
-    top: 332px;
+    top: 292px;
     left: 56px;
     width: min(400px, calc(100vw - 112px));
     font-size: 12px;

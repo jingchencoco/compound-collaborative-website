@@ -116,6 +116,18 @@ if (projectDetail && horizontalProjectLayout.matches) {
   let imageCursor = 0;
   let patternCursor = 0;
   while (imageCursor < stackImages.length) {
+    const forcedPair = stackImages[imageCursor]?.dataset.spreadPair;
+    if (
+      forcedPair &&
+      stackImages[imageCursor + 1]?.dataset.spreadPair === forcedPair
+    ) {
+      imageGroups.push({
+        group: stackImages.slice(imageCursor, imageCursor + 2),
+        layout: "layout-pair",
+      });
+      imageCursor += 2;
+      continue;
+    }
     if (projectDetail.dataset.singleImageSpreads === "true") {
       imageGroups.push({
         group: stackImages.slice(imageCursor, imageCursor + 1),
@@ -130,18 +142,6 @@ if (projectDetail && horizontalProjectLayout.matches) {
         layout: "layout-single-page",
       });
       imageCursor += 1;
-      continue;
-    }
-    const forcedPair = stackImages[imageCursor]?.dataset.spreadPair;
-    if (
-      forcedPair &&
-      stackImages[imageCursor + 1]?.dataset.spreadPair === forcedPair
-    ) {
-      imageGroups.push({
-        group: stackImages.slice(imageCursor, imageCursor + 2),
-        layout: "layout-pair",
-      });
-      imageCursor += 2;
       continue;
     }
     const pattern = editorialPattern[patternCursor % editorialPattern.length];
@@ -499,8 +499,6 @@ if (projectImages.length) {
     lightbox.hidden = true;
     document.body.classList.remove("project-lightbox-open");
     projectImages[activeImageIndex]?.focus({ preventScroll: true });
-    window.scrollTo(0, 0);
-    updatePage();
   }
 
   projectImages.forEach((image, index) => {
@@ -516,9 +514,21 @@ if (projectImages.length) {
     });
   });
 
-  lightboxClose.addEventListener("click", closeLightbox);
-  lightboxPrevious.addEventListener("click", () => showLightboxImage(activeImageIndex - 1));
-  lightboxNext.addEventListener("click", () => showLightboxImage(activeImageIndex + 1));
+  lightboxClose.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    closeLightbox();
+  });
+  lightboxPrevious.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    showLightboxImage(activeImageIndex - 1);
+  });
+  lightboxNext.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    showLightboxImage(activeImageIndex + 1);
+  });
   lightbox.addEventListener("click", (event) => {
     if (event.target === lightbox) closeLightbox();
   });

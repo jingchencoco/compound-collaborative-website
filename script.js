@@ -57,10 +57,7 @@ const projectCards = [...document.querySelectorAll('.project-card:not([data-cate
   return Number(!a.querySelector("img")) - Number(!b.querySelector("img"));
 });
 const revealItems = document.querySelectorAll(".project-filter, .project-card");
-const projectPageNav = document.querySelector(".works-page-nav");
-const projectPagePrevious = document.querySelector(".works-page-prev");
-const projectPageNext = document.querySelector(".works-page-next");
-const projectPageStatus = document.querySelector(".project-page-status");
+const projectSeriesSections = [...document.querySelectorAll(".project-series")];
 const aboutSection = document.querySelector("#about");
 const contactSection = document.querySelector("#contact");
 
@@ -85,8 +82,11 @@ const captions = {
 
 let galleryIndex = 0;
 let galleryTimer = null;
-let projectPage = 0;
 let activeProjectStatus = "completed";
+const projectSeriesState = {
+  completed: { filter: "", page: 0 },
+  ongoing: { filter: "", page: 0 },
+};
 
 projectCards.forEach((card) => {
   const target = getProjectStage(card) === "ongoing" ? ongoingProjectGrid : completedProjectGrid;
@@ -105,15 +105,28 @@ function projectItemsPerPage() {
   return 12;
 }
 
-function updateProjectPages(reset = false) {
-  if (!projectPageNav || !projectPageStatus) return;
-  const visibleCards = [...projectCards].filter((card) => !card.hidden);
-  visibleCards.forEach((card) => card.classList.remove("is-page-hidden"));
-  projectCards.filter((card) => card.hidden).forEach((card) => card.classList.add("is-page-hidden"));
-  projectPageStatus.textContent = "01 / 01";
-  projectPagePrevious.disabled = true;
-  projectPageNext.disabled = true;
-  projectPageNav.hidden = true;
+function getProjectSeriesKey(series) {
+  return series?.querySelector("[data-project-series]")?.dataset.projectSeries || "completed";
+}
+
+function updateProjectPages(series = null, reset = false) {
+  const seriesList = series ? [series] : projectSeriesSections;
+  seriesList.forEach((section) => {
+    const grid = section.querySelector("[data-project-series]");
+    const nav = section.querySelector(".works-page-nav");
+    const status = section.querySelector(".project-page-status");
+    const previous = section.querySelector(".works-page-prev");
+    const next = section.querySelector(".works-page-next");
+    if (!grid || !nav || !status) return;
+    const seriesCards = [...grid.querySelectorAll(".project-card")];
+    const visibleCards = seriesCards.filter((card) => !card.hidden);
+    seriesCards.filter((card) => card.hidden).forEach((card) => card.classList.add("is-page-hidden"));
+    visibleCards.forEach((card) => card.classList.remove("is-page-hidden"));
+    status.textContent = "01 / 01";
+    if (previous) previous.disabled = true;
+    if (next) next.disabled = true;
+    nav.hidden = true;
+  });
 }
 
 function showGallerySlide(nextIndex) {
@@ -214,23 +227,30 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-function applyProjectFilter(filter) {
-  const validFilter = [...projectFilterButtons].some((button) => button.dataset.filter === filter)
+function applyProjectFilter(filter, series = null) {
+  const targetSeries = series || document.querySelector(".project-series--completed");
+  const seriesKey = getProjectSeriesKey(targetSeries);
+  const seriesButtons = [...targetSeries.querySelectorAll(".project-filter button")];
+  const grid = targetSeries.querySelector("[data-project-series]");
+  const seriesCards = [...(grid?.querySelectorAll(".project-card") || [])];
+  const validFilter = seriesButtons.some((button) => button.dataset.filter === filter)
     ? filter
     : "";
-  projectFilterButtons.forEach((button) => {
+  projectSeriesState[seriesKey] = projectSeriesState[seriesKey] || { filter: "", page: 0 };
+  projectSeriesState[seriesKey].filter = validFilter;
+  projectSeriesState[seriesKey].page = 0;
+  seriesButtons.forEach((button) => {
     button.classList.toggle("is-active", button.dataset.filter === validFilter);
   });
-  projectCards.forEach((card) => {
-    const matchesStage = true;
+  seriesCards.forEach((card) => {
     const matchesCategory = !validFilter || card.dataset.category === validFilter;
-    card.hidden = !matchesStage || !matchesCategory;
+    card.hidden = !matchesCategory;
   });
-  updateProjectPages(true);
+  updateProjectPages(targetSeries, true);
 }
 
 projectFilterButtons.forEach((button) => {
-  button.addEventListener("click", () => applyProjectFilter(button.dataset.filter));
+  button.addEventListener("click", () => applyProjectFilter(button.dataset.filter, button.closest(".project-series")));
 });
 
 function setProjectStatus(status) {
@@ -250,8 +270,9 @@ function setProjectStatus(status) {
     option.addEventListener("click", () => {
       setProjectStatus(nextStatus);
       setProjectStatusMenu(false);
-      const activeCategory = [...projectFilterButtons].find((button) => button.classList.contains("is-active"))?.dataset.filter || "";
-      applyProjectFilter(activeCategory);
+      const activeSeries = document.querySelector(`.project-series--${activeProjectStatus}`);
+      const activeCategory = activeSeries?.querySelector(".project-filter button.is-active")?.dataset.filter || "";
+      applyProjectFilter(activeCategory, activeSeries);
     });
     projectStatusMenu.append(option);
   }
@@ -275,14 +296,9 @@ window.addEventListener("keydown", (event) => {
   if (event.key === "Escape") setProjectStatusMenu(false);
 });
 
-projectPagePrevious?.addEventListener("click", () => {
-  projectPage = Math.max(0, projectPage - 1);
-  updateProjectPages();
-});
-
-projectPageNext?.addEventListener("click", () => {
-  projectPage += 1;
-  updateProjectPages();
+projectSeriesSections.forEach((series) => {
+  series.querySelector(".works-page-prev")?.addEventListener("click", () => updateProjectPages(series));
+  series.querySelector(".works-page-next")?.addEventListener("click", () => updateProjectPages(series));
 });
 
 window.addEventListener("resize", () => updateProjectPages());
@@ -329,7 +345,7 @@ if ("IntersectionObserver" in window) {
 }
 
 setProjectStatus(activeProjectStatus);
-applyProjectFilter("");
+projectSeriesSections.forEach((series) => applyProjectFilter("", series));
 
 if (window.location.hash === "#about" || window.location.hash === "#contact") {
   window.requestAnimationFrame(() => {
@@ -346,7 +362,7 @@ if (window.location.hash === "#projects" && returnCardIndex !== null) {
   if (returnCard) {
     activeProjectStatus = returnStatus || getProjectStage(returnCard);
     setProjectStatus(activeProjectStatus);
-    applyProjectFilter(returnFilter || "");
+    applyProjectFilter(returnFilter || "", document.querySelector(`.project-series--${activeProjectStatus}`));
     window.requestAnimationFrame(() => {
       returnCard.scrollIntoView({ block: "center" });
       sessionStorage.removeItem("coco-return-card");
