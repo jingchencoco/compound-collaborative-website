@@ -2771,7 +2771,7 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
     justify-items: center !important;
   }
 
-  .project-detail-page[aria-label="Architecture for Trees project"] .project-spread-image .project-spread-figure img {
+.project-detail-page[aria-label="Architecture for Trees project"] .project-spread-image .project-spread-figure img {
     width: auto !important;
     height: auto !important;
     max-width: 100% !important;
@@ -2809,6 +2809,29 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
     box-shadow: none !important;
     outline: 0 !important;
   }
+}
+
+.project-series {
+  margin-top: clamp(32px, 5vw, 78px);
+}
+
+.project-series + .project-series {
+  margin-top: clamp(80px, 10vw, 150px);
+  padding-top: clamp(28px, 4vw, 58px);
+  border-top: 1px solid rgba(37, 37, 33, 0.18);
+}
+
+.project-series > h3 {
+  margin: 0 0 clamp(22px, 3vw, 42px);
+  font-family: "Inter", sans-serif;
+  font-size: clamp(14px, 1.1vw, 18px);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.project-series .works-page-nav {
+  display: none;
 }
 
 .project-spread-image.multi-image .project-spread-copy {
@@ -3060,6 +3083,72 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 .project-more-toggle:hover,
 .project-more-toggle:focus-visible {
   opacity: 0.55;
+}
+
+/* Make detail-page navigation discoverable without changing its hit areas. */
+.project-page-edge {
+  z-index: 6000;
+  width: clamp(48px, 4vw, 68px);
+  height: clamp(76px, 11vh, 126px);
+  border: 1px solid rgba(37, 37, 33, 0.28);
+  border-radius: 2px;
+  background: rgba(247, 244, 238, 0.9);
+  color: #252521;
+  box-shadow: 0 5px 18px rgba(37, 37, 33, 0.12);
+  opacity: 0.94;
+  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+.project-page-previous { left: clamp(8px, 1.2vw, 22px) !important; }
+.project-page-next { right: clamp(8px, 1.2vw, 22px) !important; }
+
+.project-page-edge span {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  display: block;
+  width: 15px !important;
+  height: 15px !important;
+  background: transparent !important;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: none;
+  animation: none;
+  transition: none;
+}
+
+.project-page-previous span { transform: rotate(-135deg) !important; }
+.project-page-next span { transform: rotate(45deg) !important; }
+
+.project-page-edge:hover:not(:disabled),
+.project-page-edge:focus-visible {
+  background: #252521;
+  color: #f7f4ee;
+  box-shadow: 0 7px 24px rgba(37, 37, 33, 0.22);
+  opacity: 1;
+}
+
+.project-page-edge:focus-visible {
+  outline: 2px solid #252521;
+  outline-offset: 3px;
+}
+
+.project-page-edge:disabled {
+  border-color: rgba(37, 37, 33, 0.1);
+  background: rgba(247, 244, 238, 0.45);
+  box-shadow: none;
+  opacity: 0.24;
+}
+
+@media (max-width: 700px) {
+  .project-page-edge {
+    width: 44px;
+    height: 72px;
+  }
+
+  .project-page-previous { left: 6px !important; }
+  .project-page-next { right: 6px !important; }
 }
 
 .project-more-toggle:focus-visible {

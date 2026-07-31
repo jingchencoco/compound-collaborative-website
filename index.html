@@ -18,7 +18,7 @@
     <link rel="preload" href="./assets/fonts/CirrusCumulus.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="./assets/fonts/EBGaramond-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="./assets/fonts/Inter-Regular.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="stylesheet" href="./styles.css?v=20260729-19">
+    <link rel="stylesheet" href="./styles.css?v=20260730-03">
   </head>
   <body class="home-page">
     <div class="preview" aria-hidden="true">
@@ -130,14 +130,6 @@
         </div>
         <div class="project-filter" aria-label="Project filter">
           <span class="project-filter-label">Works &gt;</span>
-          <div class="project-status-select">
-            <button class="project-status-toggle" type="button" aria-expanded="false" aria-haspopup="listbox">
-              <span>Completed</span>
-            </button>
-            <div class="project-status-menu" role="listbox" hidden>
-              <button type="button" role="option" aria-selected="false" data-status-option="ongoing">Ongoing</button>
-            </div>
-          </div>
           <button type="button" data-filter="mixed-development">Condominiums / Mixed Development</button>
           <button type="button" data-filter="institution">Institution</button>
           <button type="button" data-filter="hotels-resorts">Hotels and Resorts</button>
@@ -145,7 +137,9 @@
           <button type="button" data-filter="conservation">Conservation</button>
           <button type="button" data-filter="houses">Houses</button>
         </div>
-        <div class="project-card-grid" aria-label="Project list">
+        <section class="project-series project-series--completed" aria-labelledby="completed-projects-title">
+          <h3 id="completed-projects-title">Completed</h3>
+          <div class="project-card-grid" data-project-series="completed" aria-label="Completed projects">
           <a class="project-card" href="./house-in-khao-yai.html" data-category="houses" data-meta="2020 / COMPLETED / HOUSES">
             <img src="./assets/khao-yai-thumbnail-stream.png?v=20260723-25" alt="House in Khao Yai stream garden with rocks and ferns">
             <span>House in Khao Yai, Thailand</span>
@@ -242,12 +236,22 @@
             <img src="./assets/wyz-house-thumbnail.jpg" alt="WYZ House palm garden and concrete wall">
             <span>WYZ House, Malaysia</span>
           </a>
-        </div>
-        <nav class="works-page-nav" aria-label="Works pages">
-          <button type="button" class="works-page-button works-page-prev" aria-label="Previous works page">&lsaquo;</button>
-          <span class="project-page-status" aria-live="polite">01 / 01</span>
-          <button type="button" class="works-page-button works-page-next" aria-label="Next works page">&rsaquo;</button>
-        </nav>
+          </div>
+          <nav class="works-page-nav" data-series-nav="completed" aria-label="Completed project pages">
+            <button type="button" class="works-page-button works-page-prev" aria-label="Previous completed projects page">&lsaquo;</button>
+            <span class="project-page-status" aria-live="polite">01 / 01</span>
+            <button type="button" class="works-page-button works-page-next" aria-label="Next completed projects page">&rsaquo;</button>
+          </nav>
+        </section>
+        <section class="project-series project-series--ongoing" aria-labelledby="ongoing-projects-title">
+          <h3 id="ongoing-projects-title">Ongoing</h3>
+          <div class="project-card-grid" data-project-series="ongoing" aria-label="Ongoing projects"></div>
+          <nav class="works-page-nav" data-series-nav="ongoing" aria-label="Ongoing project pages">
+            <button type="button" class="works-page-button works-page-prev" aria-label="Previous ongoing projects page">&lsaquo;</button>
+            <span class="project-page-status" aria-live="polite">01 / 01</span>
+            <button type="button" class="works-page-button works-page-next" aria-label="Next ongoing projects page">&rsaquo;</button>
+          </nav>
+        </section>
       </section>
 
       <section class="objects-section" aria-labelledby="objects-title">
@@ -286,7 +290,7 @@
       </footer>
     </main>
 
-    <script src="./script.js?v=20260729-05"></script>
+    <script src="./script.js?v=20260730-01"></script>
     <script src="./mobile-original-images.js?v=20260728-01"></script>
 </body>
 </html>

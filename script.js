@@ -19,6 +19,8 @@ const projectStatusToggleLabel = document.querySelector(".project-status-toggle 
 const projectStatusMenu = document.querySelector(".project-status-menu");
 const projectFilterButtons = document.querySelectorAll(".project-filter button");
 const projectCardGrid = document.querySelector(".project-card-grid");
+const completedProjectGrid = document.querySelector('[data-project-series="completed"]');
+const ongoingProjectGrid = document.querySelector('[data-project-series="ongoing"]');
 const objectsGrid = document.querySelector(".objects-grid");
 const objectCards = [...document.querySelectorAll('.project-card[data-category="objects"]')];
 const projectCategoryOrder = [
@@ -86,7 +88,10 @@ let galleryTimer = null;
 let projectPage = 0;
 let activeProjectStatus = "completed";
 
-projectCards.forEach((card) => projectCardGrid?.append(card));
+projectCards.forEach((card) => {
+  const target = getProjectStage(card) === "ongoing" ? ongoingProjectGrid : completedProjectGrid;
+  target?.append(card);
+});
 objectCards.forEach((card) => objectsGrid?.append(card));
 objectCards.forEach((card) => {
   if (card.getAttribute("href") === "#") {
@@ -103,18 +108,12 @@ function projectItemsPerPage() {
 function updateProjectPages(reset = false) {
   if (!projectPageNav || !projectPageStatus) return;
   const visibleCards = [...projectCards].filter((card) => !card.hidden);
-  const pageCount = Math.max(1, Math.ceil(visibleCards.length / projectItemsPerPage()));
-  if (reset) projectPage = 0;
-  projectPage = Math.min(projectPage, pageCount - 1);
-  const start = projectPage * projectItemsPerPage();
-  projectCards.forEach((card) => {
-    const position = visibleCards.indexOf(card);
-    card.classList.toggle("is-page-hidden", position < start || position >= start + projectItemsPerPage());
-  });
-  projectPageStatus.textContent = `${String(projectPage + 1).padStart(2, "0")} / ${String(pageCount).padStart(2, "0")}`;
-  projectPagePrevious.disabled = projectPage === 0;
-  projectPageNext.disabled = projectPage === pageCount - 1;
-  projectPageNav.hidden = pageCount <= 1;
+  visibleCards.forEach((card) => card.classList.remove("is-page-hidden"));
+  projectCards.filter((card) => card.hidden).forEach((card) => card.classList.add("is-page-hidden"));
+  projectPageStatus.textContent = "01 / 01";
+  projectPagePrevious.disabled = true;
+  projectPageNext.disabled = true;
+  projectPageNav.hidden = true;
 }
 
 function showGallerySlide(nextIndex) {
@@ -223,7 +222,7 @@ function applyProjectFilter(filter) {
     button.classList.toggle("is-active", button.dataset.filter === validFilter);
   });
   projectCards.forEach((card) => {
-    const matchesStage = getProjectStage(card) === activeProjectStatus;
+    const matchesStage = true;
     const matchesCategory = !validFilter || card.dataset.category === validFilter;
     card.hidden = !matchesStage || !matchesCategory;
   });
