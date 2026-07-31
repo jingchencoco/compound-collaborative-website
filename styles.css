@@ -3120,11 +3120,11 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 
 @media (min-width: 701px) {
   .project-page-previous {
-    left: clamp(10px, 2vw, 32px) !important;
+    left: clamp(0px, calc(4.5vw - 70px), 22px) !important;
   }
 
   .project-page-next {
-    right: clamp(10px, 2vw, 32px) !important;
+    right: clamp(0px, calc(4.5vw - 70px), 22px) !important;
   }
 }
 
