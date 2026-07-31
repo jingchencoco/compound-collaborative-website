@@ -3090,13 +3090,13 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   z-index: 6000;
   width: clamp(48px, 4vw, 68px);
   height: clamp(76px, 11vh, 126px);
-  border: 1px solid rgba(37, 37, 33, 0.28);
-  border-radius: 2px;
-  background: rgba(247, 244, 238, 0.9);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: #252521;
-  box-shadow: 0 5px 18px rgba(37, 37, 33, 0.12);
-  opacity: 0.94;
-  transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+  box-shadow: none;
+  opacity: 0.9;
+  transition: filter 180ms ease, opacity 180ms ease;
 }
 
 .project-page-previous { left: clamp(8px, 1.2vw, 22px) !important; }
@@ -3108,11 +3108,12 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   left: auto !important;
   right: auto !important;
   display: block;
-  width: 15px !important;
-  height: 15px !important;
+  width: 24px !important;
+  height: 24px !important;
   background: transparent !important;
-  border-top: 2px solid currentColor;
-  border-right: 2px solid currentColor;
+  border-top: 4px solid currentColor;
+  border-right: 4px solid currentColor;
+  border-radius: 2px 0 0 0;
   transform: none;
   animation: none;
   transition: none;
@@ -3123,9 +3124,9 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 
 .project-page-edge:hover:not(:disabled),
 .project-page-edge:focus-visible {
-  background: #252521;
-  color: #f7f4ee;
-  box-shadow: 0 7px 24px rgba(37, 37, 33, 0.22);
+  background: transparent;
+  color: #252521;
+  filter: drop-shadow(0 2px 4px rgba(37, 37, 33, 0.22));
   opacity: 1;
 }
 
@@ -3135,10 +3136,9 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 }
 
 .project-page-edge:disabled {
-  border-color: rgba(37, 37, 33, 0.1);
-  background: rgba(247, 244, 238, 0.45);
+  background: transparent;
   box-shadow: none;
-  opacity: 0.24;
+  opacity: 0.18;
 }
 
 @media (max-width: 700px) {
