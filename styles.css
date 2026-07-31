@@ -3118,8 +3118,15 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   transition: filter 180ms ease, opacity 180ms ease;
 }
 
-.project-page-previous { left: clamp(8px, 1.2vw, 22px) !important; }
-.project-page-next { right: clamp(8px, 1.2vw, 22px) !important; }
+@media (min-width: 701px) {
+  .project-page-previous {
+    left: calc(var(--book-page-side) - 80px) !important;
+  }
+
+  .project-page-next {
+    right: calc(var(--book-page-side) - 80px) !important;
+  }
+}
 
 .project-page-edge span {
   position: relative !important;
