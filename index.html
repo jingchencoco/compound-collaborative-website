@@ -18,7 +18,7 @@
     <link rel="preload" href="./assets/fonts/CirrusCumulus.woff" as="font" type="font/woff" crossorigin>
     <link rel="preload" href="./assets/fonts/EBGaramond-Regular.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="./assets/fonts/Inter-Regular.ttf" as="font" type="font/ttf" crossorigin>
-    <link rel="stylesheet" href="./styles.css?v=20260730-03">
+    <link rel="stylesheet" href="./styles.css?v=20260730-04">
   </head>
   <body class="home-page">
     <div class="preview" aria-hidden="true">
@@ -128,17 +128,19 @@
             during construction.
           </p>
         </div>
-        <div class="project-filter" aria-label="Project filter">
-          <span class="project-filter-label">Works &gt;</span>
-          <button type="button" data-filter="mixed-development">Condominiums / Mixed Development</button>
-          <button type="button" data-filter="institution">Institution</button>
-          <button type="button" data-filter="hotels-resorts">Hotels and Resorts</button>
-          <button type="button" data-filter="offices">Offices</button>
-          <button type="button" data-filter="conservation">Conservation</button>
-          <button type="button" data-filter="houses">Houses</button>
-        </div>
         <section class="project-series project-series--completed" aria-labelledby="completed-projects-title">
-          <h3 id="completed-projects-title">Completed</h3>
+          <div class="project-series-heading">
+            <h3 id="completed-projects-title">Completed</h3>
+            <div class="project-filter" aria-label="Completed project categories">
+              <span class="project-filter-label">Works &gt;</span>
+              <button type="button" data-filter="mixed-development">Condominiums / Mixed Development</button>
+              <button type="button" data-filter="institution">Institution</button>
+              <button type="button" data-filter="hotels-resorts">Hotels and Resorts</button>
+              <button type="button" data-filter="offices">Offices</button>
+              <button type="button" data-filter="conservation">Conservation</button>
+              <button type="button" data-filter="houses">Houses</button>
+            </div>
+          </div>
           <div class="project-card-grid" data-project-series="completed" aria-label="Completed projects">
           <a class="project-card" href="./house-in-khao-yai.html" data-category="houses" data-meta="2020 / COMPLETED / HOUSES">
             <img src="./assets/khao-yai-thumbnail-stream.png?v=20260723-25" alt="House in Khao Yai stream garden with rocks and ferns">
@@ -244,7 +246,18 @@
           </nav>
         </section>
         <section class="project-series project-series--ongoing" aria-labelledby="ongoing-projects-title">
-          <h3 id="ongoing-projects-title">Ongoing</h3>
+          <div class="project-series-heading">
+            <h3 id="ongoing-projects-title">Ongoing</h3>
+            <div class="project-filter" aria-label="Ongoing project categories">
+              <span class="project-filter-label">Works &gt;</span>
+              <button type="button" data-filter="mixed-development">Condominiums / Mixed Development</button>
+              <button type="button" data-filter="institution">Institution</button>
+              <button type="button" data-filter="hotels-resorts">Hotels and Resorts</button>
+              <button type="button" data-filter="offices">Offices</button>
+              <button type="button" data-filter="conservation">Conservation</button>
+              <button type="button" data-filter="houses">Houses</button>
+            </div>
+          </div>
           <div class="project-card-grid" data-project-series="ongoing" aria-label="Ongoing projects"></div>
           <nav class="works-page-nav" data-series-nav="ongoing" aria-label="Ongoing project pages">
             <button type="button" class="works-page-button works-page-prev" aria-label="Previous ongoing projects page">&lsaquo;</button>

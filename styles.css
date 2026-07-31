@@ -2830,6 +2830,25 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   text-transform: uppercase;
 }
 
+.project-series-heading {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(24px, 4vw, 68px);
+  margin-bottom: clamp(22px, 3vw, 42px);
+}
+
+.project-series-heading > h3 {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.project-series-heading .project-filter {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
 .project-series .works-page-nav {
   display: none;
 }
@@ -3142,6 +3161,14 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
 }
 
 @media (max-width: 700px) {
+  .project-series-heading {
+    display: block;
+  }
+
+  .project-series-heading .project-filter {
+    margin-top: 18px;
+  }
+
   .project-page-edge {
     width: 44px;
     height: 72px;
