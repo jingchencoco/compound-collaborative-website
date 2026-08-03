@@ -1,111 +1,139 @@
 (() => {
   const params = new URLSearchParams(window.location.search);
   const editMode = params.has("edit") && ["localhost", "127.0.0.1"].includes(window.location.hostname);
-
   if (!params.has("desktop") && !editMode) return;
 
-  const viewport = document.querySelector('meta[name="viewport"]');
-  if (viewport) {
-    viewport.setAttribute("content", "width=1440");
-  }
+  const start = () => {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) viewport.setAttribute("content", "width=1440");
+    document.documentElement.classList.add("desktop-preview");
+    if (!editMode) return;
+    document.documentElement.classList.add("layout-editor-active");
 
-  document.documentElement.classList.add("desktop-preview");
+    const key = `layout-editor:${location.pathname}`;
+    let saved = {};
+    try { saved = JSON.parse(localStorage.getItem(key) || "{}"); } catch (_) { saved = {}; }
+    let selected = null;
+    let drag = null;
+    const undoStack = [];
+    const redoStack = [];
 
-  if (!editMode) return;
-  document.documentElement.classList.add("layout-editor-active");
+    const css = document.createElement("style");
+    css.textContent = `
+      .layout-editor-active .project-spread-figure { overflow: visible !important; }
+      .layout-editor-active .project-spread-figure img,
+      .layout-editor-active .project-spread-figure video { max-width: none !important; max-height: none !important; }
+      .layout-editor-toolbar { position: fixed; z-index: 10000; top: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 7px; align-items: center; padding: 8px 10px; background: #252521; color: #fff; font: 12px Arial,sans-serif; box-shadow: 0 5px 18px #0004; white-space: nowrap; }
+      .layout-editor-toolbar button { border: 1px solid #aaa; background: transparent; color: #fff; padding: 6px 8px; cursor: pointer; }
+      .layout-editor-toolbar input { width: 42px; }
+      .layout-editor-target { outline: 2px solid #e53935 !important; outline-offset: 3px; cursor: grab !important; }
+      .layout-editor-guides { position: fixed; z-index: 9998; inset: 0; pointer-events: none; border: 1px dashed #e53935aa; }
+      .layout-editor-guides::before, .layout-editor-guides::after { content: ""; position: absolute; background: #e5393577; }
+      .layout-editor-guides::before { top: 0; bottom: 0; left: 50%; width: 1px; }
+      .layout-editor-guides::after { left: 0; right: 0; top: 50%; height: 1px; }
+    `;
+    document.head.append(css);
 
-  const storageKey = `layout-editor:${window.location.pathname}`;
-  const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
-  let selected = null;
-  let drag = null;
-  const history = [];
-  const future = [];
+    const toolbar = document.createElement("div");
+    toolbar.className = "layout-editor-toolbar";
+    toolbar.innerHTML = '<strong>本地编辑</strong><button data-action="save">保存</button><button data-action="undo">撤销</button><button data-action="redo">重做</button><button data-action="reset">重置</button><label>目标页 <input data-page type="number" min="2"></label><button data-action="move">移动</button><button data-action="close">退出</button><span data-status>点击图片后拖动，滚轮缩放，Ctrl+Z 撤销</span>';
+    document.body.append(toolbar);
+    const guides = document.createElement("div");
+    guides.className = "layout-editor-guides";
+    document.body.append(guides);
 
-  const style = document.createElement("style");
-  style.textContent = `
-    .layout-editor-active .project-spread-figure { overflow: visible !important; }
-    .layout-editor-active .project-spread-figure img,
-    .layout-editor-active .project-spread-figure video { max-width: none !important; max-height: none !important; }
-    .layout-editor-toolbar { position: fixed; z-index: 10000; top: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; align-items: center; padding: 8px 10px; background: rgba(25,25,23,.94); color: #fff; font: 12px/1.2 Arial,sans-serif; box-shadow: 0 5px 20px rgba(0,0,0,.22); white-space: nowrap; }
-    .layout-editor-toolbar button { border: 1px solid rgba(255,255,255,.45); background: transparent; color: inherit; padding: 6px 9px; cursor: pointer; }
-    .layout-editor-toolbar button:hover { background: rgba(255,255,255,.16); }
-    .layout-editor-target { cursor: grab !important; outline: 2px solid #e53935 !important; outline-offset: 3px; }
-    .layout-editor-target:active { cursor: grabbing !important; }
-  `;
-  document.head.append(style);
-
-  const toolbar = document.createElement("div");
-  toolbar.className = "layout-editor-toolbar";
-  toolbar.innerHTML = '<strong>编辑模式</strong><button data-action="save">保存</button><button data-action="reset">重置当前</button><button data-action="close">退出</button><span data-status>点击图片后拖动，滚轮缩放</span>';
-  document.body.append(toolbar);
-
-  const media = () => [...document.querySelectorAll(".project-spread-figure img, .project-spread-figure video, .project-photo img")];
-  const idOf = (el) => el.currentSrc || el.src || el.poster || `${el.tagName}:${media().indexOf(el)}`;
-  const apply = (el, state = saved[idOf(el)] || { x: 0, y: 0, scale: 1 }) => {
-    el.dataset.editorX = state.x;
-    el.dataset.editorY = state.y;
-    el.dataset.editorScale = state.scale;
-    el.style.setProperty("transform", `translate(${state.x}px, ${state.y}px) scale(${state.scale})`, "important");
-  };
-  const stateOf = (el) => ({ x: Number(el.dataset.editorX || 0), y: Number(el.dataset.editorY || 0), scale: Number(el.dataset.editorScale || 1) });
-  const select = (el) => {
-    if (selected) selected.classList.remove("layout-editor-target");
-    selected = el;
-    selected.classList.add("layout-editor-target");
-    toolbar.querySelector("[data-status]").textContent = "已选中：拖动移动，滚轮缩放，方向键微调";
-  };
-
-  const init = () => media().forEach((el) => {
-    apply(el);
-    el.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      select(el);
-    }, true);
-    el.addEventListener("pointerdown", (event) => {
-      event.preventDefault();
-      select(el);
-      const state = stateOf(el);
-      drag = { el, startX: event.clientX, startY: event.clientY, x: state.x, y: state.y };
-      el.setPointerCapture(event.pointerId);
+    const media = () => [...document.querySelectorAll(".project-spread-figure img, .project-spread-figure video, .project-photo img")];
+    const idOf = (el) => el.dataset.editorId || el.currentSrc || el.src || el.poster || `${el.tagName}-${media().indexOf(el)}`;
+    const stateOf = (el) => ({ x: Number(el.dataset.editorX || 0), y: Number(el.dataset.editorY || 0), scale: Number(el.dataset.editorScale || 1) });
+    const apply = (el, state) => {
+      el.dataset.editorX = state.x;
+      el.dataset.editorY = state.y;
+      el.dataset.editorScale = state.scale;
+      el.style.setProperty("transform", `translate(${state.x}px,${state.y}px) scale(${state.scale})`, "important");
+    };
+    const pageOf = (el) => el.closest(".project-spread-image")?.getAttribute("aria-label") || "";
+    const snapshot = () => media().map((el) => ({ id: idOf(el), state: stateOf(el), page: pageOf(el) }));
+    const restore = (items) => items.forEach((item) => {
+      const el = media().find((candidate) => idOf(candidate) === item.id);
+      if (!el) return;
+      const target = [...document.querySelectorAll(".project-spread-image")].find((spread) => spread.getAttribute("aria-label") === item.page);
+      if (target) target.querySelector(".project-spread-figure")?.append(el);
+      apply(el, item.state);
     });
-    el.addEventListener("pointermove", (event) => {
-      if (!drag || drag.el !== el) return;
-      apply(el, { x: drag.x + event.clientX - drag.startX, y: drag.y + event.clientY - drag.startY, scale: stateOf(el).scale });
+    const checkpoint = () => { undoStack.push(snapshot()); if (undoStack.length > 80) undoStack.shift(); redoStack.length = 0; };
+    const undo = () => { if (!undoStack.length) return; redoStack.push(snapshot()); restore(undoStack.pop()); };
+    const redo = () => { if (!redoStack.length) return; undoStack.push(snapshot()); restore(redoStack.pop()); };
+    const select = (el) => {
+      selected?.classList.remove("layout-editor-target");
+      selected = el;
+      selected.classList.add("layout-editor-target");
+      toolbar.querySelector("[data-status]").textContent = "已选中：拖动、滚轮缩放、方向键微调";
+    };
+
+    const initMedia = () => media().forEach((el) => {
+      const state = saved[idOf(el)];
+      if (state) {
+        const target = [...document.querySelectorAll(".project-spread-image")].find((spread) => spread.getAttribute("aria-label") === state.page);
+        if (target) target.querySelector(".project-spread-figure")?.append(el);
+        apply(el, state);
+      } else apply(el, { x: 0, y: 0, scale: 1 });
+      el.addEventListener("click", (event) => { event.preventDefault(); event.stopPropagation(); select(el); }, true);
+      el.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
+        checkpoint();
+        select(el);
+        const state = stateOf(el);
+        drag = { el, x: state.x, y: state.y, startX: event.clientX, startY: event.clientY };
+        el.setPointerCapture(event.pointerId);
+      });
+      el.addEventListener("pointermove", (event) => {
+        if (!drag || drag.el !== el) return;
+        apply(el, { ...stateOf(el), x: drag.x + event.clientX - drag.startX, y: drag.y + event.clientY - drag.startY });
+      });
+      el.addEventListener("pointerup", () => { drag = null; });
+      el.addEventListener("wheel", (event) => {
+        event.preventDefault();
+        checkpoint();
+        select(el);
+        const state = stateOf(el);
+        apply(el, { ...state, scale: Math.max(.05, Math.min(20, state.scale + (event.deltaY < 0 ? .05 : -.05))) });
+      }, { passive: false });
     });
-    el.addEventListener("pointerup", () => { drag = null; });
-    el.addEventListener("wheel", (event) => {
+
+    document.addEventListener("keydown", (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "z") { event.preventDefault(); event.shiftKey ? redo() : undo(); return; }
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "y") { event.preventDefault(); redo(); return; }
+      if (!selected) return;
+      const delta = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[event.key];
+      if (!delta) return;
       event.preventDefault();
-      select(el);
-      const state = stateOf(el);
-      apply(el, { ...state, scale: Math.max(.2, Math.min(3, state.scale + (event.deltaY < 0 ? .05 : -.05))) });
-    }, { passive: false });
-  });
+      checkpoint();
+      const state = stateOf(selected);
+      const step = event.shiftKey ? 10 : 1;
+      apply(selected, { ...state, x: state.x + delta[0] * step, y: state.y + delta[1] * step });
+    });
 
-  document.addEventListener("keydown", (event) => {
-    if (!selected || ["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
-    const state = stateOf(selected);
-    const step = event.shiftKey ? 10 : 1;
-    const delta = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] }[event.key];
-    if (!delta) return;
-    event.preventDefault();
-    apply(selected, { ...state, x: state.x + delta[0], y: state.y + delta[1] });
-  });
+    toolbar.addEventListener("click", (event) => {
+      const action = event.target.dataset.action;
+      if (action === "undo") undo();
+      if (action === "redo") redo();
+      if (action === "reset" && selected) { checkpoint(); apply(selected, { x: 0, y: 0, scale: 1 }); }
+      if (action === "move" && selected) {
+        const page = Number(toolbar.querySelector("[data-page]").value);
+        const target = [...document.querySelectorAll(".project-spread-image")][page - 2];
+        if (target) { checkpoint(); target.querySelector(".project-spread-figure")?.append(selected); }
+      }
+      if (action === "save") {
+        saved = {};
+        media().forEach((el) => { saved[idOf(el)] = { ...stateOf(el), page: pageOf(el) }; });
+        localStorage.setItem(key, JSON.stringify(saved));
+        toolbar.querySelector("[data-status]").textContent = "已保存，刷新后会恢复";
+      }
+      if (action === "close") location.href = location.pathname + location.hash;
+    });
 
-  toolbar.addEventListener("click", (event) => {
-    const action = event.target.dataset.action;
-    if (action === "save") {
-      media().forEach((el) => { saved[idOf(el)] = stateOf(el); });
-      localStorage.setItem(storageKey, JSON.stringify(saved));
-      toolbar.querySelector("[data-status]").textContent = "已保存到本机浏览器";
-    }
-    if (action === "reset" && selected) {
-      delete saved[idOf(selected)];
-      apply(selected, { x: 0, y: 0, scale: 1 });
-    }
-    if (action === "close") window.location.href = window.location.pathname + window.location.hash;
-  });
-
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
-  else init();
+    initMedia();
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
+  else start();
 })();

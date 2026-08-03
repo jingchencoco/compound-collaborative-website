@@ -1063,6 +1063,7 @@ a {
   box-shadow: 18px 0 60px rgba(0, 0, 0, 0.06);
   transform: translateX(-104%);
   transition: transform 720ms cubic-bezier(0.22, 0.66, 0.2, 1);
+  will-change: transform, opacity;
 }
 
 body.menu-open .sidebar {
@@ -1249,6 +1250,12 @@ body.header-on-image .menu-symbol::after {
   inset: 0;
   background: rgba(255, 255, 255, 0.56);
   backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+
+body.menu-open .menu-scrim {
+  opacity: 1;
 }
 
 body.menu-open .menu-toggle {
@@ -1268,8 +1275,10 @@ body.menu-open .menu-toggle {
 }
 
 .primary-nav {
-  display: grid;
-  gap: 9px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(20px, 3.5vw, 54px);
+  align-items: baseline;
   margin-top: 70px;
   color: #555555;
   font-size: clamp(18px, 1.35vw, 24px);
@@ -1340,8 +1349,11 @@ body.menu-open .menu-toggle {
     position: fixed;
     top: 76px;
     left: 64px;
-    display: grid;
-    gap: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: clamp(28px, 5vw, 78px);
+    align-items: baseline;
     margin: 0;
     color: #252521;
     font-size: 15px;
@@ -2086,6 +2098,24 @@ body.project-horizontal .back-to-projects:hover {
   filter: brightness(0.5);
 }
 
+.about-contact {
+  grid-column: 2;
+  display: grid;
+  gap: 10px;
+  margin-top: clamp(28px, 4vw, 58px);
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.about-contact a {
+  width: fit-content;
+  color: #252521;
+  font-size: clamp(16px, 1.05vw, 21px);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
 .footer {
   display: flex;
   justify-content: space-between;
@@ -2321,6 +2351,9 @@ body:has(.project-detail-page).menu-open .sidebar {
   bottom: var(--book-page-bottom);
   left: calc(var(--book-page-side) - var(--book-outline-expand));
   border: 0;
+  box-shadow:
+    0 clamp(4px, 0.55vh, 7px) clamp(5px, 0.75vh, 9px) rgba(37, 37, 33, 0.11),
+    inset 0 clamp(-8px, -0.8vh, -5px) clamp(8px, 0.9vh, 11px) rgba(37, 37, 33, 0.035);
   pointer-events: none;
 }
 
@@ -3033,6 +3066,34 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   max-height: calc(100svh - 260px) !important;
 }
 
+.project-detail-page[aria-label="House in Khao Yai project"] .project-spread-media-item:has(.khao-yai-supervisor) {
+  grid-template-columns: auto minmax(11rem, 17rem);
+  gap: clamp(26px, 3.5vw, 64px);
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  transform: translateX(calc(-1 * clamp(34px, 4.2vw, 86px)));
+}
+
+.project-detail-page[aria-label="House in Khao Yai project"] .project-spread-media-item:has(.khao-yai-supervisor) .project-spread-image-note {
+  margin: 0;
+  color: #252521;
+  font-family: "EB Garamond", serif;
+  font-size: clamp(22px, 1.9vw, 34px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+@media (min-width: 901px) {
+  .project-detail-page[aria-label="House in Khao Yai project"] .project-spread-figure img.khao-yai-whales-wide,
+  .project-detail-page[aria-label="House in Khao Yai project"] .project-spread-figure img.khao-yai-stream-wide {
+    width: auto !important;
+    max-width: min(88vw, 1740px) !important;
+    max-height: min(44svh, 520px) !important;
+  }
+}
+
 .project-detail-page[aria-label="House in Sentosa project"] .sentosa-safe-fit {
   max-height: calc(100svh - 178px);
 }
@@ -3422,6 +3483,20 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   line-height: 1.48;
 }
 
+.project-more-inline a {
+  color: #252521;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color 160ms ease, text-decoration-thickness 160ms ease;
+}
+
+.project-more-inline a:hover,
+.project-more-inline a:focus-visible {
+  color: #000000;
+  text-decoration-thickness: 2px;
+}
+
 @media (min-width: 901px) {
   .project-spread-image.layout-single-page .project-spread-figure {
     height: calc(100svh - 220px);
@@ -3686,6 +3761,55 @@ body.project-overview-open {
 .project-photo-overview-item:hover img {
   filter: saturate(1);
   transform: translateY(-2px);
+}
+
+.project-detail-page[aria-label="TMW project"] ~ .project-photo-overview .project-photo-overview-item img.tmw-axonometric,
+body:has(.project-detail-page[aria-label="TMW project"]) .project-photo-overview-item img.tmw-axonometric {
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  object-position: center center;
+  padding: 8px;
+  background: #fbfaf6;
+}
+
+@media (min-width: 901px) {
+  .project-detail-page[aria-label="TMW project"] .project-spread-figure img.tmw-axonometric {
+    width: min(25vw, 520px) !important;
+    height: min(62vh, 660px) !important;
+    max-width: min(25vw, 520px) !important;
+    max-height: min(62vh, 660px) !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    place-self: center !important;
+    background: #fbfaf6 !important;
+  }
+
+  .project-detail-page[aria-label="TMW project"] .project-spread-figure--multi {
+    align-items: center;
+    justify-items: center;
+  }
+
+  .project-detail-page[aria-label="TMW project"] .project-spread-image.layout-cross-page .project-spread-figure {
+    top: var(--book-page-top);
+    right: var(--book-page-side);
+    bottom: calc(var(--book-page-bottom) + 10px);
+    left: var(--book-page-side);
+    height: auto;
+    align-content: end;
+    justify-items: center;
+    overflow: hidden;
+  }
+
+  .project-detail-page[aria-label="TMW project"] .project-spread-image.layout-cross-page .project-spread-figure img:first-child {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+    box-shadow: none !important;
+    outline: 0 !important;
+  }
 }
 
 .project-lightbox[hidden] {
@@ -4238,6 +4362,16 @@ body.project-lightbox-open .project-page-edge {
     max-height: none;
   }
 
+  body:not(.project-horizontal) .project-detail-page--suxiangang .project-photo-caption {
+    margin: 18px auto 0;
+    color: #252521;
+    font-family: "EB Garamond", serif;
+    font-size: clamp(22px, 6vw, 28px);
+    font-weight: 400;
+    line-height: 1.08;
+    text-align: center;
+  }
+
   body:not(.project-horizontal) .project-detail-page img,
   body:not(.project-horizontal) .project-detail-page video {
     width: 100%;
@@ -4278,6 +4412,40 @@ body.project-lightbox-open .project-page-edge {
   body:not(.project-horizontal) .project-image-stack {
     margin-top: 62px;
     row-gap: 42px;
+  }
+
+  body:not(.project-horizontal) .project-mobile-captioned-media {
+    display: grid;
+    width: 100%;
+    margin: 0;
+    row-gap: 14px;
+  }
+
+  body:not(.project-horizontal) .project-mobile-captioned-media img,
+  body:not(.project-horizontal) .project-mobile-captioned-media video {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+
+  body:not(.project-horizontal) .project-mobile-image-quote {
+    margin: 0;
+    color: #252521;
+    font-family: "EB Garamond", serif;
+    font-size: clamp(22px, 6vw, 28px);
+    font-weight: 400;
+    line-height: 1.08;
+    text-align: center;
+  }
+
+  body:not(.project-horizontal) .project-mobile-image-note {
+    max-width: 31rem;
+    margin: 14px 0 0;
+    color: #252521;
+    font-family: "EB Garamond", serif;
+    font-size: clamp(16px, 4.3vw, 20px);
+    font-weight: 400;
+    line-height: 1.3;
   }
 
   .project-detail-page.is-horizontal {
@@ -4466,6 +4634,10 @@ body.project-lightbox-open .project-page-edge {
   }
 
   .mark {
+    grid-column: 1;
+  }
+
+  .about-contact {
     grid-column: 1;
   }
 
@@ -4734,13 +4906,6 @@ body.project-lightbox-open .project-page-edge {
 
 .project-detail-page[aria-label="House in Khao Yai project"] .project-spread-copy--caption-only {
   margin-bottom: clamp(58px, 9vh, 118px);
-}
-.sidebar[aria-hidden="false"] .primary-nav {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  gap: clamp(20px, 3.5vw, 54px);
-  flex-wrap: wrap;
 }
 .project-detail-page--suxiangang .project-spread-image.layout-cross-page .project-spread-figure:has(.suxiangang-100-reference) {
   top: clamp(58px, 7vh, 92px);

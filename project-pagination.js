@@ -15,6 +15,54 @@ const projectName =
   projectTitle?.querySelector("h1, h2")?.textContent.trim() || "Project";
 const projectDescription = projectDetail?.querySelector(".project-description");
 
+function buildProjectInformation() {
+  const infoSource = projectTitle?.querySelector("p");
+  if (!projectDetail || !projectTitle || !infoSource || projectDetail.querySelector(".project-information")) return;
+
+  const items = infoSource.innerHTML
+    .split(/<br\s*\/?>/i)
+    .map((item) => item.replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .map((item, index) => {
+      const separator = item.indexOf(":");
+      if (separator < 0) {
+        if (index === 0) return { label: "Project", value: item };
+        return null;
+      }
+      return {
+        label: item.slice(0, separator).trim(),
+        value: item.slice(separator + 1).trim() || "-",
+      };
+    })
+    .filter(Boolean);
+
+  let collaboratorIndex = items.findIndex((item) => /^collaborators?$/i.test(item.label));
+  if (collaboratorIndex < 0) {
+    items.push({ label: "Collaborators", value: "-" });
+    collaboratorIndex = items.length - 1;
+  }
+  if (!items.some((item) => item.label.toLowerCase() === "non human client")) {
+    items.splice(collaboratorIndex, 0, { label: "Non human client", value: "-" });
+  }
+
+  const information = document.createElement("section");
+  information.className = "project-information";
+  const heading = document.createElement("h2");
+  heading.textContent = "Project information";
+  const list = document.createElement("dl");
+  items.forEach(({ label, value }) => {
+    const term = document.createElement("dt");
+    term.textContent = label;
+    const description = document.createElement("dd");
+    description.textContent = value;
+    list.append(term, description);
+  });
+  information.append(heading, list);
+  infoSource.replaceWith(information);
+}
+
+buildProjectInformation();
+
 function markMediaOrientation(media) {
   const applyOrientation = () => {
     const width = media.videoWidth || media.naturalWidth || 0;
@@ -67,6 +115,33 @@ const projectMoreContent =
 if (projectDetail && !horizontalProjectLayout.matches) {
   document.body.classList.remove("project-entering");
   document.body.classList.add("project-ready");
+
+  projectDetail.querySelectorAll(".project-image-stack img, .project-image-stack video").forEach((image) => {
+    if (image.closest(".project-mobile-captioned-media")) return;
+    const quoteText = image.dataset.quote || "";
+    const noteText = image.dataset.note || "";
+    const captionText = image.dataset.caption || "";
+    if (!quoteText && !noteText && !captionText) return;
+
+    const figure = document.createElement("figure");
+    figure.className = "project-mobile-captioned-media";
+    image.insertAdjacentElement("beforebegin", figure);
+    figure.append(image);
+
+    if (quoteText || captionText) {
+      const quote = document.createElement("figcaption");
+      quote.className = "project-mobile-image-quote";
+      quote.textContent = quoteText || captionText;
+      figure.append(quote);
+    }
+
+    if (noteText) {
+      const note = document.createElement("p");
+      note.className = "project-mobile-image-note";
+      note.textContent = noteText;
+      figure.append(note);
+    }
+  });
 
   const description = projectDetail.querySelector(".project-description");
   const details = document.createElement("details");
@@ -434,6 +509,9 @@ if (projectImages.length) {
     const thumbnail = item.querySelector("img");
     thumbnail.src = image.currentSrc || image.src;
     thumbnail.alt = "";
+    if (image.className) {
+      thumbnail.className = image.className;
+    }
     item.addEventListener("click", () => {
       const pageIndex = findImagePageIndex(image);
       closeOverview();

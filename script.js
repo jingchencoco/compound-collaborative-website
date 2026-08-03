@@ -1,5 +1,13 @@
 if ("scrollRestoration" in window.history) window.history.scrollRestoration = "manual";
-if (!window.location.hash) window.scrollTo(0, 0);
+const initialHash = window.location.hash;
+const staleHomeHashes = ["#about", "#contact", "#about-contact"];
+
+if (staleHomeHashes.includes(initialHash)) {
+  window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
+  window.scrollTo(0, 0);
+} else if (!initialHash) {
+  window.scrollTo(0, 0);
+}
 
 const preview = document.querySelector(".preview");
 const previewCaption = document.querySelector(".preview-caption");
@@ -58,8 +66,7 @@ const projectCards = [...document.querySelectorAll('.project-card:not([data-cate
 });
 const revealItems = document.querySelectorAll(".project-filter, .project-card");
 const projectSeriesSections = [...document.querySelectorAll(".project-series")];
-const aboutSection = document.querySelector("#about");
-const contactSection = document.querySelector("#contact");
+const aboutSection = document.querySelector("#about-contact");
 
 const siteWordmarkMarkup = `
   <span class="site-wordmark" aria-label="compound collaborative">
@@ -200,8 +207,17 @@ previewTargets.forEach((target) => {
 function setMenu(open) {
   document.body.classList.toggle("menu-open", open);
   menuToggle.setAttribute("aria-expanded", String(open));
-  siteMenu.setAttribute("aria-hidden", String(!open));
-  menuScrim.hidden = !open;
+  if (open) {
+    siteMenu.removeAttribute("inert");
+    siteMenu.setAttribute("aria-hidden", "false");
+    menuScrim.hidden = false;
+  } else {
+    siteMenu.setAttribute("aria-hidden", "true");
+    siteMenu.setAttribute("inert", "");
+    window.setTimeout(() => {
+      if (!document.body.classList.contains("menu-open")) menuScrim.hidden = true;
+    }, 520);
+  }
 }
 
 menuToggle.addEventListener("click", () => {
@@ -212,7 +228,8 @@ menuScrim.addEventListener("click", () => setMenu(false));
 menuLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
     const targetId = link.getAttribute("href");
-    const target = targetId?.startsWith("#") ? document.querySelector(targetId) : null;
+    const normalizedTargetId = targetId === "#about" || targetId === "#contact" ? "#about-contact" : targetId;
+    const target = normalizedTargetId?.startsWith("#") ? document.querySelector(normalizedTargetId) : null;
     if (target) {
       event.preventDefault();
       target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -346,12 +363,6 @@ if ("IntersectionObserver" in window) {
 
 setProjectStatus(activeProjectStatus);
 projectSeriesSections.forEach((series) => applyProjectFilter("", series));
-
-if (window.location.hash === "#about" || window.location.hash === "#contact") {
-  window.requestAnimationFrame(() => {
-    document.querySelector(window.location.hash)?.scrollIntoView({ block: "start" });
-  });
-}
 
 const returnCardIndex = sessionStorage.getItem("coco-return-card");
 const returnFilter = sessionStorage.getItem("coco-return-filter");
