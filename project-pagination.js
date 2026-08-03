@@ -41,8 +41,8 @@ function buildProjectInformation() {
     items.push({ label: "Collaborators", value: "-" });
     collaboratorIndex = items.length - 1;
   }
-  if (!items.some((item) => item.label.toLowerCase() === "non human client")) {
-    items.splice(collaboratorIndex, 0, { label: "Non human client", value: "-" });
+  if (!items.some((item) => item.label.toLowerCase() === "nonhuman")) {
+    items.splice(collaboratorIndex, 0, { label: "nonhuman", value: "-" });
   }
 
   const information = document.createElement("section");
