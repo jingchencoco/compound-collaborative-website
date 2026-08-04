@@ -3142,6 +3142,50 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   object-position: center center !important;
 }
 
+.project-detail-page[aria-label="Farmbyte Archisen project"] .project-spread-image .project-spread-figure {
+  height: calc(100svh - 52px - var(--book-page-top) - var(--book-page-bottom)) !important;
+  max-height: calc(100svh - 52px - var(--book-page-top) - var(--book-page-bottom)) !important;
+  overflow: hidden !important;
+  align-content: center !important;
+  justify-items: center !important;
+  transform: none !important;
+}
+
+.project-detail-page[aria-label="Farmbyte Archisen project"] .project-spread-image.multi-image .project-spread-figure {
+  top: var(--book-page-top) !important;
+  right: var(--book-page-side) !important;
+  bottom: var(--book-page-bottom) !important;
+  left: var(--book-page-side) !important;
+  width: auto !important;
+  height: auto !important;
+  max-height: none !important;
+  grid-template-rows: minmax(0, 1fr);
+  align-items: center !important;
+  justify-items: center !important;
+  gap: clamp(34px, 4vw, 76px);
+}
+
+.project-detail-page[aria-label="Farmbyte Archisen project"] .project-spread-figure img,
+.project-detail-page[aria-label="Farmbyte Archisen project"] .project-spread-figure video {
+  width: auto !important;
+  height: auto !important;
+  max-width: min(100%, 34vw) !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  place-self: center !important;
+}
+
+.project-detail-page[aria-label="Farmbyte Archisen project"] .project-spread-figure--multi img,
+.project-detail-page[aria-label="Farmbyte Archisen project"] .project-spread-figure--multi video {
+  max-width: min(100%, 30vw) !important;
+}
+
+.project-detail-page[aria-label="Farmbyte Archisen project"] .project-spread-figure img.is-landscape,
+.project-detail-page[aria-label="Farmbyte Archisen project"] .project-spread-figure video.is-landscape {
+  max-width: min(100%, 42vw) !important;
+}
+
 .project-detail-page[aria-label="House in Khao Yai project"] .project-spread-media-item:has(.khao-yai-supervisor) {
   grid-template-columns: auto minmax(11rem, 17rem);
   gap: clamp(26px, 3.5vw, 64px);
