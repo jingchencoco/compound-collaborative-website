@@ -211,6 +211,14 @@ if (projectDetail && horizontalProjectLayout.matches) {
       imageCursor += 1;
       continue;
     }
+    if (projectDetail.dataset.regularImagePairs === "true") {
+      imageGroups.push({
+        group: stackImages.slice(imageCursor, imageCursor + 2),
+        layout: "layout-pair",
+      });
+      imageCursor += 2;
+      continue;
+    }
     if (stackImages[imageCursor]?.dataset.soloSpread === "true") {
       imageGroups.push({
         group: stackImages.slice(imageCursor, imageCursor + 1),
