@@ -2732,6 +2732,22 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   transform: translateX(clamp(24px, 5vw, 80px));
 }
 
+.project-detail-page--suxiangang .project-spread-figure:has(img[src*="suxiangang-youth-05"]) {
+  height: calc(100svh - 52px - var(--book-page-top) - var(--book-page-bottom));
+  max-height: calc(100svh - 52px - var(--book-page-top) - var(--book-page-bottom));
+  transform: none !important;
+  overflow: hidden;
+}
+
+.project-detail-page--suxiangang .project-spread-figure img[src*="suxiangang-youth-05"] {
+  width: auto !important;
+  height: auto !important;
+  max-width: min(100%, 34vw) !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+}
+
 .project-detail-page[aria-label="Animal Condominium project"] .project-spread-image.layout-cross-page .project-spread-figure {
   top: var(--book-page-top) !important;
   right: var(--book-page-side) !important;
