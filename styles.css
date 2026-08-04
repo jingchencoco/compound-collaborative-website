@@ -2748,6 +2748,44 @@ body.project-page-turning.project-page-quiet-swap .project-spread.is-turn-target
   object-position: center center !important;
 }
 
+.project-detail-page[aria-label="Moscow Landscape Brainstorming project"] .project-spread-image .project-spread-figure {
+  top: var(--book-page-top) !important;
+  right: var(--book-page-side) !important;
+  bottom: var(--book-page-bottom) !important;
+  left: var(--book-page-side) !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  align-content: center !important;
+  justify-items: center !important;
+  transform: none !important;
+}
+
+.project-detail-page[aria-label="Moscow Landscape Brainstorming project"] .project-spread-figure--multi {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: minmax(0, 1fr);
+  gap: clamp(34px, 3.8vw, 72px);
+  align-items: center;
+  justify-items: center;
+}
+
+.project-detail-page[aria-label="Moscow Landscape Brainstorming project"] .project-spread-figure img,
+.project-detail-page[aria-label="Moscow Landscape Brainstorming project"] .project-spread-figure video {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  aspect-ratio: 16 / 9;
+  object-fit: contain !important;
+  object-position: center center !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+  place-self: center !important;
+  transform: none !important;
+}
+
 .project-detail-page[aria-label="Animal Condominium project"] .project-spread-image.layout-cross-page .project-spread-figure {
   top: var(--book-page-top) !important;
   right: var(--book-page-side) !important;
