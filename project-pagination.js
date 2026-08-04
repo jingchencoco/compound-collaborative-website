@@ -18,6 +18,17 @@ const projectDescription = projectDetail?.querySelector(".project-description");
 function buildProjectInformation() {
   const infoSource = projectTitle?.querySelector("p");
   if (!projectDetail || !projectTitle || !infoSource || projectDetail.querySelector(".project-information")) return;
+  const normalizeLabel = (label) => label.replace(/\s+/g, " ").trim().toLowerCase();
+  const labelPriority = new Map([
+    ["project", 0],
+    ["location", 1],
+    ["completed", 2],
+    ["study", 2],
+    ["category", 3],
+    ["nonhuman", 4],
+    ["collaborator", 5],
+    ["collaborators", 5],
+  ]);
 
   const items = infoSource.innerHTML
     .split(/<br\s*\/?>/i)
@@ -42,8 +53,18 @@ function buildProjectInformation() {
     collaboratorIndex = items.length - 1;
   }
   if (!items.some((item) => item.label.toLowerCase() === "nonhuman")) {
-    items.splice(collaboratorIndex, 0, { label: "nonhuman", value: "-" });
+    items.splice(collaboratorIndex, 0, { label: "Nonhuman", value: "-" });
   }
+  items
+    .filter((item) => normalizeLabel(item.label) === "nonhuman")
+    .forEach((item) => {
+      item.label = "Nonhuman";
+    });
+  items.sort((a, b) => {
+    const priorityA = labelPriority.get(normalizeLabel(a.label)) ?? 50;
+    const priorityB = labelPriority.get(normalizeLabel(b.label)) ?? 50;
+    return priorityA - priorityB;
+  });
 
   const information = document.createElement("section");
   information.className = "project-information";
